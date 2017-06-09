@@ -1,0 +1,50 @@
+"molecule": {
+  "atoms": [
+    {
+      "cartesianCoordinates": {
+        "units": "bohr",
+        "value": [
+          0.0,
+          0.0,
+          0.21063604
+        ]
+      },
+      "elementLabel": "o",
+      "elementNumber": 8,
+      "elementSymbol": "O",
+      "id": "Atom.1.Mol.1"
+    },
+    {
+      "cartesianCoordinates": {
+        "units": "bohr",
+        "value": [
+          -1.84118838,
+          0.0,
+          -0.84254416
+        ]
+      },
+      "elementLabel": "h",
+      "elementNumber": 1,
+      "elementSymbol": "H",
+      "id": "Atom.2.Mol.1"
+    },
+    {
+      "cartesianCoordinates": {
+        "units": "bohr",
+        "value": [
+          1.84118838,
+          0.0,
+          -0.84254416
+        ]
+      },
+      "elementLabel": "h",
+      "elementNumber": 1,
+      "elementSymbol": "H",
+      "id": "Atom.3.Mol.1"
+    }
+  ],
+  "id": "Molecule.1",
+  "symmetry": {
+    "groupname": "C1"
+  }
+}
