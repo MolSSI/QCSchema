@@ -1,13 +1,6 @@
 # QC_JSON_Schema
 A JSON Schema for Quantum Chemistry
 
-## Aspriational Goal
-Create a general QM schema that is useful to as many groups as possible while still being feasible.Several points:
-- Serializable input and output data for QM programs
-- Semantic Versioning of schema
-- Limited to 2-index properties at the moment
-- Well defined list of quantities and their description
-
 ## High Level Aspirations
 - Ability to connect to visualizers and GUI's
 - Connect to Workflows such as [ASE](https://wiki.fysik.dtu.dk/ase/) and ..
