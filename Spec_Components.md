@@ -35,7 +35,7 @@ The overall mathematical model we are using for our calculation. Another way to
 think about this is the largest superset that still obtains roughly the same
 result. For example, Direct and Disk-based Hartree-Fock at different Schwarz
 thresholds could be the same "method". However, density-fitted, LinK, or
-Cholesky-based Hartree-Fock should like be separate methods.
+Cholesky-based Hartree-Fock should be separate methods.
  
 In QM, this is the Hamiltonian (HF, DFT, …) combined with the overall basis of
 the calculation. An example in QM would be HF/STO-3G or B3LYP/6-311G**. Custom
