@@ -6,7 +6,7 @@ In order to help define the overall scope and direction of the specification sev
 
 - Ability to connect to visualizers and GUI's
 - Connect to existing Workflows such as [ASE](https://wiki.fysik.dtu.dk/ase/)
-- Transfer data between QM programs (Orbitals, Densities, ect)
+- Transfer data between QM programs (Orbitals, Densities, etc)
 - Provide a framework for QM API access
 
 ## Partners

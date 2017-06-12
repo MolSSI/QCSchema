@@ -1,6 +1,6 @@
 # Requirements
 
-This is a comprhensive list of requirments for the schema that is derived from both the high level aspirations
+This is a comprehensive list of requirements for the schema that is derived from both the high level aspirations
 and developed use cases. (Not comprehensive yet, working towards that goal!)
 
 ## Output Quantities

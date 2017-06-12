@@ -3,10 +3,6 @@ This document contains various technical considerations and commentary. This is 
 
 ## How do we uniquely specify physical units?
 
-Publicly-available JSON file with supported units and conversions
-Standardize to some externally-chosen database or web service
-How to specify compound units?
-
 For instance, velocity might be "angstrom/fs" Alternatives:
 
  1) Require units in the form {`unit_name:exponent`}, e.g. `atom.velocity.units={'angstrom':1, 'fs':-1}`

@@ -1,6 +1,6 @@
 # Specification Components
 
-The JSON format is a general container, and the current works focuses primarily
+The JSON format is a general container, and the current work focuses primarily
 aimed at developing a standard on top of the [JSON](http://www.json.org/) (and
 [BSON](http://bsonspec.org/)) format for chemical data.
 
@@ -8,7 +8,7 @@ aimed at developing a standard on top of the [JSON](http://www.json.org/) (and
 
 The purppose here is to document the format, provide an [open
 specification](https://en.wikipedia.org/wiki/Open_specifications), establish
-what is required or optional, and to provide a living spefication as we extend
+what is required or optional, and to provide a living specification as we extend
 the format. This could reuse some of the previous work done in the [CML
 format](http://www.xml-cml.org/) for XML.
 
@@ -31,7 +31,11 @@ What are you looking to calculate? Energy, trajectory, some property
 
 ### Model
 
-The overall mathematical model we are using for our calculation.
+The overall mathematical model we are using for our calculation. Another way to
+think about this is the largest superset that still obtains roughly the same
+result. For example, Direct and Disk-based Hartree-Fock at different Schwarz
+thresholds could be the same "method". However, density-fitted, LinK, or
+Cholesky-based Hartree-Fock should like be separate methods.
  
 In QM, this is the Hamiltonian (HF, DFT, …) combined with the overall basis of
 the calculation. An example in QM would be HF/STO-3G or B3LYP/6-311G**. Custom
@@ -42,7 +46,11 @@ DGAS Note: Some pushback in combining the model and basis together.
 ### Parameters:
 
 Various tunable parameters for the calculation. These vary widely, depending on
-the basis and model chemistry.
+the basis and model chemistry. This may come in three tiers of importance:
+ - Ancillary - Specific to a given program, does not effect the results
+ - Tuning Parameters - Slightly adjust the method and could change the output
+                       value slightly (algorithm tweaks, convergence settings, etc)
+ - Elemental Parameters - Parameters that greatly effect the energy (orbital spaces in CAS, ?) 
 
 
 
