@@ -30,6 +30,16 @@ If we take the first variable `Nuclear Repulsion Energy` this has a very basic f
 this quickly breaks down for more advanced theories. Im not saying that we need to do this, but bringing up the point that
 some decision on how explicit we are needs to be made.
 
+Another possiblity is a word description which tries to explain the spirt rather than the specifics for these keys. A combination of both may be required.
+
+"""
+SCF TOTAL ENERGY - result in Hartree of solving the SCF equations for Hartree--Fock or density functional theory. Its definition implies convergence reached but does not specify minimum convergence levels or convergence metric. _Includes_ various self-consistent and additive contributions, such that may be the sum of nuclear repulsion energy, 1e- contributions, 2e- contributions, functional/HF energy, dispersion correction energy, etc.
+
+MP2 CORRELATION ENERGY - result in Hartree of the 2nd-order perturbation upon a Hartree--Fock (not DFT) reference such that (mp2 total energy = scf total energy + mp2 correlation energy) is always valid and the derived quantity (mp2 total energy) may be optionally stored (to check consistency). Includes _unscaled_ same-spin doubles, opposite-spin doubles, and (for open-shell) singles contributions. A sufficient number of these will be stored under separate labels so that any SCS-MP2-like energy can be computed.
+
+(T) CORRECTION ENERGY - result in Hartree of the parenthesis-triples correction to the coupled cluster singles and doubles method. (T)-F12, T0, and [T] fall under different labels.
+"""
+
 ### Known Variable Lists:
  - [CCLibVars](http://cclib.github.io/data_notes.html)
  - [PsiVars](http://psicode.org/psi4manual/master/glossary_psivariables.html)
