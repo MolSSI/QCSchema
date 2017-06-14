@@ -19,7 +19,7 @@ I need to consume and rationalize outputs over many different calculations
 I run workflows that require passing information back and forth between several programs
 
 
-#### Personas
+## Personas
 ### The Method Developer: Renata Peña
 Renata is a Phd Chemistry student entering her third year working in a QM method-development-focused lab at a midwestern state university. She's focused on producing first-author papers, raising her impact, and generally preparing for an academic career track at an R1. She's interested in explicitly correlated _ab initio_ methods that can be generally applied to bond-breaking in enzyme catalysis.
 
