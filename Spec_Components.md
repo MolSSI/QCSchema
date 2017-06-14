@@ -6,11 +6,12 @@ aimed at developing a standard on top of the [JSON](http://www.json.org/) (and
 
 ## Purpose
 
-The purppose here is to document the format, provide an [open
+The purpose here is to document the format, provide an [open
 specification](https://en.wikipedia.org/wiki/Open_specifications), establish
 what is required or optional, and to provide a living specification as we extend
 the format. This could reuse some of the previous work done in the [CML
-format](http://www.xml-cml.org/) for XML.
+format](http://www.xml-cml.org/) for XML, and Chemical JSON and NWChem-JSON, and other 
+JSON/XML formats that have been used by codes.
 
 ## Input Components
 
@@ -28,6 +29,9 @@ calculation.
 ### Driver
 
 What are you looking to calculate? Energy, trajectory, some property
+We do need to think about our calculations, which are often workflows with
+multiple steps in one run. Some codes, especially those with Python front-ends 
+can be used to set up complex workflows.
 
 ### Model
 
@@ -58,8 +62,11 @@ the basis and model chemistry. This may come in three tiers of importance:
  - Repeat of input components
  - Driver return - Return of the requested driver (energy/gradient/etc)
  - Ancillary return - Other properties/values constructed as by products of the computation)
- - Provenance - Code, computer, user information
+ - Provenance - Code, computer, user information, actual settings used by the code (lots of 
+                defaults when not specified, that do change over code versions, and are 
+                different between codes).
  - Raw Output - If requested, the canonical domain specific ASCII output
  - Skipped Input Fields - If the input allows pass through of other fields print the skipped ones
+ - Timing information
  - Errors - If the computation failed the raised error should go here.
 
