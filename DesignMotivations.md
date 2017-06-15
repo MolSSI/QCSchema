@@ -19,6 +19,7 @@ Role: I perform QM calculations and examine their outputs
 #### Analyzer
 Role: I consume and rationalize outputs over many different calculations
  - I need to be able to access large amounts of data across many files using automated scripts, so that I don't have to do it by hand
+ - I want my data to be stored in a structured, self-describing format that's easy to insert into databases and dataframes
 
 #### Scripter
 Role: I run workflows that require passing information back and forth between several programs
