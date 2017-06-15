@@ -8,12 +8,18 @@ For instance, velocity might be "angstrom/fs" Alternatives:
  1) Require units in the form {`unit_name:exponent`}, e.g. `atom.velocity.units={'angstrom':1, 'fs':-1}`
  2) Allow strings of the form `atom.velocity.units="angstrom/fs"`, but require that units be chosen from a specific list of specifications
  3) Allow strings of the form `atom.velocity.units="angstrom/fs"`, and require file parsers to parse the units according to a specified syntax
+ 
+ BDJ Note: There are multiple standards specifications for units, and conversions. If done right in a schema, you can use JSON-LD to
+ link to the actual standards definition. Some examples of what I have done, which aligns with CML:
+ 
+                 "orbitalEnergy": {"units": "Hartree", "value": 0.935524}
+                 "shieldingAnisotropy": {"units": "ppm","value": 17.5292}
 
 How do we store large lists of objects (such as lists of atoms or bonds?)
 
  1) As a table of values (these values do very well in HDF5 as well)
  2) As a set of arrays
- 3) As a list of objects
+ 3) As a list of objects (works well in HDF5 too, would be worth brining in a HDF5 expert)
 
 Examples:
 
@@ -74,10 +80,15 @@ say, maintain a list of bonds between atoms. Some solutions are:
 
  1) by array index (e.g., `residue.atom_indices=[3,4,5,6]`)
  2) by JSON path reference (see, e.g., https://tools.ietf.org/html/draft-pbryan-zyp-json-ref-03)
- 3) by a unique key. (e.g., `residue.id='a83nd83'`, `residue.atoms=['a9n3d9', '31di3']`)
+ 3) JSON-LD allows some flexibility of referencing. Also gives flexibility to break one document 
+    or one JSON object into pieces that can be referenced against.
+ 4) by a unique key. (e.g., `residue.id='a83nd83'`, `residue.atoms=['a9n3d9', '31di3']`)
 
 Array index is probably the best option - although they are a little fragile,
 they're no more fragile than path references, and require far less overhead
 than unique keys.
+
+We need to look at this beyond atoms and bonds. Especially in workflows we can reuse pieces of data 
+from previous tasks in the workflow. Instead of repeating we can use referencing.
 
 See also: http://stackoverflow.com/q/4001474/1958900
