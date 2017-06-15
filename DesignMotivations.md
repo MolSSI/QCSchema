@@ -1,22 +1,28 @@
-## Roles
+## Roles and epics
 
 #### QM software developer
-I write code that performs QM calculations and produces output for its end users
-
-#### QM end user
-I perform QM calculations in order to examine their outputs
+Role: I write code that performs QM calculations and produces output for its end users
+ - I want users to be able to visualize orbitals using only basis set info and MO coefficients, so that I don't have to build the infrastructure to dump gaussian cube files
+ - I want to compare my package's results to other programs' without having to write complicated parsers
 
 #### Visualization / data analysis software developer
-I release software that can visualize or analyze 3rd party QM data
+Role: I release software that can visualize or analyze 3rd party QM data
+ - I want my application to consume data in a standardized, easy-to-parse form, so that I don't have to write separate parsers for every QM package
 
-#### Visualization end user
-I want to visualize and/or analyze my QM output with a third-party tool
+#### End user
+Role: I perform QM calculations and examine their outputs
+ - I want independent output files that can be consumed by any visualization package, so that I don't have to go through an arduous process to generate Gaussian cube files
+ - I want output files that allow me to understand exactly what I ran, so that I don't have to guess which input file generated which output file
+ - I want output files that can be easily converted into new input files, so that I can easily iterate and refine my calculations
+ - I want my QM output files that are small and efficient, so that I don't get yelled at for filling up our filesystem
 
-#### Meta-analyzer / databaser
-I need to consume and rationalize outputs over many different calculations
+#### Analyzer
+Role: I consume and rationalize outputs over many different calculations
+ - I need to be able to access large amounts of data across many files using automated scripts, so that I don't have to do it by hand
 
 #### Scripter
-I run workflows that require passing information back and forth between several programs
+Role: I run workflows that require passing information back and forth between several programs
+ - I want standardized output from the programs, so that I don't have to write separate parsers for each one
 
 
 ## Personas
