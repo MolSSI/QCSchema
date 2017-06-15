@@ -14,7 +14,7 @@ Role: I perform QM calculations and examine their outputs
  - I want independent output files that can be consumed by any visualization package, so that I don't have to go through an arduous process to generate Gaussian cube files
  - I want output files that allow me to understand exactly what I ran, so that I don't have to guess which input file generated which output file
  - I want output files that can be easily converted into new input files, so that I can easily iterate and refine my calculations
- - I want my QM output files that are small and efficient, so that I don't get yelled at for filling up our filesystem
+ - I want my QM output files that are as small as possible, so that I don't get yelled at for filling up our filesystem
 
 #### Analyzer
 Role: I consume and rationalize outputs over many different calculations
@@ -24,6 +24,7 @@ Role: I consume and rationalize outputs over many different calculations
 #### Scripter
 Role: I run workflows that require passing information back and forth between several programs
  - I want standardized output from the programs, so that I don't have to write separate parsers for each one
+ - I want a flexible, self-describing format that can include many types of chemical information, so that I can pass data between programs with different data requirements  
 
 
 ## Personas
