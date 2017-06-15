@@ -27,7 +27,7 @@ This project is currently managed by the following members:
  - Marcus D. Hanwell - [Kitware](http://www.openchemistry.org)
  - Bert de Jong - [LBNL](https://crd.lbl.gov/departments/computational-science/ccmc/staff/staff-members/bert-de-jong/)
  - Daniel G. A. Smith - [MolSSI](molssi.org)
- - Aaron Virshup  - [AutoDesk](https://bionano.autodesk.com)
+ - Aaron Virshup  - [Autodesk](https://bionano.autodesk.com)
 
 This management group will serve as a nexus for writing the schema and facilitate communication with the community. 
 
@@ -37,7 +37,7 @@ The following is a list of efforts that are very similar to the current
 proposed spec. The idea is to pull from this diverse group and coalesce into a
 single specification to prevent duplication of effort.
 
- - [AutoDesk JSON](https://github.com/Autodesk/molecular-design-toolkit/wiki/Molecular-JSON-Draft-Spec#molecule)
+ - [Autodesk JSON](https://github.com/Autodesk/molecular-design-toolkit/wiki/Molecular-JSON-Draft-Spec#molecule)
  - [BAGEL JSON](https://github.com/nubakery/bagel/blob/master/test/benzene_sto3g_pml.json)
  - [Chemical JSON](https://github.com/OpenChemistry/chemicaljson)
  - [NWChem JSON](https://github.com/wadejong/NWChemOutputToJson)
