@@ -4,7 +4,7 @@
 I write code that performs QM calculations and produces output for its end users
 
 #### QM end user
-I perform QM calculations in order to examine their outputs
+I perform QM calculations and examine their outputs to extract a certain set of calculations parameters
 
 #### Visualization / data analysis software developer
 I release software that can visualize or analyze 3rd party QM data
@@ -31,7 +31,9 @@ How she spends her time:
 Technical knowledge: learned Python as an undergrad and uses it for analysis and scripting. Does her low-level programming in fortran. Enthusiastic about things like GitHub and testing frameworks, but the rest of the lab doesn't get the point.
 
 ### The Software Developer: Ki-tae Lee, PhD
-Ki-tae is a research scientist who works with a research group but is supported by sales of their quantum chemsitry package. He's responsible for releasing software, maintaining the code, supporting users, and generally dealing with the overhead around software sales. He's often a co-author on methods papers, and occasionally on a pure "software release" paper. Ki-tae would likely go into the software industry if he wasn't in his present job.
+Ki-tae is a research scientist who works with a research group but is supported by sales of their quantum chemistry package. He's responsible for releasing software, maintaining the code, supporting users, and generally dealing with the overhead around software sales. He's often a co-author on methods papers, and occasionally on a pure "software release" paper. Ki-tae would likely go into the software industry if he wasn't in his present job.
+
+Note, in open-source development efforts the method and software developer tend to be the same person.
 
 How he spends his time:
  - 50% dealing with users (sales, licensing, and support)
