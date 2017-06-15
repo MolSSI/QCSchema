@@ -5,12 +5,13 @@ Role: I write code that performs QM calculations and produces output for its end
  - I want users to be able to visualize orbitals using only basis set info and MO coefficients, so that I don't have to build the infrastructure to dump gaussian cube files
  - I want to compare my package's results to other programs' without having to write complicated parsers
 
+
 #### Visualization / data analysis software developer
 Role: I release software that can visualize or analyze 3rd party QM data
  - I want my application to consume data in a standardized, easy-to-parse form, so that I don't have to write separate parsers for every QM package
 
 #### End user
-Role: I perform QM calculations and examine their outputs
+Role: I perform QM calculations, examine their outputs, and extract specific pieces of information
  - I want independent output files that can be consumed by any visualization package, so that I don't have to go through an arduous process to generate Gaussian cube files
  - I want output files that allow me to understand exactly what I ran, so that I don't have to guess which input file generated which output file
  - I want output files that can be easily converted into new input files, so that I can easily iterate and refine my calculations
@@ -39,7 +40,9 @@ How she spends her time:
 Technical knowledge: learned Python as an undergrad and uses it for analysis and scripting. Does her low-level programming in fortran. Enthusiastic about things like GitHub and testing frameworks, but the rest of the lab doesn't get the point.
 
 ### The Software Developer: Ki-tae Lee, PhD
-Ki-tae is a research scientist who works with a research group but is supported by sales of their quantum chemsitry package. He's responsible for releasing software, maintaining the code, supporting users, and generally dealing with the overhead around software sales. He's often a co-author on methods papers, and occasionally on a pure "software release" paper. Ki-tae would likely go into the software industry if he wasn't in his present job.
+Ki-tae is a research scientist who works with a research group but is supported by sales of their quantum chemistry package. He's responsible for releasing software, maintaining the code, supporting users, and generally dealing with the overhead around software sales. He's often a co-author on methods papers, and occasionally on a pure "software release" paper. Ki-tae would likely go into the software industry if he wasn't in his present job.
+
+Note, in open-source development efforts the method and software developer tend to be the same person.
 
 How he spends his time:
  - 50% dealing with users (sales, licensing, and support)

@@ -57,5 +57,11 @@ to the coupled cluster singles and doubles method. (T)-F12, T0, and [T] fall
 under different labels.
 
 ### Known Variable Lists:
+ - IUPAC Goldbook (https://goldbook.iupac.org)
+   * Units/Constants: https://goldbook.iupac.org/lists/list_math.html, https://goldbook.iupac.org/lists/list_goldbook_unit_defs.html
+   * Electron Density: https://goldbook.iupac.org/html/E/E01986.html
+   IUPAC recommendations for computational chemistry: https://doi.org/10.1351/pac199769051137, https://doi.org/10.1515/pac-2012-1204
+   IUPAC recommendations are product of IUPAC Projects (https://iupac.org/recommendations/recently-published/)
+   IUPAC InChI related activities beyond organics: https://iupac.org/who-we-are/divisions/division-details/?body_code=802
  - [CCLibVars](http://cclib.github.io/data_notes.html)
  - [PsiVars](http://psicode.org/psi4manual/master/glossary_psivariables.html)
