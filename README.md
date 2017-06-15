@@ -24,7 +24,7 @@ here and would like to be part of the project, get in touch!
 ## Governance
 This project is currently managed by the following members:
 
- - Marcus D. Hanwell - [KitWare](http://www.openchemistry.org)
+ - Marcus D. Hanwell - [Kitware](http://www.openchemistry.org)
  - Bert de Jong - [LBNL](https://crd.lbl.gov/departments/computational-science/ccmc/staff/staff-members/bert-de-jong/)
  - Daniel G. A. Smith - [MolSSI](molssi.org)
  - Aaron Virshup  - [AutoDesk](https://bionano.autodesk.com)
