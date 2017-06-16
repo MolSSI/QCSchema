@@ -65,3 +65,4 @@ under different labels.
    IUPAC InChI related activities beyond organics: https://iupac.org/who-we-are/divisions/division-details/?body_code=802
  - [CCLibVars](http://cclib.github.io/data_notes.html)
  - [PsiVars](http://psicode.org/psi4manual/master/glossary_psivariables.html)
+ - [Codessa](http://www.codessa-pro.com/descriptors/quantum/eee.htm)
