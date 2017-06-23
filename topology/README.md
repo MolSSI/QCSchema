@@ -16,12 +16,18 @@ The following are optional fields and default values (option, more a list of pos
   - `multiplicity` (int, `1`)- The overall mulitiplicity of the molecule.
   - `real` (list of bool, `[True, ...]`) - A list describing if the atoms are real or ghost.
   - `comment` (str) - Any additional comment one would attach to the molecule.
-  - `fragments` (list of list, `[]`) - A list of indices (0-indexed) for molecular fragments within the topology.
-  - `fragment_charges` (list, `[]`) - A list of charges associated with the fragments tuple.
-  - `fragment_multiplicities` (list, `[]`) - A list of multiplicites associated with each fragment. 
+  - `fragments` (list of tuples, `[]`) - A list of indices (0-indexed) for molecular fragments within the topology.
+  - `fragment_charges` (list of floats, `[]`) - A list of charges associated with the fragments tuple.
+  - `fragment_multiplicities` (list of ints, `[]`) - A list of multiplicites associated with each fragment. 
   - `provenance` (dict, `{}`) - The provencance of the molecule.
     - `doi` - ??
 
 Other possible quantities:
   - Bonds
   - Basis Sets per atom 
+  - fix_com (bool) - whether to adjust to the molecule to the COM or not
+  - fix_orientation (bool) - whether to rotate the molecule to a standard orientation or not
+  - mass (list of floats) - 
+  - label (list of str) - Per-atom labels which may be seperate from fragments
+  - Extend the `real` quantitity to cover real, ghost, absent, qm/mm region, etc.
+  - EFP quantities `fragment_types`, `coordinate_hints`. This is an example and likely not part of the spec. How would we handle this? 
