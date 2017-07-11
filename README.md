@@ -37,35 +37,61 @@ This would output the following JSON dictionary
 ```
 >>> program.run_json(json_input)
 {
-    "raw_output": "Output storing was not requested.",
-    "options": {
-        "BASIS": "STO-3G"
+    'raw_output': 'Output storing was not requested.',
+    'molecule': {
+        'geometry': {
+            'val': [[0, 0, 0], [0, 0, 1]],
+            'units': 'angstrom'
+        },
+        'atoms': ['He', 'He']
     },
-    "driver": "energy",
-    "molecule": {"geometry" : [[0, 0, 0], 
-                               [0, 0, 1]],
-                 "atoms" : ["He", "He"]
-                },
-    "method": {"expression": "SCF",
-               "basis":      "sto-3g"},
-    "variables": {
-        "SCF N ITERS": 2.0,
-        "SCF DIPOLE Y": 0.0,
-        "SCF TOTAL ENERGY": -5.433191881443323,
-        "SCF TWO-ELECTRON ENERGY": 4.124089347186247,
-        "SCF DIPOLE Z": 0.0,
-        "NUCLEAR REPULSION ENERGY": 2.11670883436,
-        "SCF DIPOLE X": 0.0,
-        "ONE-ELECTRON ENERGY": -11.67399006298957
+    'driver': 'energy',
+    'method': {
+        'expression': 'SCF',
+        'basis': 'sto-3g'
     },
-    "return_value": -5.433191881443323,
-    "error": "",
-    "success": true,
-    "provenance": {
-        "creator": "QM Program",
-        "routine": "program.run_json",
-        "version": "1.1a1i"
+    'variables': {
+        'SCF N ITERS': 2.0,
+        'SCF DIPOLE Y': {
+            'val': 0.0,
+            'units': 'hartree'
+        },
+        'SCF TOTAL ENERGY': {
+            'val': -5.433191881443323,
+            'units': 'hartree'
+        },
+        'SCF TWO-ELECTRON ENERGY': {
+            'val': 4.124089347186247,
+            'units': 'hartree'
+        },
+        'SCF DIPOLE Z': {
+            'val': 0.0,
+            'units': 'hartree'
+        },
+        'NUCLEAR REPULSION ENERGY': {
+            'val': 2.11670883436,
+            'units': 'hartree'
+        },
+        'SCF DIPOLE X': {
+            'val': 0.0,
+            'units': 'hartree'
+        },
+        'ONE-ELECTRON ENERGY': {
+            'val': -11.67399006298957,
+            'units': 'hartree'
+        }
     },
+    'return_value': {
+        'val': -5.433191881443323,
+        'units': 'hartree'
+    },
+    'error': '',
+    'success': True,
+    'provenance': {
+        'creator': 'QM Program',
+        'routine': 'program.run_json',
+        'version': '1.1rc1'
+    }
 }
 ```
 
