@@ -1,7 +1,7 @@
 # QC_JSON_Schema
 A JSON Schema for Quantum Chemistry
 
-The pupose of this schema is provide API like access to pre-existing quantum
+The purpose of this schema is to provide API like access to pre-existing quantum
 chemistry packages to enable more complex workflows.  The core of this is to
 avoid parsing ASCII-based output files and place output variables, vectors,
 matrices in a consistent format that can be easily parsed.
@@ -14,6 +14,7 @@ In order to help define the overall scope and direction of the specification sev
 - Transfer data between QM programs (Orbitals, Densities, etc)
 - Provide a framework for QM API access
 
+A concrete list of requirements for this schema can be found [here](Requirements.md).
 
 ## Example
 The following is an example input to the program. Note that the specification
@@ -95,6 +96,8 @@ This would output the following JSON dictionary
 }
 ```
 
+A discussion of each top level component can be found [here](Spec_Components.md).
+Details can also be found on (variable names)[Variables.md] and the [technical specifications](Technical_Specifications.md).
 
 ## Partners
 The following is a list of programs that have agreed to implement this JSON
@@ -106,6 +109,7 @@ here and would like to be part of the project, get in touch!
  - [Molecular Design Toolkit](https://github.com/Autodesk/molecular-design-toolkit)
  
 ### Quantum Chemistry Engines
+ - [NWChem](http://www.nwchem-sw.org/index.php/Main_Page)
  - [Psi4](https://github.com/psi4/psi4)
  
 ## Governance
@@ -117,7 +121,6 @@ This project is currently managed by the following members:
  - Aaron Virshup  - [Autodesk](https://bionano.autodesk.com)
 
 This management group will serve as a nexus for writing the schema and facilitate communication with the community. 
-
 
 ## Existing JSON Efforts
 The following is a list of efforts that are very similar to the current
