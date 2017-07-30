@@ -97,7 +97,7 @@ This would output the following JSON dictionary
 ```
 
 A discussion of each top level component can be found [here](Spec_Components.md).
-Details can also be found on (variable names)[Variables.md] and the [technical specifications](Technical_Specifications.md).
+Details can also be found on [variable names](Variables.md) and the [technical specifications](Technical_Specifications.md).
 
 ## Partners
 The following is a list of programs that have agreed to implement this JSON
