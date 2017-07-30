@@ -29,7 +29,7 @@ an example of the common input and output structures:
 >>> json_input = {}
 >>> json_input["molecule"] = json_molecule
 >>> json_input["driver"] = "energy"
->>> json_input["method"] = {"expression: "SCF",
+>>> json_input["method"] = {"expression": "SCF",
                             "basis":     "sto-3g"}
 ```
 
