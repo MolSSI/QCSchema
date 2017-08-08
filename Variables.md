@@ -37,14 +37,14 @@ Another possiblity is a word description which tries to explain the spirt
 rather than the specifics for these keys. A combination of both may be
 required.
 
-SCF TOTAL ENERGY - result in Hartree of solving the SCF equations for
+`SCF TOTAL ENERGY` - result in Hartree of solving the SCF equations for
 Hartree--Fock or density functional theory. Its definition implies convergence
 reached but does not specify minimum convergence levels or convergence metric.
 _Includes_ various self-consistent and additive contributions, such that may be
 the sum of nuclear repulsion energy, 1e- contributions, 2e- contributions,
 functional/HF energy, dispersion correction energy, etc.
 
-FAMILY MP2 CORRELATION ENERGY - result in Hartree of the 2nd-order perturbation
+`FAMILY MP2 CORRELATION ENERGY` - result in Hartree of the 2nd-order perturbation
 upon a Hartree--Fock (not DFT) reference such that (mp2 total energy = scf
 total energy + mp2 correlation energy) is always valid and the derived quantity
 (mp2 total energy) may be optionally stored (to check consistency). Includes
@@ -52,7 +52,7 @@ _unscaled_ same-spin doubles, opposite-spin doubles, and (for open-shell)
 singles contributions. A sufficient number of these will be stored under
 separate labels so that any SCS-MP2-like energy can be computed.
 
-(T) CORRECTION ENERGY - result in Hartree of the parenthesis-triples correction
+`(T) CORRECTION ENERGY` - result in Hartree of the parenthesis-triples correction
 to the coupled cluster singles and doubles method. (T)-F12, T0, and [T] fall
 under different labels.
 
