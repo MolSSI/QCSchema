@@ -10,8 +10,9 @@ matrices in a consistent format that can be easily parsed.
 In order to help define the overall scope and direction of the specification several high level goals will be pursued: 
 
 - Ability to connect to visualizers and GUI's
-- Connect to existing Workflows such as [ASE](https://wiki.fysik.dtu.dk/ase/)
+- Connect to existing Workflows tools
 - Transfer data between QM programs (Orbitals, Densities, etc)
+- Provide a rigorous record of computation for large scale QM databases
 - Provide a framework for QM API access
 
 A concrete list of requirements for this schema can be found [here](Requirements.md).
