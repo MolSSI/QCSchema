@@ -105,6 +105,10 @@ The following is a list of programs that have agreed to implement this JSON
 specification once a stable version has been released. If do not see your code
 here and would like to be part of the project, get in touch!
  
+  
+### Organizations
+ - [The Molecular Sciences Software Institute](http://www.molssi.org)
+ 
 ### Visualizers
  - [Avogadro](https://avogadro.cc)
  - [Molecular Design Toolkit](https://github.com/Autodesk/molecular-design-toolkit)
