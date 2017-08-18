@@ -36,10 +36,10 @@ Examples:
 {num_atoms=1234,
  atoms={names:['CA','CB','OP' ...],
         atomic_numbers:[6,6,8, ...],
-        masses:{val:[12.0, 12.0, 16.12, ...], units:amu},
+        masses:{val:[12.0, 12.0, 16.12, ...], units:'amu'},
         residue_indices:[0,0,0,1,1, ...],
-        positions:{val:[[0.214,12.124,1.12], [0.214,12.124,1.12], ...], units:angstrom},
-        momenta:{val:[[0,0,0], [1,2,3], ...], units:angstrom*amu*fs^-1}
+        positions:{val:[[0.214,12.124,1.12], [0.214,12.124,1.12], ...], units:'angstrom'},
+        momenta:{val:[[0,0,0], [1,2,3], ...], units:'angstrom*amu*fs^-1'}
         }
 
 // 3) Storing the fieldnames for each atom: readable, but makes the file huge
