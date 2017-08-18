@@ -28,7 +28,7 @@ calculation.
 
 ### Driver
 
-What are you looking to calculate? Energy, trajectory, some property
+What are you looking to calculate: energy, trajectory, some property, ...?
 We do need to think about our calculations, which are often workflows with
 multiple steps in one run. Some codes, especially those with Python front-ends 
 can be used to set up complex workflows.
