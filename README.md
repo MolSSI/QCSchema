@@ -115,7 +115,7 @@ here and would like to be part of the project, get in touch!
  - [VTK](http://www.vtk.org)
  
 ### Quantum Chemistry Engines
- = [MPQC](https://github.com/ValeevGroup/mpqc)
+ - [MPQC](https://github.com/ValeevGroup/mpqc)
  - [NWChem](http://www.nwchem-sw.org/index.php/Main_Page)
  - [Psi4](https://github.com/psi4/psi4)
  
@@ -137,6 +137,7 @@ single specification to prevent duplication of effort.
  - [Autodesk JSON](https://github.com/Autodesk/molecular-design-toolkit/wiki/Molecular-JSON-Draft-Spec#molecule)
  - [BAGEL JSON](https://github.com/nubakery/bagel/blob/master/test/benzene_sto3g_pml.json)
  - [Chemical JSON](https://github.com/OpenChemistry/chemicaljson)
+ - [MPQC JSON](https://gist.github.com/dgasmith/28ce209867afd272d361a00322960160)
  - [NWChem JSON](https://github.com/wadejong/NWChemOutputToJson)
  - [Psi4 JSON](https://github.com/psi4/psi4/blob/master/psi4/driver/json_wrapper.py#L55)
  - [PyQC Schema](https://github.com/PyQC/json_schema)
