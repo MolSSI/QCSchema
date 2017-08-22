@@ -112,8 +112,10 @@ here and would like to be part of the project, get in touch!
 ### Visualizers
  - [Avogadro](https://avogadro.cc)
  - [Molecular Design Toolkit](https://github.com/Autodesk/molecular-design-toolkit)
+ - [VTK](http://www.vtk.org)
  
 ### Quantum Chemistry Engines
+ = [MPQC](https://github.com/ValeevGroup/mpqc)
  - [NWChem](http://www.nwchem-sw.org/index.php/Main_Page)
  - [Psi4](https://github.com/psi4/psi4)
  
