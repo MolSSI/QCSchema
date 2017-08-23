@@ -1,0 +1,926 @@
+{
+  "basisSet": {
+  "id": "BasisSet.1",
+  "basisFunctions": [
+    {
+      "id": "H-orb1",
+      "basisSetType": "orbitalBasis",
+      "basisSetName": "TZVP",
+      "elementLabel": "H",
+      "elementName": "Hydrogen",
+      "basisSetHarmonicType": "spherical"
+      "basisSetContraction": [
+        {
+          "id": "H-orbc1",
+          "basisSetExponent": [
+            50.999178,
+            7.4832181,
+            1.7774676
+          ],
+          "basisSetCoefficient": [
+            0.009661,
+            0.073729,
+            0.295858
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "H-orbc2",
+          "basisSetExponent": [
+            0.5193295
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "H-orbc3",
+          "basisSetExponent": [
+            0.15411
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "H-orbc4",
+          "basisSetExponent": [
+            0.75
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "p"
+        }
+      ]
+    },
+    {
+      "id": "C-orb2",
+      "basisSetType": "orbitalBasis",
+      "basisSetName": "TZVP",
+      "elementLabel": "C",
+      "elementName": "Carbon",
+      "basisSetHarmonicType": "spherical"
+      "basisSetContraction": [
+        {
+          "id": "C-orbc1",
+          "basisSetExponent": [
+            5784.1571,
+            869.3035,
+            198.51164,
+            56.429901,
+            18.285457,
+            6.4487146,
+            2.3418596
+          ],
+          "basisSetCoefficient": [
+            0.000819,
+            0.006294,
+            0.031781,
+            0.117273,
+            0.303476,
+            0.453521,
+            0.243059
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "C-orbc2",
+          "basisSetExponent": [
+            5.4595328
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "C-orbc3",
+          "basisSetExponent": [
+            0.4781968
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "C-orbc4",
+          "basisSetExponent": [
+            0.1457301
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "C-orbc5",
+          "basisSetExponent": [
+            34.258563,
+            7.8638954,
+            2.3445193,
+            0.7961715
+          ],
+          "basisSetCoefficient": [
+            0.005804,
+            0.04064,
+            0.155022,
+            0.353144
+          ],
+          "basisSetShellType": "p"
+        },
+        {
+          "id": "C-orbc6",
+          "basisSetExponent": [
+            0.2726804
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "p"
+        },
+        {
+          "id": "C-orbc7",
+          "basisSetExponent": [
+            0.0892605
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "p"
+        },
+        {
+          "id": "C-orbc8",
+          "basisSetExponent": [
+            0.6
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "d"
+        }
+      ]
+    },
+    {
+      "id": "S-orb3",
+      "basisSetType": "orbitalBasis",
+      "basisSetName": "TZVP",
+      "elementLabel": "S",
+      "elementName": "Sulphur",
+      "basisSetHarmonicType": "spherical"
+      "basisSetContraction": [
+        {
+          "id": "S-orbc1",
+          "basisSetExponent": [
+            56415.58,
+            8345.2689,
+            1876.3041,
+            522.73216,
+            166.17491,
+            57.945422,
+            21.066745
+          ],
+          "basisSetCoefficient": [
+            -0.000578,
+            -0.004551,
+            -0.023747,
+            -0.093981,
+            -0.271502,
+            -0.463154,
+            -0.290194
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "S-orbc2",
+          "basisSetExponent": [
+            46.619315,
+            4.859891,
+            1.7911819
+          ],
+          "basisSetCoefficient": [
+            -0.09389,
+            0.587789,
+            0.487349
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "S-orbc3",
+          "basisSetExponent": [
+            2.9765954
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "S-orbc4",
+          "basisSetExponent": [
+            0.3942261
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "S-orbc5",
+          "basisSetExponent": [
+            0.1416732
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "S-orbc6",
+          "basisSetExponent": [
+            520.42034,
+            120.42997,
+            37.390624,
+            13.24845,
+            4.8881277,
+            1.764932
+          ],
+          "basisSetCoefficient": [
+            -0.00293,
+            -0.02411,
+            -0.112176,
+            -0.312307,
+            -0.480111,
+            -0.279398
+          ],
+          "basisSetShellType": "p"
+        },
+        {
+          "id": "S-orbc7",
+          "basisSetExponent": [
+            0.8892067
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "p"
+        },
+        {
+          "id": "S-orbc8",
+          "basisSetExponent": [
+            0.3103283
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "p"
+        },
+        {
+          "id": "S-orbc9",
+          "basisSetExponent": [
+            0.1030676
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "p"
+        },
+        {
+          "id": "S-orbc10",
+          "basisSetExponent": [
+            0.65
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "d"
+        }
+      ]
+    },
+    {
+      "id": "N-orb4",
+      "basisSetType": "orbitalBasis",
+      "basisSetName": "TZVP",
+      "elementLabel": "N",
+      "elementName": "Nitrogen",
+      "basisSetHarmonicType": "spherical"
+      "basisSetContraction": [
+        {
+          "id": "N-orbc1",
+          "basisSetExponent": [
+            8104.1761,
+            1217.3138,
+            277.73993,
+            78.847598,
+            25.537161,
+            9.0045711,
+            3.2835278
+          ],
+          "basisSetCoefficient": [
+            0.000797,
+            0.006129,
+            0.031047,
+            0.115368,
+            0.302574,
+            0.455791,
+            0.243021
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "N-orbc2",
+          "basisSetExponent": [
+            7.8493573
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "N-orbc3",
+          "basisSetExponent": [
+            0.6862239
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "N-orbc4",
+          "basisSetExponent": [
+            0.2035026
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "N-orbc5",
+          "basisSetExponent": [
+            49.014608,
+            11.316671,
+            3.4034053,
+            1.1611107
+          ],
+          "basisSetCoefficient": [
+            -0.005901,
+            -0.041644,
+            -0.161025,
+            -0.358354
+          ],
+          "basisSetShellType": "p"
+        },
+        {
+          "id": "N-orbc6",
+          "basisSetExponent": [
+            0.3953358
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "p"
+        },
+        {
+          "id": "N-orbc7",
+          "basisSetExponent": [
+            0.1268981
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "p"
+        },
+        {
+          "id": "N-orbc8",
+          "basisSetExponent": [
+            0.7
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "d"
+        }
+      ]
+    },
+    {
+      "id": "O-orb5",
+      "basisSetType": "orbitalBasis",
+      "basisSetName": "TZVP",
+      "elementLabel": "O",
+      "elementName": "Oxygen",
+      "basisSetHarmonicType": "spherical"
+      "basisSetContraction": [
+        {
+          "id": "O-orbc1",
+          "basisSetExponent": [
+            10814.402,
+            1623.7532,
+            370.18274,
+            104.97475,
+            33.984422,
+            11.984312,
+            4.3859704
+          ],
+          "basisSetCoefficient": [
+            0.000781,
+            0.00601,
+            0.030522,
+            0.114009,
+            0.301957,
+            0.457111,
+            0.243248
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "O-orbc2",
+          "basisSetExponent": [
+            10.630034
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "O-orbc3",
+          "basisSetExponent": [
+            0.9398526
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "O-orbc4",
+          "basisSetExponent": [
+            0.2766213
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "O-orbc5",
+          "basisSetExponent": [
+            61.544218,
+            14.276194,
+            4.3317679,
+            1.4766043
+          ],
+          "basisSetCoefficient": [
+            0.006624,
+            0.046464,
+            0.174423,
+            0.366612
+          ],
+          "basisSetShellType": "p"
+        },
+        {
+          "id": "O-orbc6",
+          "basisSetExponent": [
+            0.4959857
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "p"
+        },
+        {
+          "id": "O-orbc7",
+          "basisSetExponent": [
+            0.1544836
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "p"
+        },
+        {
+          "id": "O-orbc8",
+          "basisSetExponent": [
+            0.8
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "d"
+        }
+      ]
+    },
+    {
+      "id": "U-orb6",
+      "basisSetType": "orbitalBasis",
+      "basisSetName": "Stuttgart",
+      "elementLabel": "U",
+      "elementName": "Uranium",
+      "basisSetHarmonicType": "spherical",
+      "basisSetContraction": [
+        {
+          "id": "U-orbc1",
+          "basisSetExponent": [
+            1534.9336,
+            227.74838,
+            30.696831,
+            18.170626,
+            10.813537,
+            2.733298,
+            1.431498
+          ],
+          "basisSetCoefficient": [
+            0.00092,
+            0.003682,
+            -0.150231,
+            0.903995,
+            -1.485922,
+            1.124404,
+            0.351076
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "U-orbc2",
+          "basisSetExponent": [
+            1534.9336,
+            227.74838,
+            30.696831,
+            18.170626,
+            10.813537,
+            2.733298,
+            1.431498
+          ],
+          "basisSetCoefficient": [
+            -0.000695,
+            -0.002293,
+            0.072444,
+            -0.490559,
+            0.88984,
+            -1.115758,
+            -0.33365
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "U-orbc3",
+          "basisSetExponent": [
+            1534.9336,
+            227.74838,
+            30.696831,
+            18.170626,
+            10.813537,
+            2.733298,
+            1.431498
+          ],
+          "basisSetCoefficient": [
+            0.000223,
+            0.000722,
+            -0.021702,
+            0.149796,
+            -0.27611,
+            0.376579,
+            0.124408
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "U-orbc4",
+          "basisSetExponent": [
+            0.615298
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "U-orbc5",
+          "basisSetExponent": [
+            0.286639
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "U-orbc6",
+          "basisSetExponent": [
+            0.07117
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "U-orbc7",
+          "basisSetExponent": [
+            0.030539
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "U-orbc8",
+          "basisSetExponent": [
+            0.005
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "s"
+        },
+        {
+          "id": "U-orbc9",
+          "basisSetExponent": [
+            553.34525,
+            109.25501,
+            23.47603,
+            6.794472,
+            5.432319,
+            2.702169
+          ],
+          "basisSetCoefficient": [
+            -0.00161,
+            -0.011087,
+            -0.046619,
+            0.644153,
+            -0.520455,
+            -0.631154
+          ],
+          "basisSetShellType": "p"
+        },
+        {
+          "id": "U-orbc10",
+          "basisSetExponent": [
+            553.34525,
+            109.25501,
+            23.47603,
+            6.794472,
+            5.432319,
+            2.702169
+          ],
+          "basisSetCoefficient": [
+            -0.001075,
+            -0.008042,
+            -0.027969,
+            0.469049,
+            -0.492639,
+            -0.375766
+          ],
+          "basisSetShellType": "p"
+        },
+        {
+          "id": "U-orbc11",
+          "basisSetExponent": [
+            1.493857
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "p"
+        },
+        {
+          "id": "U-orbc12",
+          "basisSetExponent": [
+            0.792817
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "p"
+        },
+        {
+          "id": "U-orbc13",
+          "basisSetExponent": [
+            0.351542
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "p"
+        },
+        {
+          "id": "U-orbc14",
+          "basisSetExponent": [
+            0.143962
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "p"
+        },
+        {
+          "id": "U-orbc15",
+          "basisSetExponent": [
+            0.005
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "p"
+        },
+        {
+          "id": "U-orbc16",
+          "basisSetExponent": [
+            81.202858,
+            18.325575,
+            10.454699,
+            3.666312,
+            1.923349,
+            0.989638
+          ],
+          "basisSetCoefficient": [
+            -0.00162,
+            -0.025181,
+            0.089632,
+            -0.409429,
+            -0.48226,
+            -0.210903
+          ],
+          "basisSetShellType": "d"
+        },
+        {
+          "id": "U-orbc17",
+          "basisSetExponent": [
+            81.202858,
+            18.325575,
+            10.454699,
+            3.666312,
+            1.923349,
+            0.989638
+          ],
+          "basisSetCoefficient": [
+            -0.000639,
+            -0.007021,
+            0.026642,
+            -0.157132,
+            -0.157572,
+            -0.0011
+          ],
+          "basisSetShellType": "d"
+        },
+        {
+          "id": "U-orbc18",
+          "basisSetExponent": [
+            0.495346
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "d"
+        },
+        {
+          "id": "U-orbc19",
+          "basisSetExponent": [
+            0.204455
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "d"
+        },
+        {
+          "id": "U-orbc20",
+          "basisSetExponent": [
+            0.073273
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "d"
+        },
+        {
+          "id": "U-orbc21",
+          "basisSetExponent": [
+            0.005
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "d"
+        },
+        {
+          "id": "U-orbc22",
+          "basisSetExponent": [
+            55.334525,
+            16.588649,
+            4.757518,
+            2.38755,
+            1.130195
+          ],
+          "basisSetCoefficient": [
+            0.001294,
+            0.009857,
+            0.130386,
+            0.318083,
+            0.395314
+          ],
+          "basisSetShellType": "f"
+        },
+        {
+          "id": "U-orbc23",
+          "basisSetExponent": [
+            0.489535
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "f"
+        },
+        {
+          "id": "U-orbc24",
+          "basisSetExponent": [
+            0.18142
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "f"
+        },
+        {
+          "id": "U-orbc25",
+          "basisSetExponent": [
+            0.005
+          ],
+          "basisSetCoefficient": [
+            1.0
+          ],
+          "basisSetShellType": "f"
+        }
+      ],
+    },
+    {
+      "id": "U-ecp1",
+      "numberElectronsReplaced": "60",
+      "basisSetType": "ecpBasis",
+      "elementLabel": "U",
+      "elementName": "Uranium",
+      "basisSetHarmonicType": "cartesian",
+      "basisSetContraction": [
+        {
+          "id": "U-ecpc1",
+          "basisSetRExponent": [
+            2.0
+          ],
+          "basisSetExponent": [
+            16.414039
+          ],
+          "basisSetCoefficient": [
+            536.516628
+          ],
+          "basisSetShellType": "U-S"
+        },
+        {
+          "id": "U-ecpc2",
+          "basisSetRExponent": [
+            2.0
+          ],
+          "basisSetExponent": [
+            9.060556
+          ],
+          "basisSetCoefficient": [
+            169.544925
+          ],
+          "basisSetShellType": "U-P"
+        },
+        {
+          "id": "U-ecpc3",
+          "basisSetRExponent": [
+            2.0
+          ],
+          "basisSetExponent": [
+            8.831832
+          ],
+          "basisSetCoefficient": [
+            142.615598
+          ],
+          "basisSetShellType": "U-D"
+        },
+        {
+          "id": "U-ecpc4",
+          "basisSetRExponent": [
+            2.0
+          ],
+          "basisSetExponent": [
+            7.018516
+          ],
+          "basisSetCoefficient": [
+            60.393076
+          ],
+          "basisSetShellType": "U-F"
+        }
+      ]
+    }
+  ]
+}

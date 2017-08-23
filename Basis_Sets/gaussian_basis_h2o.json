@@ -1,0 +1,153 @@
+{
+ "basisSet": {
+   "id": "BasisSet.1",
+   "basisFunctions": [
+     {
+       "id": "o-orb",
+       "elementLabel": "o",
+       "elementType": "O",
+       "basisSetType": "orbitalBasis",
+       "basissetName": "cc-pvdz",
+       "basisSetHarmonicType": "cartesian",
+       "basisSetContraction": [
+         {
+           "id": "o-orbc1",
+           "basisSetShell": "s",
+           "basisSetExponent": [
+             0.1172000000000001E+5,
+             0.1759000000000001E+4,
+             0.4008000000000003E+3,
+             0.1137000000000001E+3,
+             0.3703000000000003E+2,
+             0.1327000000000001E+2,
+             0.5025000000000004E+1,
+             0.1013000000000001E+1
+           ],
+           "basisSetCoefficient": [
+             0.7100000000000006E-3,
+             0.5470000000000004E-2,
+             0.2783700000000002E-1,
+             0.1048000000000001E+0,
+             0.2830620000000002E+0,
+             0.4487190000000003E+0,
+             0.2709520000000002E+0,
+             0.1545800000000001E-1
+           ]
+         },
+         {
+           "id": "o-orbc2",
+           "basisSetShell": "s",
+           "basisSetExponent": [
+             0.1172000000000001E+5,
+             0.1759000000000001E+4,
+             0.4008000000000003E+3,
+             0.1137000000000001E+3,
+             0.3703000000000003E+2,
+             0.1327000000000001E+2,
+             0.5025000000000004E+1,
+             0.1013000000000001E+1
+           ],
+           "basisSetCoefficient": [
+             -0.1600000000000001E-3,
+             -0.1263000000000001E-2,
+             -0.6267000000000004E-2,
+             -0.2571600000000002E-1,
+             -0.7092400000000006E-1,
+             -0.1654110000000001E+0,
+             -0.1169550000000001E+0,
+             0.5573680000000004E+0
+           ]
+         },
+         {
+           "id": "o-orbc3",
+           "basisSetShell": "s",
+           "basisSetExponent": [
+             0.3023000000000002E+0
+           ],
+           "basisSetCoefficient": [
+             0.1000000000000001E+1
+           ]
+         },
+         {
+           "id": "o-orbc4",
+           "basisSetShell": "p",
+           "basisSetExponent": [
+             0.1770000000000001E+2,
+             0.3854000000000003E+1,
+             0.1046000000000001E+1
+           ],
+           "basisSetCoefficient": [
+             0.4301800000000004E-1,
+             0.2289130000000002E+0,
+             0.5087280000000004E+0
+           ]
+         },
+         {
+           "id": "o-orbc5",
+           "basisSetShell": "p",
+           "basisSetExponent": [
+             0.2753000000000002E+0
+           ],
+           "basisSetCoefficient": [
+             0.1000000000000001E+1
+           ]
+         },
+         {
+           "id": "o-orbc6",
+           "basisSetShell": "d",
+           "basisSetExponent": [
+             0.1185000000000001E+1
+           ],
+           "basisSetCoefficient": [
+             0.1000000000000001E+1
+           ]
+         }
+       ]
+     },
+     {
+       "id": "h-orb",
+       "elementLabel": "h",
+       "elementType": "H",
+       "basisSetType": "orbitalBasis",
+       "basissetName": "cc-pvdz",
+       "basisSetHarmonicType": "cartesian",
+       "basisSetContraction": [
+         {
+           "id": "h-orbc1",
+           "basisSetShell": "s",
+           "basisSetExponent": [
+             0.1301000000000001E+2,
+             0.1962000000000002E+1,
+             0.4446000000000003E+0
+           ],
+           "basisSetCoefficient": [
+             0.1968500000000001E-1,
+             0.1379770000000001E+0,
+             0.4781480000000004E+0
+           ]
+         },
+         {
+           "id": "h-orbc2",
+           "basisSetShell": "s",
+           "basisSetExponent": [
+             0.1220000000000001E+0
+           ],
+           "basisSetCoefficient": [
+             0.1000000000000001E+1
+           ]
+         },
+         {
+           "id": "h-orbc3",
+           "basisSetShell": "p",
+           "basisSetExponent": [
+             0.7270000000000005E+0
+           ],
+           "basisSetCoefficient": [
+             0.1000000000000001E+1
+           ]
+         }
+       ]
+     }
+   ]
+ }
+}
