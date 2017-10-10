@@ -1,3 +1,4 @@
+{
 "molecule": {
   "atoms": [
     {
@@ -47,4 +48,5 @@
   "symmetry": {
     "groupname": "C1"
   }
+}
 }
