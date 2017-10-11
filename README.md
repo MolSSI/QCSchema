@@ -141,4 +141,5 @@ single specification to prevent duplication of effort.
  - [NWChem JSON](https://github.com/wadejong/NWChemOutputToJson)
  - [Psi4 JSON](https://github.com/psi4/psi4/blob/master/psi4/driver/json_wrapper.py#L55)
  - [PyQC Schema](https://github.com/PyQC/json_schema)
+ - [Molpro Database XML](https://www.molpro.net/info/2015.1/doc/manual/node814.html)
  
