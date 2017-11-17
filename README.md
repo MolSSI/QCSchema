@@ -119,6 +119,9 @@ here and would like to be part of the project, get in touch!
  - [NWChem](http://www.nwchem-sw.org/index.php/Main_Page)
  - [Psi4](https://github.com/psi4/psi4)
  
+### Translators
+ - [cclib](http://cclib.github.io)
+ 
 ## Governance
 This project is currently managed by the following members:
 
