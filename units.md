@@ -1,6 +1,6 @@
 ## Units will be an array
 
-  units:["Hartree",1.0]
+  units:["Hartree",1.0] # 1st entry: label of the unit for human reading. 2nd entry: Conversion constant to the default unit.
   
   units:["Hartree",1.0,1] # the third entry specify the power, allowing for reciprocals etc.
   
@@ -25,9 +25,8 @@
     total_enery:{value: 23,
                  units:[...]}
                  
-## Possiblely we can also do
+## If the "_" pointers are implemented then the units can be specified one level above follows
 
-    eg. coords:[...]
-    
-        coords_units:[...]
-     
+    eg. 
+          coords:{ xyz:[...]}
+          coords_units:[...]
