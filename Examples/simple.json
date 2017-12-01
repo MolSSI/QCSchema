@@ -1,59 +1,63 @@
-[ 'qc-json-1.0.0',
-{
-    'raw_output': 'Output storing was not requested.',
-    'molecule': {
-        'geometry': {
-            'val': [[0, 0, 0], [0, 0, 1]],
-            'units': 'angstrom'
+[
+    "qc-json-1.0.0",
+    {
+        "provenance": {
+            "creator": "My QM Program",
+            "version": "1.1rc1",
+            "database": "https://pqr.pitt.edu/mol/HEFNNWSXXWATRW-JTQLQIEISA-N"
         },
-        'atoms': ['He', 'He']
-    },
-    'driver': 'energy',
-    'method': {
-        'expression': 'SCF',
-        'basis': 'sto-3g'
-    },
-    'variables': {
-        'SCF N ITERS': 2.0,
-        'SCF DIPOLE Y': {
-            'val': 0.0,
-            'units': 'hartree'
+        "molecule": {
+            "geometry": [
+                [
+                    0,
+                    0,
+                    0
+                ],
+                [
+                    0,
+                    0,
+                    1
+                ]
+            ],
+            "atoms": [
+                "He",
+                "He"
+            ]
         },
-        'SCF TOTAL ENERGY': {
-            'val': -5.433191881443323,
-            'units': 'hartree'
+        "driver": "energy",
+        "keywords": {
+            "method": "SCF",
+            "basis": "sto-3g",
+            "_myqc-grid": "mygrid123",
+            "_myqc-guess": "harris"
         },
-        'SCF TWO-ELECTRON ENERGY': {
-            'val': 4.124089347186247,
-            'units': 'hartree'
+        "properties": {
+            "SCF N ITERS": 2.0,
+            "dipole_moment": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "units": "debye"
+            },
+            "SCF TOTAL ENERGY": {
+                "val": -5.433191881443323,
+                "units": "hartree"
+            },
+            "SCF TWO-ELECTRON ENERGY": {
+                "val": 4.124089347186247,
+                "units": "hartree"
+            },
+            "NUCLEAR REPULSION ENERGY": {
+                "val": 2.11670883436,
+                "units": "hartree"
+            },
+            "ONE-ELECTRON ENERGY": {
+                "val": -11.67399006298957,
+                "units": "hartree"
+            }
         },
-        'SCF DIPOLE Z': {
-            'val': 0.0,
-            'units': 'hartree'
-        },
-        'NUCLEAR REPULSION ENERGY': {
-            'val': 2.11670883436,
-            'units': 'hartree'
-        },
-        'SCF DIPOLE X': {
-            'val': 0.0,
-            'units': 'hartree'
-        },
-        'ONE-ELECTRON ENERGY': {
-            'val': -11.67399006298957,
-            'units': 'hartree'
-        }
-    },
-    'return_value': {
-        'val': -5.433191881443323,
-        'units': 'hartree'
-    },
-    'error': '',
-    'success': True,
-    'provenance': {
-        'creator': 'QM Program',
-        'routine': 'program.run_json',
-        'version': '1.1rc1'
+        "error": "",
+        "success": true,
+        "raw_output": "Output storing was not requested."
     }
-}
 ]
