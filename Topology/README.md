@@ -11,6 +11,11 @@ should likely be handled by a higher level driver and not make the spec more dif
 The following molecule specification is used. The required fields are:
 
   - `symbols` (list) - A list of strings
+
+```
+"symbols": ['H', 'He', 'dummy']
+```
+
   - `unit_cell` (list of lists) - (optional) 3x3 matrix defining lattice vectors for periodic systems
   - `geometry` (list) - A `(N, 3)` XYZ coordinate list of list in bohr, will likely change to encompase decided unit specifications
 
