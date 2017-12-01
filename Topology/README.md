@@ -16,11 +16,13 @@ The following molecule specification is used. The required fields are:
 
 The following are optional fields and default values (option, more a list of possibilities QM programs would want):
 
-  - `masses` (list of floats) - The mass of the molecule, canonical weights assumed if not given.
   - `name` (str, `""`) - The name of the molecule
   - `charge` (float, `0.0`) - The overall charge of the molecule
   - `multiplicity` (int, `1`)- The overall mulitiplicity of the molecule.
-  - `real` (list of bool, `[True, ...]`) - A list describing if the atoms are real or ghost.
+  - `masses` (list of floats) - The mass of the atoms, canonical weights assumed if not given.
+  - `num_protons` (list of floats) - The number of protons in each atom, atomic number assumed if not given.
+  - `num_electrons` (list of floats) - The number of electrons in each atom, atomic number assumed if not given.
+  - `basis` (list of str) - The list of basis set id's (defined in basisSet section) for each atom. Default is ?
   - `comment` (str) - Any additional comment one would attach to the molecule.
   - `fragments` (list of tuples, `[]`) - A list of indices (0-indexed) for molecular fragments within the topology.
   - `fragment_charges` (list of floats, `[]`) - A list of charges associated with the fragments tuple.
@@ -29,7 +31,6 @@ The following are optional fields and default values (option, more a list of pos
     - `doi` - A doi reference for the molecule.
 
 Other possible quantities:
-  - Basis Sets per atom 
   - `fix_com` (bool) - whether to adjust to the molecule to the COM or not
   - `fix_orientation` (bool) - whether to rotate the molecule to a standard orientation or not
   - label (list of str) - Per-atom labels which may be seperate from fragments
