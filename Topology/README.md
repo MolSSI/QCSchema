@@ -35,3 +35,39 @@ Other possible quantities:
   - label (list of str) - Per-atom labels which may be seperate from fragments
   - Extend the `real` quantitity to cover real, ghost, absent, qm/mm region, etc.
   - EFP quantities `fragment_types`, `coordinate_hints`. This is an example and likely not part of the spec. How would we handle this? 
+
+# Connectivity
+
+Connectivity describes relationships between lists of atoms and associated metadata: typically, this is between a pair of atoms (a bond). Connectivity is supported across periodic boundaries.
+
+Each connection is defined as:
+
+* `indices`, an ordered list of length `N` of atomic indexes defining the connection
+* `images`, (optional, only relevant if a unit cell lattice is defined) an ordered list of length `3N` describing the periodic image of the connected atom -- by default, this is assumed to be (0,0,0), meaning that the connected atom is in the origin image, and first index is set to (0,0,0) by convention
+* a dictionary of metadata, where each value is a list of length `N` (for example, a key could be "bond_type" and values could be "single", "double", etc.)
+
+For metadata, there are a few pre-defined keys with strict meanings:
+
+* `bond_type` can take values `single`, `double`, `triple` [to replace -- this is just an example], only suitable for connections involving pairs of atoms
+* `length` is pre-computed bond lengths in the global unit system, only suitable for connections involving pairs of atoms
+* `angle` is pre-computed bond angles, only suitable for connections involving triplets of atoms
+
+But the user can choose to store any arbitrary key as is suitable for their application.
+
+For a buffer representation for big systems, where information is stored in one large array for all atoms, we propose the following format on the same level as `atoms`:
+
+```
+"connectivity": {
+	2: {	# 2 is typically for bonds
+		"indices": [...] # multiple of 2, indices of atoms
+		"images": [...] # length 3*indices
+		"metadata": {
+			"...": [...] # length of indices/2
+		}
+	},
+	3: {  # 3 is typically for bond angles
+		"indices": [...] # multiple of 3
+		etc.
+	}
+}
+```
