@@ -2,19 +2,31 @@
 
   units:["Hartree",1.0] # 1st entry: label of the unit for human reading. 2nd entry: Conversion constant to the default unit.
   
-  units:["Hartree",1.0,1] # the third entry specify the power, allowing for reciprocals etc.
+  units:["eV", 0.036749]
+  units:["Bohr",1.0]
+  units:["Angstrom",1.8897]
+  units:["kcal/mol", 0.0015936]
+  units:["Angstrom/(atomic time)", 1.8897]
+  units:["cm-1",  2.1948e+05]
+  units:["THz", 6579.8]
+  untis:["amu", 1822.89]
+  units:["seconds": 2.418884326509e-17]
+  
+ 
+  
+ 
   
 ## Defult units use unless specified
 
   Default units use atomic units for everything expect for coordinates (Angstrom)
   
-  coordinates: Angstrom
+  coordinates: atomic units
   
-  distance: Angstrom
+  distance: atomic units (bohrs)
   
-  velocity: Angstrom/(au seconds)
+  velocity:bohrs/(au seconds)
   
-  forces: Angstrom/(au seconds^2)
+  forces: bohrs/(au seconds^2)
   
 ## Put the units close to quantities:
 
