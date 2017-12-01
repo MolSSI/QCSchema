@@ -10,7 +10,8 @@ should likely be handled by a higher level driver and not make the spec more dif
 
 The following molecule specification is used. The required fields are:
 
-  - `symbols` (list) - A list of strings 
+  - `symbols` (list) - A list of strings
+  - `unit_cell` (list of lists) - (optional) 3x3 matrix defining lattice vectors for periodic systems
   - `geometry` (list) - A `(N, 3)` XYZ coordinate list of list in bohr, will likely change to encompase decided unit specifications
 
 The following are optional fields and default values (option, more a list of possibilities QM programs would want):
@@ -28,7 +29,6 @@ The following are optional fields and default values (option, more a list of pos
     - `doi` - A doi reference for the molecule.
 
 Other possible quantities:
-  - Bonds - Holding data for MM computations
   - Basis Sets per atom 
   - `fix_com` (bool) - whether to adjust to the molecule to the COM or not
   - `fix_orientation` (bool) - whether to rotate the molecule to a standard orientation or not
@@ -45,6 +45,13 @@ Each connection is defined as:
 * `indices`, an ordered list of length `N` of atomic indexes defining the connection
 * `images`, (optional, only relevant if a unit cell lattice is defined) an ordered list of length `3N` describing the periodic image of the connected atom -- by default, this is assumed to be (0,0,0), meaning that the connected atom is in the origin image, and first index is set to (0,0,0) by convention
 * a dictionary of metadata, where each value is a list of length `N` (for example, a key could be "bond_type" and values could be "single", "double", etc.)
+
+As an example:
+
+`indicies`: [0,1,5,6]
+`images`: [0,0,0, 0,0,0, 0,0,0, 1,0,0]
+
+defines two bonds, one between atoms 0 and 1 and one between atoms 5 and 6. In this case, the atom 6 is in periodic image (1,0,0).
 
 For metadata, there are a few pre-defined keys with strict meanings:
 
@@ -68,6 +75,10 @@ For a buffer representation for big systems, where information is stored in one 
 	3: {  # 3 is typically for bond angles
 		"indices": [...] # multiple of 3
 		etc.
-	}
+	},
+	4: { ... }
+	
 }
 ```
+
+The `connectivity` dict is optional, the keys have to be integers greater than or equal to 2, but no keys are mandatory.
