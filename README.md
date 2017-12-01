@@ -82,5 +82,5 @@ single specification to prevent duplication of effort.
  - [Psi4 JSON](https://github.com/psi4/psi4/blob/master/psi4/driver/json_wrapper.py#L55)
  - [PyQC Schema](https://github.com/PyQC/json_schema)
  - [Molpro Database XML](https://www.molpro.net/info/2015.1/doc/manual/node814.html)
- - [Chemical Markup Language] (http://www.xml-cml.org)
+ - Chemical Markup Language (http://www.xml-cml.org)
  
