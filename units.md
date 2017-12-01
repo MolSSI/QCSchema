@@ -2,7 +2,7 @@
 
   units:["Hartree",1.0]
   
-  units:["Hartree",1.0,1]
+  units:["Hartree",1.0,1] # the third entry specify the power, allowing for reciprocals etc.
   
 ###Defult units use unless specified
 
@@ -20,14 +20,14 @@
 
     eg.
     coords:{ units:["Bohr",2.2],
-             xyz:[] }
+             xyz:[...] }
              
     total_enery:{value: 23,
-                 units:[]}
+                 units:[...]}
                  
 ###Possiblely we can also do
 
-    eg. coords:[]
+    eg. coords:[...]
     
-        coords_units:[]
+        coords_units:[...]
      
