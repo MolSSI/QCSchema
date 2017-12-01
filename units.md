@@ -3,13 +3,21 @@
   units:["Hartree",1.0] # 1st entry: label of the unit for human reading. 2nd entry: Conversion constant to the default unit.
   
   units:["eV", 0.036749]
+  
   units:["Bohr",1.0]
+  
   units:["Angstrom",1.8897]
+  
   units:["kcal/mol", 0.0015936]
+  
   units:["Angstrom/(atomic time)", 1.8897]
+  
   units:["cm-1",  2.1948e+05]
+  
   units:["THz", 6579.8]
-  untis:["amu", 1822.89]
+  
+  units:["amu", 1822.89]
+  
   units:["seconds": 2.418884326509e-17]
   
  
