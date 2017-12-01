@@ -1,10 +1,10 @@
-###Units will be an array
+## Units will be an array
 
   units:["Hartree",1.0]
   
   units:["Hartree",1.0,1] # the third entry specify the power, allowing for reciprocals etc.
   
-###Defult units use unless specified
+## Defult units use unless specified
 
   Default units use atomic units for everything expect for coordinates (Angstrom)
   
@@ -16,7 +16,7 @@
   
   forces: Angstrom/(au seconds^2)
   
-###Put the units close to quantities:
+## Put the units close to quantities:
 
     eg.
     coords:{ units:["Bohr",2.2],
@@ -25,7 +25,7 @@
     total_enery:{value: 23,
                  units:[...]}
                  
-###Possiblely we can also do
+## Possiblely we can also do
 
     eg. coords:[...]
     
