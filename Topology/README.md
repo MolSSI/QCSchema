@@ -40,22 +40,23 @@ Other possible quantities:
 
 Connectivity describes relationships between lists of atoms and associated metadata: typically, this is between a pair of atoms (a bond). Connectivity is supported across periodic boundaries.
 
-Each connection is defined as:
+Each connection between `M` atoms is defined as:
 
-* `indices`, an ordered list of length `N` of atomic indexes defining the connection
+* `M`, number of atomic sites involved, `M` is 2 for connections between pairs of atoms (e.g. bonds)
+* `indices`, an ordered list of length `N` of atomic indexes defining the connection, length is multiple of `M`
 * `images`, (optional, only relevant if a unit cell lattice is defined) an ordered list of length `3N` describing the periodic image of the connected atom -- by default, this is assumed to be (0,0,0), meaning that the connected atom is in the origin image, and first index is set to (0,0,0) by convention
 * a dictionary of metadata, where each value is a list of length `N` (for example, a key could be "bond_type" and values could be "single", "double", etc.)
 
 As an example:
 
-`indicies`: [0,1,5,6]
+`indices`: [0, 1, 5, 6]
 `images`: [0,0,0, 0,0,0, 0,0,0, 1,0,0]
 
 defines two bonds, one between atoms 0 and 1 and one between atoms 5 and 6. In this case, the atom 6 is in periodic image (1,0,0).
 
 For metadata, there are a few pre-defined keys with strict meanings:
 
-* `bond_type` can take values `single`, `double`, `triple` [to replace -- this is just an example], only suitable for connections involving pairs of atoms
+* `bond_type` can take values `single`, `double`, `triple` [to replace -- this is just an example], only suitable for connections involving pairs of atoms, this is useful for GUI/visualization tools
 * `length` is pre-computed bond lengths in the global unit system, only suitable for connections involving pairs of atoms
 * `angle` is pre-computed bond angles, only suitable for connections involving triplets of atoms
 
@@ -65,7 +66,7 @@ For a buffer representation for big systems, where information is stored in one 
 
 ```
 "connectivity": {
-	2: {	# 2 is typically for bonds
+	2: {  # key is M, e.g. 2 is typically for bonds
 		"indices": [...] # multiple of 2, indices of atoms
 		"images": [...] # length 3*indices
 		"metadata": {
@@ -82,3 +83,5 @@ For a buffer representation for big systems, where information is stored in one 
 ```
 
 The `connectivity` dict is optional, the keys have to be integers greater than or equal to 2, but no keys are mandatory.
+
+With this scheme, not just bonds can be defined, but clusters of atoms too. This makes it versatile for e.g. QM/MM schemes, cluster expansions, etc.
