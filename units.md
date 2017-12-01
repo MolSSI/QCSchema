@@ -26,10 +26,8 @@
   
 ## Defult units use unless specified
 
-  Default units use atomic units for everything expect for coordinates (Angstrom)
-  
-  coordinates: atomic units
-  
+  Default units use atomic units for everything
+
   distance: atomic units (bohrs)
   
   velocity:bohrs/(au seconds)
