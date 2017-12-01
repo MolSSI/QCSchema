@@ -59,6 +59,7 @@ For metadata, there are a few pre-defined keys with strict meanings:
 * `bond_type` can take values `single`, `double`, `triple` [to replace -- this is just an example], only suitable for connections involving pairs of atoms, this is useful for GUI/visualization tools
 * `length` is pre-computed bond lengths in the global unit system, only suitable for connections involving pairs of atoms
 * `angle` is pre-computed bond angles, only suitable for connections involving triplets of atoms
+* `label`, a string used by visualization tools
 
 But the user can choose to store any arbitrary key as is suitable for their application.
 
