@@ -18,7 +18,7 @@ In order to help define the overall scope and direction of the specification sev
 A concrete list of requirements for this schema can be found [here](Requirements.md).
 
 ## Example
-The following is an example input to the program. Note that the specification
+The following is an example Python version. Note that the specification
 is likely to change heavily, especially with regard to units. However, this is
 an example of the common input and output structures:
 
@@ -32,69 +32,6 @@ an example of the common input and output structures:
 >>> json_input["driver"] = "energy"
 >>> json_input["method"] = {"expression": "SCF",
                             "basis":     "sto-3g"}
-```
-
-This would output the following JSON dictionary
-
-```
->>> program.run_json(json_input)
-{
-    'raw_output': 'Output storing was not requested.',
-    'molecule': {
-        'geometry': {
-            'val': [[0, 0, 0], [0, 0, 1]],
-            'units': 'angstrom'
-        },
-        'atoms': ['He', 'He']
-    },
-    'driver': 'energy',
-    'method': {
-        'expression': 'SCF',
-        'basis': 'sto-3g'
-    },
-    'variables': {
-        'SCF N ITERS': 2.0,
-        'SCF DIPOLE Y': {
-            'val': 0.0,
-            'units': 'hartree'
-        },
-        'SCF TOTAL ENERGY': {
-            'val': -5.433191881443323,
-            'units': 'hartree'
-        },
-        'SCF TWO-ELECTRON ENERGY': {
-            'val': 4.124089347186247,
-            'units': 'hartree'
-        },
-        'SCF DIPOLE Z': {
-            'val': 0.0,
-            'units': 'hartree'
-        },
-        'NUCLEAR REPULSION ENERGY': {
-            'val': 2.11670883436,
-            'units': 'hartree'
-        },
-        'SCF DIPOLE X': {
-            'val': 0.0,
-            'units': 'hartree'
-        },
-        'ONE-ELECTRON ENERGY': {
-            'val': -11.67399006298957,
-            'units': 'hartree'
-        }
-    },
-    'return_value': {
-        'val': -5.433191881443323,
-        'units': 'hartree'
-    },
-    'error': '',
-    'success': True,
-    'provenance': {
-        'creator': 'QM Program',
-        'routine': 'program.run_json',
-        'version': '1.1rc1'
-    }
-}
 ```
 
 A discussion of each top level component can be found [here](Spec_Components.md).
