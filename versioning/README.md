@@ -5,6 +5,7 @@ Soon, we'll get a separate GitHub Organization. Pretend all this text refers to 
 
 Vote on the name by incrementing the tally!
 - [ ] MolSciSchema
+- [ ] MolecularScienceSchema
 
 There will be a main repo `MolSciSchema-core` into which the core, approved, common, consensus schema goes.
 
@@ -21,6 +22,6 @@ Optional keys in JSON will be always allowed, but overlaps will be _effectively_
 Not strictly on the versioning topic but brought up
 ---------------------------------------------------
 
-versioning of data (not strictly program) like basisset, element masses
+- Versioning of data absorbed by codes/schema (not strictly program) like basisset, element masses. Changes in basisset exchange lead to different results. Versioning will provide key information about changes. Use of CODATA fundamental constants, IUPAC Gold Book for naming conventions (including atom names for superheavies) and semantic meaning of terms (see their Gold Book).
 
-bronze, molden, silver, gold, platinum compliance levels that will change with core version
+- Adherence of codes, visualizers, etc. to schema: bronze, molden, silver, gold, platinum compliance levels that will change with core version
