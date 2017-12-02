@@ -11,25 +11,91 @@ should likely be handled by a higher level driver and not make the spec more dif
 The following molecule specification is used. The required fields are:
 
   - `symbols` (list) - A list of strings
+
+```
+"symbols": ['H', 'dummy']
+```
+
   - `unit_cell` (list of lists) - (optional) 3x3 matrix defining lattice vectors for periodic systems
   - `geometry` (list) - A `(N, 3)` XYZ coordinate list of list in bohr, will likely change to encompase decided unit specifications
 
+```
+"geometry": [[0.0, 0.0, 0.0],
+             [0.0, 0.0, 1.0]]
+```
+
 The following are optional fields and default values (option, more a list of possibilities QM programs would want):
 
-  - `masses` (list of floats) - The mass of the molecule, canonical weights assumed if not given.
   - `name` (str, `""`) - The name of the molecule
+
+```
+"name": "ExampleMolecule"
+```
+
   - `charge` (float, `0.0`) - The overall charge of the molecule
+
+```
+"charge": 0.0
+```
+
   - `multiplicity` (int, `1`)- The overall mulitiplicity of the molecule.
-  - `real` (list of bool, `[True, ...]`) - A list describing if the atoms are real or ghost.
+
+```
+"multiplicity": 1
+```
+
+  - `masses` (list of floats) - The mass of the atoms, canonical weights assumed if not given.
+
+```
+"masses": [1.0, 0.0]
+```
+
+  - `num_protons` (list of floats) - The number of protons in each atom, atomic number assumed if not given.
+
+```
+"num_protons": [1.0, 0.0]
+```
+
+  - `num_electrons` (list of floats) - The number of electrons in each atom, atomic number assumed if not given.
+
+```
+"num_electrons": [1.0, 1.0]
+```
+
+  - `basis` (list of str) - The list of basis set id's (defined in basisSet section) for each atom. Default is ?
+
+```
+"basis": ["BasisSet.1", "BasisSet.1"]
+```
+
   - `comment` (str) - Any additional comment one would attach to the molecule.
+
+```
+"comment": "Hydrogen near a point charge."
+```
+
   - `fragments` (list of tuples, `[]`) - A list of indices (0-indexed) for molecular fragments within the topology.
+
+```
+"fragments": [(0,), (1,)]
+```
+
   - `fragment_charges` (list of floats, `[]`) - A list of charges associated with the fragments tuple.
-  - `fragment_multiplicities` (list of ints, `[]`) - A list of multiplicites associated with each fragment. 
+
+```
+"fragment_charges": [0.0, 0.0]
+```
+
+  - `fragment_multiplicities` (list of ints, `[]`) - A list of multiplicities associated with each fragment.
+
+```
+"fragment_multiplicities": [2, 2]
+```
+
   - `provenance` (dict, `{}`) - The provencance of the molecule.
     - `doi` - A doi reference for the molecule.
 
 Other possible quantities:
-  - Basis Sets per atom 
   - `fix_com` (bool) - whether to adjust to the molecule to the COM or not
   - `fix_orientation` (bool) - whether to rotate the molecule to a standard orientation or not
   - label (list of str) - Per-atom labels which may be seperate from fragments
