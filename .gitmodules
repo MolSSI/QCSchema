@@ -1,0 +1,15 @@
+[submodule "Examples/NWChemOutputToJson"]
+	path = Examples/NWChemOutputToJson
+	url = https://github.com/wadejong/NWChemOutputToJson
+[submodule "Examples/molecular-design-toolkit.wiki"]
+	path = Examples/molecular-design-toolkit.wiki
+	url = https://github.com/Autodesk/molecular-design-toolkit.wiki.git
+[submodule "Examples/chemicaljson"]
+	path = Examples/chemicaljson
+	url = https://github.com/OpenChemistry/chemicaljson
+[submodule "Examples/28ce209867afd272d361a00322960160"]
+	path = Examples/28ce209867afd272d361a00322960160
+	url = https://gist.github.com/dgasmith/28ce209867afd272d361a00322960160
+[submodule "Examples/json_schema"]
+	path = Examples/json_schema
+	url = https://github.com/PyQC/json_schema

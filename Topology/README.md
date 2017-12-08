@@ -17,11 +17,13 @@ The following molecule specification is used. The required fields are:
 ```
 
   - `unit_cell` (list of lists) - (optional) 3x3 matrix defining lattice vectors for periodic systems
-  - `geometry` (list) - A `(N, 3)` XYZ coordinate list of list in bohr, will likely change to encompase decided unit specifications
+  - `symbols` (list) - A list of strings 
+  - `geometry` (list) - A 3N XYZ coordinate list of list in bohr, will likely change to encompass decided unit specifications
+
 
 ```
-"geometry": [[0.0, 0.0, 0.0],
-             [0.0, 0.0, 1.0]]
+"geometry": [0.0, 0.0, 0.0,
+             0.0, 0.0, 1.0]
 ```
 
 The following are optional fields and default values (option, more a list of possibilities QM programs would want):
