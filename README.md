@@ -24,7 +24,7 @@ an example of the common input and output structures:
 
 ```
 >>> json_molecule = {}
->>> json_molecule["geometry"] = [[0, 0, 0], [0, 0, 1]]
+>>> json_molecule["geometry"] = [0, 0, 0, 0, 0, 1]
 >>> json_molecule["atoms"] = ["He", "He"]
 
 >>> json_input = {}
