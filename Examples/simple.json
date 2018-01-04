@@ -1,5 +1,5 @@
 [
-    "qc-json-1.0.0",
+    "qcJson": "1.0.0",
     {
         "provenance": {
             "creator": "My QM Program",
