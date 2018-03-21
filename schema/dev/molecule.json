@@ -13,7 +13,12 @@
             "items": {
                 "type": "number"
             }
+        },
+        "provenance": {
+            "type": "object",
+            "$ref": "#/definitions/provenance"
         }
+        
     },
     "required": ["symbols", "geometry"],
     "description": "The physical cartesian representation of the molecular system"

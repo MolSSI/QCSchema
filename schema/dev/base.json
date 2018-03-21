@@ -4,17 +4,18 @@
     "type": "object",
     "version": "0.1.dev",
     "properties": {
-        "molecule": {
-            "type": "object",
-            "$ref": "#/definitions/molecule"
-        },
+        "molecule": null,
         "driver": {
             "enum": ["energy", "gradient", "hessian", "property"]
         },
         "keywords": {
             "type": "object"
+        },
+        "provenance": {
+            "type": "object",
+            "$ref": "#/definitions/provenance"
         }
     },
-    "required": ["molecule", "driver", "keywords"],
+    "required": null,
     "definitions": {}
 }
