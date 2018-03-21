@@ -23,7 +23,9 @@ _schema_path = os.path.join(_base_path, "schema")
 
 # Generate the schema quickly (super hacky change later)
 os.chdir(_schema_path)
-subprocess.call(["python", "build_dev_schema.py"])
+ret = subprocess.call(["python", "build_dev_schema.py"])
+if ret > 0:
+    raise ValueError("Development schema failed to build")
 os.chdir(_test_path)
 
 # Dictionary of known schema versions

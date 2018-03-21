@@ -1,19 +1,15 @@
 {
     "properties": {
-        "creator": {
-            "description": "The name of the person or program who created this object.",
-            "type": "string"
+        "error_type": {
+            "description": "The type of error raised.",
+            "enum": ["convergence_error", "file_error", "memory_error"]
         },
-        "version": {
-            "description": "The version of the program which created this object, blank otherwise.",
-            "type": "string"
-        },
-        "routine": {
-            "description": "The routine of the program which created this object, blank otherwise.",
+        "error_message": {
+            "description": "A description of the raised error.",
             "type": "string"
         }
     },
-    "required": ["creator"],
+    "required": ["error_type", "error_message"],
     "description": "The type of error message raised.",
-    "additionalProperties": true
+    "additionalProperties": false
 }
