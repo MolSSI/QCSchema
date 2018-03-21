@@ -99,3 +99,10 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# Vim leftover
+*.swp
+
+# Dev schema
+schema/input_qc_schema.schema
+schema/output_qc_schema.schema
