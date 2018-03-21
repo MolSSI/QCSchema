@@ -1,0 +1,26 @@
+# After changing this file, check it on:
+#   http://lint.travis-ci.org/
+language: python
+
+# Run jobs on container-based infrastructure, can be overridden per job
+sudo: false
+
+matrix:
+  include:
+    - python: 2.7
+    - python: 3.5
+
+before_install:
+  - uname -a
+  - free -m
+  - df -h
+  - ulimit -a
+  - python -V
+  - pip install --upgrade pip setuptools
+  - pip install pytest jsonschema
+
+script:
+  - py.test -v
+
+notifications:
+    email: false
