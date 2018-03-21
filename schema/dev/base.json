@@ -1,0 +1,20 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "description": "The MolSSI Quantum Chemistry Schema",
+    "type": "object",
+    "version": "0.1.dev",
+    "properties": {
+        "molecule": {
+            "type": "object",
+            "$ref": "#/definitions/molecule"
+        },
+        "driver": {
+            "enum": ["energy", "gradient", "hessian", "property"]
+        },
+        "keywords": {
+            "type": "object"
+        }
+    },
+    "required": ["molecule", "driver", "keywords"],
+    "definitions": {}
+}

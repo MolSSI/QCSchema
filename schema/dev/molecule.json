@@ -1,0 +1,20 @@
+{
+    "properties": {
+        "symbols": {
+            "description": "The atom symbol for each atom in the molecule.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "geometry": {
+            "description": "The 3N XYZ coordinates of the atoms involved.",
+            "type": "array",
+            "items": {
+                "type": "number"
+            }
+        }
+    },
+    "required": ["symbols", "geometry"],
+    "description": "The physical cartesian representation of the molecular system"
+}
