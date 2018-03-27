@@ -24,29 +24,12 @@
         "basis": "sto-3g"
     },
     "properties": {
-        "SCF N ITERS": 2.0,
-        "dipole_moment": {
-            "x": 0.0,
-            "y": 0.0,
-            "z": 0.0,
-            "units": "debye"
-        },
-        "SCF TOTAL ENERGY": {
-            "val": -5.433191881443323,
-            "units": "hartree"
-        },
-        "SCF TWO-ELECTRON ENERGY": {
-            "val": 4.124089347186247,
-            "units": "hartree"
-        },
-        "NUCLEAR REPULSION ENERGY": {
-            "val": 2.11670883436,
-            "units": "hartree"
-        },
-        "ONE-ELECTRON ENERGY": {
-            "val": -11.67399006298957,
-            "units": "hartree"
-        }
+        "scf_iterations": 2,
+        "scf_dipole_moment": [0.0, 0.0, 0.0],
+        "scf_total_energy": -5.433191881443323,
+        "scf_one_electron_energy": -11.67399006298957,
+        "scf_two_electron_energy": 4.124089347186247,
+        "nuclear_repulsion_energy": 2.11670883436
     },
     "error": "",
     "success": true,

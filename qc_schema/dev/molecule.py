@@ -1,4 +1,7 @@
-{
+"""
+The json-schema for the Molecule definition
+"""
+molecule = {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "properties": {
         "symbols": {
@@ -32,12 +35,14 @@
         },
         "charge": {
             "description": "The overall charge of the molecule.",
-            "type": "number"
+            "type": "number",
+            "default": 0.0
         },
         "multiplicity": {
             "description": "The overall mulitiplicity of the molecule.",
             "type": "number",
-            "multipleOf": 1.0
+            "multipleOf": 1.0,
+            "default": 1
         },
         "real": {
             "description": "A list describing if the atoms are real or ghost.",
@@ -49,7 +54,8 @@
         "fragments": {
             "description":
             "A list of indices (0-indexed) for molecular fragments within the topology.",
-            "type": "array",
+            "type":
+            "array",
             "items": {
                 "type": "array",
                 "items": {
@@ -75,11 +81,13 @@
         },
         "fix_com": {
             "description": "Whether to adjust to the molecule to the COM or not.",
-            "type": "boolean"
+            "type": "boolean",
+            "default": False
         },
         "fix_orientation": {
             "description": "Whether to rotate the molecule to a standard orientation or not.",
-            "type": "boolean"
+            "type": "boolean",
+            "default": False
         },
         "provenance": {
             "type": "object",

@@ -44,7 +44,7 @@ when a DFT-D method is requested.`
 """
 }
 
-scf_properties["scf_dipole"] = {
+scf_properties["scf_dipole_moment"] = {
     "type": "array",
     "description": "The X, Y, and Z dipole components.",
     "type": "array",

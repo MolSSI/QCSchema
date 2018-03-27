@@ -6,15 +6,15 @@ import pytest
 import os
 
 import test_helpers
+import qc_schema
 
 # Loop over all tests that should pass the tests
-@pytest.mark.parametrize("version", test_helpers.list_versions())
+@pytest.mark.parametrize("version", qc_schema.list_versions())
 @pytest.mark.parametrize("testfile", test_helpers.list_tests("simple"))
 def test_schema_validation(version, testfile):
 
-    schema = test_helpers.find_schema(version, "output")
     example = test_helpers.get_test(testfile)
-    jsonschema.validate(example, schema)
+    qc_schema.validate(example, "output")
 
 
 
