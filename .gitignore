@@ -106,3 +106,4 @@ ENV/
 # Dev schema
 schema/input_qc_schema.schema
 schema/output_qc_schema.schema
+docs/source/auto*rst

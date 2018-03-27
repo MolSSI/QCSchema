@@ -68,3 +68,9 @@ Contents
    spec_components
    tech_specs
 
+.. toctree::
+   :maxdepth: 1
+   :caption: Schema
+   
+   auto_topology
+   auto_props

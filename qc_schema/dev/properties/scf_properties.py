@@ -18,8 +18,9 @@ scf_properties["nuclear_repulsion_energy"] = {
     "type":
     "number",
     "description":
-    """
+    r"""
 The nuclear repulsion energy contribution [H] to the total SCF energy.
+
 .. math:: E_{NN} = \sum_{i, j<i}^{N_{atom}}\frac{Z_i Z_j}{|\mathbf{R}_i - \mathbf{R}_j|}
 """
 }
