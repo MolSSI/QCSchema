@@ -18,6 +18,7 @@ before_install:
   - python -V
   - pip install --upgrade pip setuptools
   - pip install pytest jsonschema
+  - pip install -e .
 
 script:
   - py.test -v

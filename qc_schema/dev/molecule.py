@@ -19,7 +19,7 @@ molecule = {
             }
         },
         "masses": {
-            "description": "The mass of the molecule, canonical weights assumed if not given.",
+            "description": "The masses of the atoms in the molecule, canonical weights assumed if not given.",
             "type": "array",
             "items": {
                 "type": "number"
@@ -39,7 +39,7 @@ molecule = {
             "default": 0.0
         },
         "multiplicity": {
-            "description": "The overall mulitiplicity of the molecule.",
+            "description": "The overall multiplicity of the molecule.",
             "type": "number",
             "multipleOf": 1.0,
             "default": 1
