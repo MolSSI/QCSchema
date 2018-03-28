@@ -23,6 +23,7 @@ def write_line_items(data, key, item):
         data.append("No description available")
     data.append("")
 
+### Schema Properties
 
 prop_file = ["Schema Properties"]
 prop_file.append("=" * len(prop_file[-1]))
@@ -50,21 +51,83 @@ with open("auto_props.rst", "w") as outfile:
     outfile.write("\n".join(prop_file))
 
 
-### Write out Topology
+### Schema Topology
 
 top_file = ["Schema Topology"]
 top_file.append("=" * len(top_file[-1]))
 
-intro = """
-A list of valid quantum chemistry properties tracked by the schema.
-"""
-
-top_file.extend(intro.split())
+top_file.extend("""
+A full description of the overall molecule its geometry, fragments, and charges.
+""".splitlines())
 
 topo_props = qc_schema.dev.molecule.molecule["properties"]
+topo_req = qc_schema.dev.molecule.molecule["required"]
+
+table_widths = [27, 80, 20]
+fmt_string = '   | {:%s} | {:%s} | {:%s} |' % tuple(table_widths)
+dash_inds = tuple("-" * w for w in table_widths)
+equals_inds = tuple("=" * w for w in table_widths)
+
+write_header(top_file, "Required Keys")
+
+top_file.extend("""
+The following properties are required for a topology.
+
+""".splitlines())
+
+top_file.append("   +-{}-+-{}-+-{}-+".format(*dash_inds))
+top_file.append(fmt_string.format("Key Name", "Description", "Field Type"))
+top_file.append("   +={}=+={}=+={}=+".format(*equals_inds))
+
+for key in topo_req:
+    value = topo_props[key]
+
+    dtype = value["type"]
+
+    if value["type"] == "object":
+        description = value["$ref"]
+    else:
+        description = value["description"]
+
+    if value["type"] == "array":
+        dtype = "array of " + value["items"]["type"] + "s"
+
+    if len(description) >= table_widths[1]:    
+        while len(description) > 0:
+            top_file.append(fmt_string.format(key, description, dtype))
+            top_file.append("   +-{}-+-{}-+-{}-+".format(*dash_inds))
+    else:
+        top_file.append(fmt_string.format(key, description, dtype))
+    top_file.append("   +-{}-+-{}-+-{}-+".format(*dash_inds))
+
+# Optional properties
+write_header(top_file, "Optional Keys")
+
+top_file.extend("""
+The following keys are optional for the topology specification.
+
+""".splitlines())
+
+top_file.append("   +-{}-+-{}-+-{}-+".format(*dash_inds))
+top_file.append(fmt_string.format("Key Name", "Description", "Field Type"))
+top_file.append("   +={}=+={}=+={}=+".format(*equals_inds))
 
 for key, value in topo_props.items():
-    write_line_items(top_file, key, value)
+    if key in topo_req:
+        continue
+
+    dtype = value["type"]
+
+    if value["type"] == "object":
+        description = value["$ref"]
+    else:
+        description = value["description"]
+
+    if value["type"] == "array":
+        dtype = "array of " + value["items"]["type"] + "s"
+    
+    top_file.append(fmt_string.format(key, description, dtype))
+    top_file.append("   +-{}-+-{}-+-{}-+".format(*dash_inds))
 
 # Write out the file
 with open("auto_topology.rst", "w") as outfile:
