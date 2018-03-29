@@ -21,7 +21,10 @@ before_install:
   - pip install -e .
 
 script:
-  - py.test -v
+  - make test
+
+after_success:
+  - make docs
 
 notifications:
     email: false
