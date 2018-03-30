@@ -1,0 +1,18 @@
+{
+    "molecule": {
+        "geometry": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+        ]
+    },
+    "driver": "energy",
+    "keywords": {
+        "method": "SCF",
+        "basis": "sto-3g"
+    }
+}
+
