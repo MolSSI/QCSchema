@@ -80,7 +80,7 @@ molecule = {
             }
         },
         "fix_com": {
-            "description": "Whether to adjust to the molecule to the COM or not.",
+            "description": "Whether to adjust to the molecule to the center of mass or not.",
             "type": "boolean",
             "default": False
         },

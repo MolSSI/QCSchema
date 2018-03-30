@@ -32,6 +32,7 @@ A concrete list of requirements for this schema can be found [here](Requirements
  - `Avogadro <https://avogadro.cc>`_
  - `Molecular Design Toolkit <https://github.com/Autodesk/molecular-design-toolkit>`_
  - `VTK <http://www.vtk.org>`_
+ - `Jmol / JSmol <http://jmol.org/>`_
 
 **Quantum Chemistry Engines:**
  - `MPQC <https://github.com/ValeevGroup/mpqc>`_
@@ -40,6 +41,7 @@ A concrete list of requirements for this schema can be found [here](Requirements
 
 **Translators:**
  - `cclib <http://cclib.github.io>`_
+ - `openbabel <http://openbabel.org/>`_
 
 
 Existing JSON Efforts

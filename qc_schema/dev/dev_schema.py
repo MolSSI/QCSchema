@@ -11,9 +11,11 @@ from . import properties
 # The base schema definition
 base_schema = {
     "$schema": "http://json-schema.org/draft-06/schema#",
+    "name": "QC_JSON",
+    "version": "0.1.dev",
+    "url": "http://schema_host.org/schemas/v0.1/something.schema",
     "description": "The MolSSI Quantum Chemistry Schema",
     "type": "object",
-    "version": "0.1.dev",
     "properties": {
         "molecule": molecule.molecule,
         "driver": {
@@ -24,8 +26,16 @@ base_schema = {
             "type": "object"
         },
         "provenance": {
-            "type": "object",
-            "$ref": "#/definitions/provenance"
+            "anyOf": [{
+                "type": "object",
+                "$ref": "#/definitions/provenance"
+            }, {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "$ref": "#/definitions/provenance"
+                }
+            }]
         }
     },
     "required": ["molecule", "driver", "keywords"],
