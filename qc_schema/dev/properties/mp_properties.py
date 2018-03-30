@@ -18,12 +18,12 @@ mp_properties["mp2_opposite_spin_correlation_energy"] = {
     "The unscaled portion of the MP2 correlation energy from opposite-spin or singlet doubles correlations."
 }
 
-mp_properties["mp2_single_energy"] = {
+mp_properties["mp2_singles_energy"] = {
     "type": "number",
     "description": "The singles portion of the MP2 correlation energy. Zero except in ROHF."
 }
 
-mp_properties["mp2_double_energy"] = {
+mp_properties["mp2_doubles_energy"] = {
     "type":
     "number",
     "description":

@@ -12,7 +12,7 @@ molecule = {
             }
         },
         "geometry": {
-            "description": "The 3N XYZ coordinates of the atoms involved.",
+            "description": "The (3N, ) vector of XYZ coordinates of the atoms.",
             "type": "array",
             "items": {
                 "type": "number"
