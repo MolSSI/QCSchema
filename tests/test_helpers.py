@@ -22,22 +22,15 @@ def _read_json_file(*filename):
 _test_path = os.path.dirname(os.path.abspath(__file__))
 _base_path = os.path.dirname(_test_path)
 
-
-def test_folder():
-    """
-    Returns the testing folder.
-    """
-    return _test_path
-
-def list_tests(folder):
+def list_tests(folder, ext=".json", matcher=""):
     """
     Lists all tests in a given folder.
     """
-    files = glob.glob(os.path.join(_test_path, folder, "*"))
-    files = [x.replace(_test_path, "") for x in files]
+    files = glob.glob(os.path.join(_test_path, folder, "*" + matcher + "*" + ext))
+    names = [os.path.basename(x).replace(ext, "") for x in files]
 
-    return files
+    return files, names
 
 def get_test(name):
-    return _read_json_file(_test_path + name)
+    return _read_json_file(name)
     

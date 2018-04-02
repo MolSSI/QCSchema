@@ -13,13 +13,15 @@
         "symbols": [
             "He",
             "He"
-        ],
-        "multiplicity": 5.5
+        ]
     },
     "driver": "energy",
-    "keywords": {
+    "model": {
         "method": "SCF",
         "basis": "sto-3g"
+    },
+    "keywords":{
+        "scf_type": "df"
     }
 }
 
