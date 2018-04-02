@@ -1,0 +1,28 @@
+{
+  "schema_name": "QC_JSON",
+  "schema_version": "v0.1",
+  "molecule": {
+    "geometry": [
+      0.0,
+      0.0,
+      -0.1294769411935893,
+      0.0,
+      -1.494187339479985,
+      1.0274465079245698,
+      0.0,
+      1.494187339479985,
+      1.0274465079245698
+    ],
+    "symbols": [
+      "O",
+      "H",
+      "H"
+    ]
+  },
+  "driver": "energy",
+  "model": {
+    "method": "B3LYP",
+    "basis": "cc-pVDZ"
+  },
+  "keywords": {}
+}
