@@ -31,7 +31,7 @@
   "properties": {
     "calcinfo_nbasis": 10,
     "calcinfo_nmo": 10,
-    "calcinfo_nalapha": 2,
+    "calcinfo_nalpha": 2,
     "calcinfo_nbeta": 2,
     "calcinfo_natom": 2,
     "scf_one_electron_energy": -9.10156722786234,

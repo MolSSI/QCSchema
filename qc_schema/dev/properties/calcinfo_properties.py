@@ -16,7 +16,7 @@ calcinfo_properties["calcinfo_nmo"] = {
     "description": "The number of molecular orbitals for the computation."
 }
 
-calcinfo_properties["calcinfo_nalapha"] = {
+calcinfo_properties["calcinfo_nalpha"] = {
     "type": "number",
     "multipleOf": 1.0,
     "description": "The number of alpha electrons in the computation."
