@@ -37,9 +37,20 @@ base_schema = {
                 },
                 "basis": {
                     "type": "string"
+                },
+                "basis_spec": {
+                    "$ref": "#/definitions/basis_spec"
                 }
             },
-            "required": ["method", "basis"],
+            "required": [ "method" ],
+            "oneOf": [
+                {
+                    "required": ["basis"]
+                },
+                {
+                    "required": ["basis_spec"]
+                }
+            ],
             "description": "The quantum chemistry model to be run."
         },
         "keywords": {
