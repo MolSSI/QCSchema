@@ -35,13 +35,18 @@ A concrete list of requirements for this schema can be found [here](Requirements
  - `Jmol / JSmol <http://jmol.org/>`_
 
 **Quantum Chemistry Engines:**
+ - `GAMESS <http://www.msg.ameslab.gov/gamess/>`_
  - `MPQC <https://github.com/ValeevGroup/mpqc>`_
  - `NWChem <http://www.nwchem-sw.org/index.php/Main_Page>`_
  - `Psi4 <https://github.com/psi4/psi4>`_
+ - `PySCF <http://sunqm.github.io/pyscf/>`_
 
 **Translators:**
  - `cclib <http://cclib.github.io>`_
  - `openbabel <http://openbabel.org/>`_
+ 
+ **Utilities:**
+  - _`geomeTRIC <https://github.com/leeping/geomeTRIC>`_
 
 
 Existing JSON Efforts
