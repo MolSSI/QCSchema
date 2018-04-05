@@ -1,4 +1,6 @@
 {
+    "schema_name": "QC_JSON",
+    "schema_version": "v0.1",
     "provenance": {
         "creator": "My QM Program",
         "version": "1.1rc1",

@@ -18,12 +18,33 @@ base_schema = {
     "type": "object",
     "properties": {
         "molecule": molecule.molecule,
+        "schema_name": {
+            "type": "string",
+            "pattern": "\W*(QC_JSON)\W*"
+        },
+        "schema_version": {
+            "type": "string"
+        },
         "driver": {
             "definition": "The type of computation requested",
-            "enum": ["energy", "gradient", "hessian", "property"]
+            "enum": ["energy", "gradient", "hessian"]
+        },
+        "model": {
+            "definition": "The method and basis specification requested",
+            "properties": {
+                "method": {
+                    "type": "string"
+                },
+                "basis": {
+                    "type": "string"
+                }
+            },
+            "required": ["method", "basis"],
+            "description": "The quantum chemistry model to be run."
         },
         "keywords": {
-            "type": "object"
+            "type": "object",
+            "description": "Program specific parameters to be used."
         },
         "provenance": {
             "anyOf": [{
@@ -38,7 +59,7 @@ base_schema = {
             }]
         }
     },
-    "required": ["molecule", "driver", "keywords"],
+    "required": ["schema_name", "schema_version", "molecule", "driver", "keywords", "model"],
     "definitions": definitions.definitions
 }
 
@@ -49,9 +70,19 @@ output_properties = {
         "type": "boolean"
     },
     "error": {
+        "definition": "The type and description of error raised.",
         "type": "object",
         "$ref": "#/definitions/error"
     },
+    "return_result": {
+        "definition": "The primary specified return of the requested computation.",
+        "anyOf": [{
+            "type": "number"
+        }, {
+            "type": "array",
+            "items": {"type": "number"}
+        }]
+    }
 }
 
 # Snapshot the input dev schema
@@ -59,7 +90,7 @@ input_dev_schema = copy.deepcopy(base_schema)
 
 # Add additional output pieces
 base_schema["properties"].update(output_properties)
-base_schema["required"].extend(["provenance", "properties", "success"])
+base_schema["required"].extend(["provenance", "properties", "success", "return_result"])
 
 # Snapshot the input dev schema
 output_dev_schema = copy.deepcopy(base_schema)

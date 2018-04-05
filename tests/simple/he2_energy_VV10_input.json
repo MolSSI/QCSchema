@@ -1,0 +1,24 @@
+{
+  "schema_name": "QC_JSON",
+  "schema_version": "v0.1",
+  "molecule": {
+    "geometry": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      6
+    ],
+    "symbols": [
+      "He",
+      "He"
+    ]
+  },
+  "driver": "energy",
+  "model": {
+    "method": "VV10",
+    "basis": "cc-pVDZ"
+  },
+  "keywords": {}
+}
