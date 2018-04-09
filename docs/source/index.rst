@@ -45,8 +45,8 @@ A concrete list of requirements for this schema can be found [here](Requirements
  - `cclib <http://cclib.github.io>`_
  - `openbabel <http://openbabel.org/>`_
  
- **Utilities:**
-  - _`geomeTRIC <https://github.com/leeping/geomeTRIC>`_
+**Utilities:**
+ - `geomeTRIC <https://github.com/leeping/geomeTRIC>`_
 
 
 Existing JSON Efforts
