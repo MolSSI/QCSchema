@@ -74,7 +74,6 @@ definitions["basis_electron_shell"] = {
                 "type": "integer",
                 "minimum": 0
             }
-
         },
         "shell_exponents": {
             "description": "Exponents for this contracted shell",
@@ -154,9 +153,8 @@ definitions["basis_ecp_potential"] = {
     }
 }
 
-
 definitions["basis_single_data"] = {
-    "description": "Data for a single element or atom in the basis set",
+    "description": "Data for a single atom/center in the basis set",
     "type": "object",
     "additionalProperties": False,
     "properties": {
