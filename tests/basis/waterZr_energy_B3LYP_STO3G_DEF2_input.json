@@ -28,12 +28,12 @@
     "method": "B3LYP",
     "basis_spec": {
       "basis_set_description": "6-31G on all Hydrogen and Oxygen atoms",
+      "basis_function_type": "gto",
+      "basis_harmonic_type": "spherical",
       "basis_set_elements": {
         "1": {
           "element_electron_shells": [
             {
-              "shell_function_type": "gto",
-              "shell_harmonic_type": "spherical",
               "shell_region": "valence",
               "shell_angular_momentum": [
                 0
@@ -56,8 +56,6 @@
         "8": {
           "element_electron_shells": [
             {
-              "shell_function_type": "gto",
-              "shell_harmonic_type": "spherical",
               "shell_region": "valence",
               "shell_angular_momentum": [
                 0
@@ -76,8 +74,6 @@
               ]
             },
             {
-              "shell_function_type": "gto",
-              "shell_harmonic_type": "spherical",
               "shell_region": "valence",
               "shell_angular_momentum": [
                 0,
@@ -108,8 +104,6 @@
         "3": {
           "element_electron_shells": [
             {
-              "shell_function_type": "gto",
-              "shell_harmonic_type": "spherical",
               "shell_region": "valence",
               "shell_angular_momentum": [
                 0
@@ -181,8 +175,6 @@
               ]
             },
             {
-              "shell_function_type": "gto",
-              "shell_harmonic_type": "spherical",
               "shell_region": "valence",
               "shell_angular_momentum": [
                 1
@@ -236,8 +228,6 @@
               ]
             },
             {
-              "shell_function_type": "gto",
-              "shell_harmonic_type": "spherical",
               "shell_region": "valence",
               "shell_angular_momentum": [
                 2
@@ -274,8 +264,6 @@
               ]
             },
             {
-              "shell_function_type": "gto",
-              "shell_harmonic_type": "spherical",
               "shell_region": "valence",
               "shell_angular_momentum": [
                 3

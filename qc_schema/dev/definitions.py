@@ -44,22 +44,11 @@ definitions["basis_electron_shell"] = {
     "description": "Information for a single electronic shell",
     "additionalProperties": False,
     "required": [
-        "shell_harmonic_type",
         "shell_angular_momentum",
         "shell_exponents",
         "shell_coefficients"
     ],
     "properties": {
-        "shell_function_type": {
-            "description": "Type of function for this shell",
-            "type": "string",
-            "enum": [ "gto", "sto" ]
-        },
-        "shell_harmonic_type": {
-            "description": "Harmonic type (spherical, cartesian)",
-            "type": "string",
-            "enum": [ "spherical", "cartesian" ]
-        },
         "shell_region": {
             "description": "The region this shell describes",
             "type": "string",
@@ -195,6 +184,16 @@ definitions["basis_spec"] = {
             "description": "Brief description of the basis set",
             "type": "string"
         },  
+        "basis_function_type": {
+            "description": "Type of function for this basis",
+            "type": "string",
+            "enum": [ "gto", "sto" ]
+        },
+        "basis_harmonic_type": {
+            "description": "Harmonic type (spherical, cartesian)",
+            "type": "string",
+            "enum": [ "spherical", "cartesian" ]
+        },
         "basis_set_elements": {
             "description": "Per-element basis data",
             "type": "object",
