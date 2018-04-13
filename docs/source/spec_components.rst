@@ -3,8 +3,7 @@ Specification Components
 
 A brief overview of the fields present in the QC Schema is contained below.
 It should be noted that a signifigant amount of customization can be added to each
-field, please see the Schema or Examples section for further information on each
-section.
+field, please see the Schema or Examples document section for further information.
 
 Input Components
 ----------------
@@ -55,11 +54,7 @@ Model
 
 The overall mathematical model we are using for our calculation. Another way to
 think about this is the largest superset that still obtains roughly the same
-result. For example, Direct and Disk-based Hartree-Fock at different Schwarz
-thresholds could be the same "method". However, density-fitted, LinK, or
-Cholesky-based Hartree-Fock should be separate methods.
-
-In QM, this is the Hamiltonian (HF, DFT, ...) combined with the overall basis of
+result. In QM, this is the Hamiltonian (HF, DFT, ...) combined with the overall basis of
 the calculation. An example in QM would be HF/STO-3G or B3LYP/6-311G**. Custom
 basis sets can be handled with custom keywords.
 
@@ -110,21 +105,66 @@ A successful example:
     "success": true,
   {
 
-An unsuccessful example
+An unsuccessful example:
+
+.. code:: python
+
+  {
+    "success": false,
+    "error": {
+      "error_type": "convergence_error",
+      "errorm_message": "SCF failed to converge after 50 iterations"
+  {
 
 
 Returned Result
 ~~~~~~~~~~~~~~~
 The "primary" return of a given computation. For energy, gradient, and Hessian quantities these are either single numbers or a array representing the derivative quantity.
 
+A simple "energy" driver example:
+
+.. code:: python
+
+  {
+     "return_result": -76.4187620271478
+  {
+
 Provenance
 ~~~~~~~~~~
-Describes the program used, version, environment su
+A brief description of the program, version, and routine used to generate the output. Can
+include more detailed information such as computation time, processor information, and host location.
+
+.. code:: python
+
+  {
+    "provenance": {
+      "creator": "QM Program",
+      "version": "1.1",
+      "routine": "module.json.run_json"
+    },
+  }
 
 Properties
 ~~~~~~~~~~
 A set of intermediate values produced by the QM program such as the one-elecron and two-electron erngies in SCF.
 In addition, this will include such values such as the number of atomic orbitals and the number of alpha and beta electrons.
+
+An example properties from a water HF/cc-pVDZ computation:
+
+.. code:: python
+
+  {
+    "properties": {
+      "calcinfo_nbasis": 24,
+      "calcinfo_nmo": 24,
+      "calcinfo_nalpha": 5,
+      "calcinfo_nbeta": 5,
+      "scf_one_electron_energy": -122.44534536383044,
+      "scf_two_electron_energy": 37.622464940400654,
+      "nuclear_repulsion_energy": 8.80146205625184,
+      "scf_total_energy": -76.02141836717794
+    }
+  }
 
 Know variable lists include:
 
@@ -144,7 +184,7 @@ Know variable lists include:
 Basis Quantities
 ~~~~~~~~~~~~~~~~
 
-The schema supports the export of basis quantities such as the overlap matrix or the orbitals.
+The schema supports the export of basis quantities such as the overlap matrix or the orbitals. TBD
 
 
 

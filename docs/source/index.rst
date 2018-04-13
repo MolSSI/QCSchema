@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Quantum Chemistry Schema
-=========================================================
+========================
 A JSON Schema for Quantum Chemistry
 
 
@@ -51,7 +51,8 @@ A concrete list of requirements for this schema can be found [here](Requirements
 
 Existing JSON Efforts
 ----------------------
-proposed spec. The idea is to pull from this diverse group and coalesce into a
+JSON or XML based input or output is a common abstraction with quantum chemistry.
+The idea is to pull from this diverse group and coalesce into a
 single specification to prevent duplication of effort.
 
  * `Autodesk JSON <https://github.com/Autodesk/molecular-design-toolkit/wiki/Molecular-JSON-Draft-Spec#molecule>`_
@@ -73,8 +74,8 @@ Contents
    :caption: Contents
    
    spec_components
-   tech_specs
    faq
+   tech_specs
 
 .. toctree::
    :maxdepth: 1
