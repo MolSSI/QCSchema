@@ -2,7 +2,7 @@ Specification Components
 ========================
 
 A brief overview of the fields present in the QC Schema is contained below.
-It should be noted that a signifigant amount of customization can be added to each
+It should be noted that a significant amount of customization can be added to each
 field, please see the Schema or Examples document section for further information.
 
 Input Components
@@ -95,7 +95,7 @@ The input components are duplicated in the output so that the result is a comple
 
 Success
 ~~~~~~~
-A description if the computation was successful or not. For unsuccessful computations standard errors will be placed in the output such as covergence errors, IO errors, etc.
+A description if the computation was successful or not. For unsuccessful computations standard errors will be placed in the output such as convergence, IO errors, etc.
 
 A successful example:
 
@@ -146,7 +146,7 @@ include more detailed information such as computation time, processor informatio
 
 Properties
 ~~~~~~~~~~
-A set of intermediate values produced by the QM program such as the one-elecron and two-electron erngies in SCF.
+A set of intermediate values produced by the QM program such as the one-elecron and two-electron energies in SCF.
 In addition, this will include such values such as the number of atomic orbitals and the number of alpha and beta electrons.
 
 An example properties from a water HF/cc-pVDZ computation:

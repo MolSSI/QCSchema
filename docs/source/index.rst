@@ -8,20 +8,20 @@ Quantum Chemistry Schema
 A JSON Schema for Quantum Chemistry
 
 
-The purpose of this schema is to provide API like access to pre-existing quantum
-chemistry packages to enable more complex workflows.  The core of this is to
-avoid parsing ASCII-based output files and place output variables, vectors,
-matrices in a consistent format that can be easily parsed.
+The purpose of this schema is to provide API-like access to existing workhorse quantum
+chemistry packages to enable more complex and unified workflows.  Primary to this is
+avoiding parsing ASCII-based output files, instead placing output variables, vectors,
+matrices in a consistent format that can be easily read/loaded by humans or tools.
 
-High Level Aspirations
+High-Level Aspirations
 ----------------------
-In order to help define the overall scope and direction of the specification several high level goals will be pursued:
+In order to help define the overall scope and direction of the specification, several high-level goals will be pursued:
 
- * Ability to connect to visualizers and GUI's
- * Connect to existing Workflows tools
- * Transfer data between QM programs (Orbitals, Densities, etc)
- * Provide a rigorous record of computation for large scale QM databases
- * Provide a framework for QM API access
+ * Connecting QC to visualizers and GUIs
+ * Connecting QC to existing Workflows tools
+ * Transfer data between QC programs (Orbitals, Densities, etc.)
+ * Provide a rigorous record of computation for large-scale QC databases
+ * Provide a framework for QC API access
 
 A concrete list of requirements for this schema can be found [here](Requirements.md).
 
@@ -52,7 +52,7 @@ A concrete list of requirements for this schema can be found [here](Requirements
 Existing JSON Efforts
 ----------------------
 JSON or XML based input or output is a common abstraction with quantum chemistry.
-The idea is to pull from this diverse group and coalesce into a
+The idea is to pull from the wide and coalesce into a
 single specification to prevent duplication of effort.
 
  * `Autodesk JSON <https://github.com/Autodesk/molecular-design-toolkit/wiki/Molecular-JSON-Draft-Spec#molecule>`_
