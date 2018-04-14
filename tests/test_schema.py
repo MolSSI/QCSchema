@@ -32,4 +32,13 @@ def test_simple_output(version, testfile):
 
 
 
+### Test basis inputs
+basis_input = test_helpers.list_tests("basis", matcher="input")
 
+# Loop over all tests that should pass the tests
+@pytest.mark.parametrize("testfile", basis_input[0], ids=basis_input[1])
+@pytest.mark.parametrize("version", qc_schema.list_versions())
+def test_simple_input(version, testfile):
+
+    example = test_helpers.get_test(testfile)
+    qc_schema.validate(example, "input")
