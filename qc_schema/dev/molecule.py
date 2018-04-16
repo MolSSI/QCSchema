@@ -5,21 +5,21 @@ molecule = {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "properties": {
         "symbols": {
-            "description": "The atom symbol for each atom in the molecule.",
+            "description": "(nat, ) atom symbols in title case.",
             "type": "array",
             "items": {
                 "type": "string"
             }
         },
         "geometry": {
-            "description": "The (3N, ) vector of XYZ coordinates of the atoms.",
+            "description": "(3 * nat, ) vector of XYZ coordinates of the atoms.",
             "type": "array",
             "items": {
                 "type": "number"
             }
         },
         "masses": {
-            "description": "The masses of the atoms in the molecule, canonical weights assumed if not given.",
+            "description": "(nat, ) atom masses [u]; canonical weights assumed if not given.",
             "type": "array",
             "items": {
                 "type": "number"
@@ -33,19 +33,19 @@ molecule = {
             "description": "Any additional comment one would attach to the molecule.",
             "type": "string"
         },
-        "charge": {
+        "molecular_charge": {
             "description": "The overall charge of the molecule.",
             "type": "number",
             "default": 0.0
         },
-        "multiplicity": {
+        "molecular_multiplicity": {
             "description": "The overall multiplicity of the molecule.",
             "type": "number",
             "multipleOf": 1.0,
             "default": 1
         },
         "real": {
-            "description": "A list describing if the atoms are real or ghost.",
+            "description": "(nat, ) list describing if atoms are real (T) or ghost (F).",
             "type": "array",
             "items": {
                 "type": "boolean"
@@ -53,9 +53,8 @@ molecule = {
         },
         "fragments": {
             "description":
-            "A list of indices (0-indexed) for molecular fragments within the topology.",
-            "type":
-            "array",
+            "(nfr, -1) list of indices (0-indexed) grouping atoms into molecular fragments within the topology.",
+            "type": "array",
             "items": {
                 "type": "array",
                 "items": {
@@ -65,14 +64,14 @@ molecule = {
             }
         },
         "fragment_charges": {
-            "description": "A list of charges associated with the fragments tuple.",
+            "description": "(nfr, ) list of charges associated with each fragment tuple.",
             "type": "array",
             "items": {
                 "type": "number"
             }
         },
         "fragment_multiplicities": {
-            "description": "A list of multiplicites associated with each fragment.",
+            "description": "(nfr, ) list of multiplicities associated with each fragment tuple.",
             "type": "array",
             "items": {
                 "type": "number",
@@ -80,12 +79,12 @@ molecule = {
             }
         },
         "fix_com": {
-            "description": "Whether to adjust to the molecule to the center of mass or not.",
+            "description": "Whether translation of geometry is allowed (fix F) or disallowed (fix T).",
             "type": "boolean",
             "default": False
         },
         "fix_orientation": {
-            "description": "Whether to rotate the molecule to a standard orientation or not.",
+            "description": "Whether rotation of geometry is allowed (fix F) or disallowed (fix T).",
             "type": "boolean",
             "default": False
         },
