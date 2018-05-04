@@ -23,7 +23,7 @@ base_schema = {
             "pattern": "\W*(QC_JSON)\W*"
         },
         "schema_version": {
-            "type": "string"
+            "type": "integer"
         },
         "driver": {
             "definition": "The type of computation requested",
