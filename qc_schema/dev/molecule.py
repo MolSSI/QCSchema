@@ -51,6 +51,20 @@ molecule = {
                 "type": "boolean"
             }
         },
+        "connectivity": {
+            "description": "(nat, ) list describing bonds within a molecule. Each element is a (atom1, atom2, order) tuple.",
+            "type": "array",
+            "items": {
+                "type": "array",
+                "minItems": 3,
+                "maxItems": 3,
+                "items": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 5,
+                }
+            }
+        },
         "fragments": {
             "description":
             "(nfr, -1) list of indices (0-indexed) grouping atoms into molecular fragments within the topology.",
