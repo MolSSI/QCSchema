@@ -33,3 +33,8 @@ calcinfo_properties["calcinfo_natom"] = {
     "multipleOf": 1.0,
     "description": "The number of atoms in the computation."
 }
+
+calcinfo_properties["return_energy"] = {
+    "type": "number",
+    "description": "The energy of the requested method, idential to `return_value` for energy computations."
+}

@@ -34,6 +34,7 @@
     "calcinfo_nalpha": 2,
     "calcinfo_nbeta": 2,
     "calcinfo_natom": 2,
+    "return_energy": -5.815121364568496,
     "scf_one_electron_energy": -9.10156722786234,
     "scf_two_electron_energy": 4.782528510470115,
     "nuclear_repulsion_energy": 0.6666666666666666,
