@@ -76,6 +76,7 @@ Contents
    spec_components
    faq
    tech_specs
+   examples
 
 .. toctree::
    :maxdepth: 1
