@@ -13,32 +13,41 @@ import schema_doc_helpers as sh
 
 scf_props = qc_schema.dev.properties.scf_properties.scf_properties
 mp_props = qc_schema.dev.properties.mp_properties.mp_properties
+calcinfo_props = qc_schema.dev.properties.calcinfo_properties.calcinfo_properties
 
 ### Schema Properties
 
 prop_file = ["Schema Properties"]
 prop_file.append("=" * len(prop_file[-1]))
 
-intro = """
+prop_file.extend("""
 A list of valid quantum chemistry properties tracked by the schema.
-"""
+""".splitlines())
 
-prop_file.extend(intro.split())
+prop_categories = [
+    ("Calculation Information", """
+A list of fields that involve basic information of the requested computation.
+""", calcinfo_props),
+    ("Self-Consistent Field", """
+A list of fields added at the self-consistent field (SCF) level. This includes
+both Hartree--Fock and Density Functional Theory.
+""", scf_props),
+    ("Moller-Plesset", """
+A list of fields added at the Moller-Plesset (MP) level.
+""", mp_props),
+]
 
-# Write out SCF properties
-sh.write_header(prop_file, "SCF Properties")
+for cat in prop_categories:
+    sh.write_header(prop_file, cat[0])
 
-sh.write_key_table(prop_file, scf_props) 
+    prop_file.extend(cat[1].splitlines())
+    prop_file.append("")
 
-# Write out MP properties
-sh.write_header(prop_file, "Moller-Plesset Properties")
-
-sh.write_key_table(prop_file, mp_props) 
+    sh.write_key_table(prop_file, cat[2])
 
 # Write out the file
 with open("auto_props.rst", "w") as outfile:
     outfile.write("\n".join(prop_file))
-
 
 ### Schema Topology
 
@@ -59,7 +68,7 @@ The following properties are required for a topology.
 
 """.splitlines())
 
-sh.write_key_table(top_file, topo_props, topo_req) 
+sh.write_key_table(top_file, topo_props, topo_req)
 
 ### Optional properties
 sh.write_header(top_file, "Optional Keys")
@@ -69,8 +78,7 @@ The following keys are optional for the topology specification.
 
 """.splitlines())
 
-sh.write_key_table(top_file, topo_props, set(topo_props.keys()) - set(topo_req)) 
-
+sh.write_key_table(top_file, topo_props, set(topo_props.keys()) - set(topo_req))
 
 # Write out the file
 with open("auto_topology.rst", "w") as outfile:
