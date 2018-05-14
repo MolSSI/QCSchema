@@ -79,7 +79,7 @@ Contents
 
 .. toctree::
    :maxdepth: 1
-   :caption: Schema
+   :caption: Schema Keywords
    
    auto_topology
    auto_props

@@ -20,9 +20,8 @@ scf_properties["nuclear_repulsion_energy"] = {
     "description":
     r"""
 The nuclear repulsion energy contribution to the total SCF energy.
-
-.. math:: E_{NN} = \sum_{i, j<i}^{N_{atom}}\frac{Z_i Z_j}{|\mathbf{R}_i - \mathbf{R}_j|}
 """
+# .. math:: E_{NN} = \sum_{i, j<i}^{N_{atom}}\frac{Z_i Z_j}{|\mathbf{R}_i - \mathbf{R}_j|}
 }
 
 scf_properties["scf_vv10_energy"] = {
@@ -41,7 +40,7 @@ scf_properties["scf_dispersion_correction_energy"] = {
     "description":
     """
 The dispersion correction appended to an underlying functional
-when a DFT-D method is requested.`
+when a DFT-D method is requested.
 """
 }
 
