@@ -11,8 +11,8 @@ from . import properties
 # The base schema definition
 base_schema = {
     "$schema": "http://json-schema.org/draft-06/schema#",
-    "name": "QC_JSON",
-    "version": "0.1.dev",
+    "name": "qc_json",
+    "version": "1.dev",
     "url": "http://schema_host.org/schemas/0/something.schema",
     "description": "The MolSSI Quantum Chemistry Schema",
     "type": "object",
@@ -20,7 +20,7 @@ base_schema = {
         "molecule": molecule.molecule,
         "schema_name": {
             "type": "string",
-            "pattern": "\W*(QC_JSON)\W*"
+            "pattern": "\W*(qc_json)\W*"
         },
         "schema_version": {
             "type": "integer"
