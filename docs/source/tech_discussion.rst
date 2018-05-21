@@ -1,5 +1,5 @@
-Technical Specifications
-========================
+Technical Discussion
+====================
 This document contains various technical considerations that are both open and those which have been discussed and closed.
 
 Open Questions
