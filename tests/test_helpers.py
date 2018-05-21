@@ -9,7 +9,7 @@ import copy
 import json
 import subprocess
 
-import qc_schema
+import qcschema
 
 
 def _read_json_file(*filename):

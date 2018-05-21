@@ -9,7 +9,7 @@ if "%SPHINXBUILD%" == "" (
 )
 set SOURCEDIR=source
 set BUILDDIR=_build
-set SPHINXPROJ=qc_schema
+set SPHINXPROJ=qcschema
 
 if "%1" == "" goto help
 

@@ -2,8 +2,8 @@ import setuptools
 
 if __name__ == "__main__":
     setuptools.setup(
-        name='qc_schema',
-        version="0.1",
+        name='qcschema',
+        version="1",
         description='A schema for quantum chemistry',
         author='',
         url="https://github.com/MolSSI/QC_JSON_Schema",
