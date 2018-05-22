@@ -13,7 +13,6 @@ base_schema = {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "name": "qc_schema_input",
     "version": "dev",
-    "url": "http://schema_host.org/schemas/0/something.schema",
     "description": "The MolSSI Quantum Chemistry Schema",
     "type": "object",
     "properties": {
