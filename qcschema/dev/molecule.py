@@ -3,6 +3,11 @@ The json-schema for the Molecule definition
 """
 molecule = {
     "$schema": "http://json-schema.org/draft-04/schema#",
+    "name": "qc_schema_molecule",
+    "version": "dev",
+    "url": "http://schema_host.org/schemas/0/something.schema",
+    "description": "The MolSSI Quantum Chemistry Molecular Schema",
+    "type": "object",
     "properties": {
         "symbols": {
             "description": "(nat, ) atom symbols in title case.",

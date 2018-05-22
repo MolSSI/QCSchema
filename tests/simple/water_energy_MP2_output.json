@@ -1,5 +1,5 @@
 {
-  "schema_name": "qc_json",
+  "schema_name": "qc_schema_output",
   "schema_version": 1,
   "molecule": {
     "geometry": [
