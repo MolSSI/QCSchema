@@ -56,7 +56,7 @@ molecule = {
             }
         },
         "connectivity": {
-            "description": "(nat, ) list describing bonds within a molecule. Each element is a (atom1, atom2, order) tuple.",
+            "description": "A list describing bonds within a molecule. Each element is a (atom1, atom2, order) tuple.",
             "type": "array",
             "items": {
                 "type": "array",

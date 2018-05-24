@@ -12,7 +12,7 @@ from . import properties
 base_schema = {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "name": "qc_schema_input",
-    "version": "dev",
+    "version": "1.dev",
     "description": "The MolSSI Quantum Chemistry Schema",
     "type": "object",
     "properties": {
