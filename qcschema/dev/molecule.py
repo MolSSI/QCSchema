@@ -3,6 +3,10 @@ The json-schema for the Molecule definition
 """
 molecule = {
     "$schema": "http://json-schema.org/draft-04/schema#",
+    "name": "qc_schema_molecule",
+    "version": "dev",
+    "description": "The MolSSI Quantum Chemistry Molecular Schema",
+    "type": "object",
     "properties": {
         "symbols": {
             "description": "(nat, ) atom symbols in title case.",
@@ -52,7 +56,7 @@ molecule = {
             }
         },
         "connectivity": {
-            "description": "(nat, ) list describing bonds within a molecule. Each element is a (atom1, atom2, order) tuple.",
+            "description": "A list describing bonds within a molecule. Each element is a (atom1, atom2, order) tuple.",
             "type": "array",
             "items": {
                 "type": "array",

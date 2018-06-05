@@ -1,7 +1,7 @@
 """
 Very hacky way to write out the schema (for demo purposes only)
 """
-import qc_schema
+import qcschema
 import textwrap
 
 # Import headers from this
@@ -11,9 +11,9 @@ import os
 sys.path.insert(1, os.path.dirname(__file__))
 import schema_doc_helpers as sh
 
-scf_props = qc_schema.dev.properties.scf_properties.scf_properties
-mp_props = qc_schema.dev.properties.mp_properties.mp_properties
-calcinfo_props = qc_schema.dev.properties.calcinfo_properties.calcinfo_properties
+scf_props = qcschema.dev.properties.scf_properties.scf_properties
+mp_props = qcschema.dev.properties.mp_properties.mp_properties
+calcinfo_props = qcschema.dev.properties.calcinfo_properties.calcinfo_properties
 
 ### Schema Properties
 
@@ -58,8 +58,8 @@ top_file.extend("""
 A full description of the overall molecule its geometry, fragments, and charges.
 """.splitlines())
 
-topo_props = qc_schema.dev.molecule.molecule["properties"]
-topo_req = qc_schema.dev.molecule.molecule["required"]
+topo_props = qcschema.dev.molecule.molecule["properties"]
+topo_req = qcschema.dev.molecule.molecule["required"]
 
 sh.write_header(top_file, "Required Keys")
 

@@ -75,7 +75,7 @@ Contents
    
    spec_components
    faq
-   tech_specs
+   tech_discussion
    examples
 
 .. toctree::

@@ -4,7 +4,7 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
-SPHINXPROJ    = qc_schema
+SPHINXPROJ    = qcschema
 SOURCEDIR     = source
 BUILDDIR      = _build
 

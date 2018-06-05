@@ -1,6 +1,6 @@
 {
-  "schema_name": "QC_JSON",
-  "schema_version": 0,
+  "schema_name": "qc_schema_input",
+  "schema_version": 1,
   "molecule": {
     "geometry": [
       0.0,
