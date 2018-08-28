@@ -16,7 +16,7 @@ molecule = {
             }
         },
         "geometry": {
-            "description": "(3 * nat, ) vector of XYZ coordinates of the atoms.",
+            "description": "(3 * nat, ) vector of XYZ coordinates [a0] of the atoms.",
             "type": "array",
             "items": {
                 "type": "number"
