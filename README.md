@@ -1,5 +1,5 @@
-# QC_JSON_Schema
-A JSON Schema for Quantum Chemistry
+# QCSchema
+A Key-Value/Array Schema for Quantum Chemistry
 
 The purpose of this schema is to provide API like access to pre-existing quantum
 chemistry packages to enable more complex workflows.  The core of this is to
