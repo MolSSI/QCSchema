@@ -12,8 +12,8 @@ Water MP2 Energy
 .. code:: python
 
   {
-    "schema_name": "QC_JSON",
-    "schema_version": 0,
+    "schema_name": "qc_schema_output",
+    "schema_version": 1,
     "molecule": {
       "geometry": [
         0.0,  0.0,    -0.1294,
@@ -64,8 +64,8 @@ Water HF Gradient
 .. code:: python
 
   {
-    "schema_name": "QC_JSON",
-    "schema_version": 0,
+    "schema_name": "qc_schema_output",
+    "schema_version": 1,
     "molecule": {
       "geometry": [
         0.0,  0.0,    -0.1294,
