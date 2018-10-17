@@ -13,7 +13,7 @@ Water MP2 Energy
 
   {
     "schema_name": "qc_schema_output",
-    "schema_version": 0,
+    "schema_version": 1,
     "molecule": {
       "geometry": [
         0.0,  0.0,    -0.1294,
@@ -65,7 +65,7 @@ Water HF Gradient
 
   {
     "schema_name": "qc_schema_output",
-    "schema_version": 0,
+    "schema_version": 1,
     "molecule": {
       "geometry": [
         0.0,  0.0,    -0.1294,
