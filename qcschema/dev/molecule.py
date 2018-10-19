@@ -29,6 +29,29 @@ molecule = {
                 "type": "number"
             }
         },
+        "atomic_number": {
+            "description": "(nat, ) atomic numbers, nuclear charge for atoms.",
+            "type": "array",
+            "items": {
+                "type": "number",
+                "multipleOf": 1.0
+            }
+        },
+        "mass_numbers": {
+            "description": "(nat, ) mass numbers for atoms, if known isotope, else -1.",
+            "type": "array",
+            "items": {
+                "type": "number",
+                "multipleOf": 1.0
+            }
+        },
+        "atom_labels": {
+            "description": "(nat, ) atom labels with any user tagging information.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
         "name": {
             "description": "The name of the molecule.",
             "type": "string"
@@ -105,6 +128,10 @@ molecule = {
             "description": "Whether rotation of geometry is allowed (fix F) or disallowed (fix T).",
             "type": "boolean",
             "default": False
+        },
+        "fix_symmetry":{
+            "description": "Maximal point group symmetry which `geometry` should be treated. Lowercase.",
+            "type": "string"
         },
         "provenance": {
             "type": "object",
