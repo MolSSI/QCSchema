@@ -134,8 +134,19 @@ molecule = {
             "type": "string"
         },
         "provenance": {
-            "type": "object",
-            "$ref": "#/definitions/provenance"
+            "anyOf": [
+                {
+                    "type": "object",
+                    "$ref": "#/definitions/provenance"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "$ref": "#/definitions/provenance"
+                    }
+                }
+            ]
         }
     },
     "required": ["symbols", "geometry"],
