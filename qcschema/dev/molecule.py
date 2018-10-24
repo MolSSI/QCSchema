@@ -29,7 +29,7 @@ molecule = {
                 "type": "number"
             }
         },
-        "atomic_number": {
+        "atomic_numbers": {
             "description": "(nat, ) atomic numbers, nuclear charge for atoms.",
             "type": "array",
             "items": {
@@ -130,7 +130,7 @@ molecule = {
             "default": False
         },
         "fix_symmetry":{
-            "description": "Maximal point group symmetry which `geometry` should be treated. Lowercase.",
+            "description": "Maximal point group symmetry at which `geometry` should be treated. Lowercase.",
             "type": "string"
         },
         "provenance": {
