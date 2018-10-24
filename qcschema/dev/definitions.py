@@ -35,7 +35,7 @@ definitions["provenance"] = {
             "type": "string"
         }
     },
-    "required": ["creator"],
+    "required": ["creator", "version", "routine"],
     "description": "A short provenance of the object.",
     "additionalProperties": True
 }
