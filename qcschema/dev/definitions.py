@@ -27,7 +27,7 @@ definitions["provenance"] = {
             "type": "string"
         },
         "version": {
-            "description": "The version of the program which created this object, blank otherwise.",
+            "description": "The version of the program which created this object, blank otherwise. Suggest that versions be interpretable by PEP 440 (https://www.python.org/dev/peps/pep-0440/).",
             "type": "string"
         },
         "routine": {
@@ -35,7 +35,7 @@ definitions["provenance"] = {
             "type": "string"
         }
     },
-    "required": ["creator"],
+    "required": ["creator", "version", "routine"],
     "description": "A short provenance of the object.",
     "additionalProperties": True
 }
