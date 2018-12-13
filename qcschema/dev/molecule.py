@@ -16,7 +16,7 @@ molecule = {
             }
         },
         "geometry": {
-            "description": "(3 * nat, ) vector of XYZ coordinates of the atoms.",
+            "description": "(3 * nat, ) vector of XYZ coordinates [a0] of the atoms. Atom ordering is fixed; that is, a consumer who shuffles atoms must not reattach the input (pre-shuffling) molecule schema instance to any output (post-shuffling) per-atom results (e.g., gradient).",
             "type": "array",
             "items": {
                 "type": "number"
@@ -30,7 +30,7 @@ molecule = {
             }
         },
         "atomic_numbers": {
-            "description": "(nat, ) atomic numbers, nuclear charge for atoms.",
+            "description": "(nat, ) atomic numbers, nuclear charge for atoms. Ghostedness should be indicated through 'real' field, not zeros here.",
             "type": "array",
             "items": {
                 "type": "number",
@@ -79,22 +79,35 @@ molecule = {
             }
         },
         "connectivity": {
-            "description": "A list describing bonds within a molecule. Each element is a (atom1, atom2, order) tuple.",
+            "description": "A list describing bonds within a molecule. Each element is a (atom1, atom2, order) tuple. Bonds may be freely reordered and inverted.",
             "type": "array",
             "items": {
                 "type": "array",
                 "minItems": 3,
                 "maxItems": 3,
-                "items": {
-                    "type": "number",
-                    "minimum": 0,
-                    "maximum": 5,
-                }
+                "items": [
+                    {
+                        "description": "Atom number (0-indexed) at one end of bond.",
+                        "type": "number",
+                        "multipleOf": 1.0
+                    },
+                    {
+                        "description": "Atom number (0-indexed) at other end of bond.",
+                        "type": "number",
+                        "multipleOf": 1.0
+                    },
+                    {
+                        "description": "Bond order.",
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 5,
+                    }
+                ]
             }
         },
         "fragments": {
             "description":
-            "(nfr, -1) list of indices (0-indexed) grouping atoms into molecular fragments within the topology.",
+            "(nfr, <varies>) list of indices (0-indexed) grouping atoms into molecular fragments within the topology. Fragment ordering is fixed; that is, a consumer who shuffles fragments must not reattach the input (pre-shuffling) molecule schema instance to any output (post-shuffling) per-fragment results (e.g., n-body energy arrays).",
             "type": "array",
             "items": {
                 "type": "array",
@@ -120,12 +133,12 @@ molecule = {
             }
         },
         "fix_com": {
-            "description": "Whether translation of geometry is allowed (fix F) or disallowed (fix T).",
+            "description": "Whether translation of geometry is allowed (fix F) or disallowed (fix T). A consumer who translates the geometry must not reattach the input (pre-translation) molecule schema instance to any output (post-translation) origin-sensitive results (e.g., an ordinary energy when EFP present).",
             "type": "boolean",
             "default": False
         },
         "fix_orientation": {
-            "description": "Whether rotation of geometry is allowed (fix F) or disallowed (fix T).",
+            "description": "Whether rotation of geometry is allowed (fix F) or disallowed (fix T). A consumer who rotates the geometry must not reattach the input (pre-rotation) molecule schema instance to any output (post-rotation) frame-sensitive results (e.g., molecular vibrations).",
             "type": "boolean",
             "default": False
         },
