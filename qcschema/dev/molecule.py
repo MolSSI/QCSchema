@@ -3,11 +3,19 @@ The json-schema for the Molecule definition
 """
 molecule = {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "name": "qc_schema_molecule",
-    "version": "dev",
+    "name": "qcschema_molecule",
+    "version": "2.dev",
     "description": "The MolSSI Quantum Chemistry Molecular Schema",
     "type": "object",
     "properties": {
+        "schema_name": {
+            "guidance": "required properties schema_name within molecule block (instead of 'qcschema_[in|out]put' from one level higher) starts with schema_name=qcschema_molecule and schema_version=2",
+            "type": "string",
+            "pattern": "^(qcschema_molecule)\W*"
+        },
+        "schema_version": {
+            "type": "integer"
+        },
         "symbols": {
             "description": "(nat, ) atom symbols in title case.",
             "type": "array",
@@ -156,6 +164,6 @@ molecule = {
             "$ref": "#/definitions/provenance"
         }
     },
-    "required": ["symbols", "geometry"],
+    "required": ["symbols", "geometry", "schema_name", "schema_version"],
     "description": "The physical cartesian representation of the molecular system"
 }
