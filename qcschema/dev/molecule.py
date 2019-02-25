@@ -11,7 +11,7 @@ molecule = {
         "schema_name": {
             "guidance": "required properties schema_name within molecule block (instead of 'qcschema_[in|out]put' from one level higher) starts with schema_name=qcschema_molecule and schema_version=2",
             "type": "string",
-            "pattern": "^(qcschema_molecule)\W*"
+            "pattern": "^(qcschema_molecule)$"
         },
         "schema_version": {
             "type": "integer"
