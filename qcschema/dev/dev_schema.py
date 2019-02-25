@@ -11,7 +11,7 @@ from . import properties
 # The base schema definition
 base_schema = {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "name": "qc_schema_input",
+    "name": "qcschema_input",
     "version": "1.dev",
     "description": "The MolSSI Quantum Chemistry Schema",
     "type": "object",
@@ -19,7 +19,7 @@ base_schema = {
         "molecule": molecule.molecule,
         "schema_name": {
             "type": "string",
-            "pattern": "\W*(qc_schema)\W*"
+            "pattern": "^(qc_?schema)$"
         },
         "schema_version": {
             "type": "integer"
@@ -97,15 +97,15 @@ output_properties = {
 
 # Snapshot the input dev schema
 input_dev_schema = copy.deepcopy(base_schema)
-input_dev_schema["name"] = "qc_schema_input"
-input_dev_schema["properties"]["schema_name"]["pattern"] = "\W*(qc_schema_input)\W*"
+input_dev_schema["name"] = "qcschema_input"
+input_dev_schema["properties"]["schema_name"]["pattern"] = "^(qc_?schema_input)$"
 
 # Snapshot the input dev schema
 output_dev_schema = copy.deepcopy(base_schema)
-output_dev_schema["name"] = "qc_schema_output"
+output_dev_schema["name"] = "qcschema_output"
 output_dev_schema["properties"].update(output_properties)
 output_dev_schema["required"].extend(["provenance", "properties", "success", "return_result"])
-output_dev_schema["properties"]["schema_name"]["pattern"] = "\W*(qc_schema_output)\W*"
+output_dev_schema["properties"]["schema_name"]["pattern"] = "^(qc_?schema_output)$"
 
 # Build out the molecule schema
 molecule_dev_schema = copy.deepcopy(molecule.molecule)
