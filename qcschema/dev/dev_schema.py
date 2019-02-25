@@ -19,7 +19,7 @@ base_schema = {
         "molecule": molecule.molecule,
         "schema_name": {
             "type": "string",
-            "pattern": "^(qc_?schema)\W*"
+            "pattern": "^(qc_?schema)$"
         },
         "schema_version": {
             "type": "integer"
@@ -98,14 +98,14 @@ output_properties = {
 # Snapshot the input dev schema
 input_dev_schema = copy.deepcopy(base_schema)
 input_dev_schema["name"] = "qcschema_input"
-input_dev_schema["properties"]["schema_name"]["pattern"] = "^(qc_?schema_input)\W*"
+input_dev_schema["properties"]["schema_name"]["pattern"] = "^(qc_?schema_input)$"
 
 # Snapshot the input dev schema
 output_dev_schema = copy.deepcopy(base_schema)
 output_dev_schema["name"] = "qcschema_output"
 output_dev_schema["properties"].update(output_properties)
 output_dev_schema["required"].extend(["provenance", "properties", "success", "return_result"])
-output_dev_schema["properties"]["schema_name"]["pattern"] = "^(qc_?schema_output)\W*"
+output_dev_schema["properties"]["schema_name"]["pattern"] = "^(qc_?schema_output)$"
 
 # Build out the molecule schema
 molecule_dev_schema = copy.deepcopy(molecule.molecule)
