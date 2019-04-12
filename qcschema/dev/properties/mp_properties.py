@@ -41,5 +41,5 @@ mp_properties['mp2_total_energy'] = {
     "type":
     "number",
     "description":
-    "The total MP2 energy (MP2 correlatin energy + HF energy)."
+    "The total MP2 energy (MP2 correlation energy + HF energy)."
 }

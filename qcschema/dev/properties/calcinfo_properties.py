@@ -36,5 +36,5 @@ calcinfo_properties["calcinfo_natom"] = {
 
 calcinfo_properties["return_energy"] = {
     "type": "number",
-    "description": "The energy of the requested method, idential to `return_value` for energy computations."
+    "description": "The energy of the requested method, identical to `return_value` for energy computations."
 }
