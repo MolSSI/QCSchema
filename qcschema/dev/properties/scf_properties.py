@@ -5,7 +5,7 @@ The complete list of SCF level properties.
 scf_properties = {}
 
 scf_properties["scf_one_electron_energy"] = {
-    "description": "The one-electron (core Hamiltonina) energy contribution to the total SCF energy.",
+    "description": "The one-electron (core Hamiltonian) energy contribution to the total SCF energy.",
     "type": "number"
 }
 
