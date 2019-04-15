@@ -4,7 +4,7 @@ The base file for QC Schema properties.
 
 from .scf_properties import scf_properties
 from .mp_properties import mp_properties
-from .ccsd_properties import ccsd_properties
+from .cc_properties import cc_properties
 from .calcinfo_properties import calcinfo_properties
 
 properties = {
@@ -17,5 +17,5 @@ properties = {
 # Update new keys
 properties["properties"].update(scf_properties)
 properties["properties"].update(mp_properties)
-properties["properties"].update(ccsd_properties)
+properties["properties"].update(cc_properties)
 properties["properties"].update(calcinfo_properties)
