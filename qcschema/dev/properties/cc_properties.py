@@ -34,7 +34,7 @@ cc_properties['ccsd_total_correlation_energy'] = {
     "type":
     "number",
     "description":
-    "The total CCSD correlation energy. "
+    "The total CCSD correlation energy."
 }
 
 cc_properties['ccsd_total_energy'] = {
