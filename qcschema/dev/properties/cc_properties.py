@@ -8,14 +8,14 @@ cc_properties["ccsd_same_spin_correlation_energy"] = {
     "type":
     "number",
     "description":
-    "The unscaled portion of the CCSD correlation energy from same-spin or triplet doubles correlations."
+    "The portion of CCSD doubles correlation energy from same-spin (i.e. triplet) correlations, without any user scaling."
 }
 
 cc_properties["ccsd_opposite_spin_correlation_energy"] = {
     "type":
     "number",
     "description":
-    "The unscaled portion of the CCSD correlation energy from opposite-spin or singlet doubles correlations."
+    "The portion of CCSD doubles correlation energy from opposite-spin (i.e. singlet) correlations, without any user scaling."
 }
 
 cc_properties["ccsd_singles_energy"] = {
