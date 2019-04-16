@@ -30,11 +30,11 @@ mp_properties["mp2_doubles_energy"] = {
     "The doubles portion of the MP2 correlation energy including same-spin and opposite-spin correlations."
 }
 
-mp_properties['mp2_total_correlation_energy'] = {
+mp_properties['mp2_correlation_energy'] = {
     "type":
     "number",
     "description":
-    "The total MP2 correlation energy."
+    "The MP2 correlation energy."
 }
 
 mp_properties['mp2_total_energy'] = {

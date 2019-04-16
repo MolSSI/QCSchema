@@ -30,11 +30,11 @@ cc_properties["ccsd_doubles_energy"] = {
     "The doubles portion of the CCSD correlation energy including same-spin and opposite-spin correlations."
 }
 
-cc_properties['ccsd_total_correlation_energy'] = {
+cc_properties['ccsd_correlation_energy'] = {
     "type":
     "number",
     "description":
-    "The total CCSD correlation energy."
+    "The CCSD correlation energy."
 }
 
 cc_properties['ccsd_total_energy'] = {
