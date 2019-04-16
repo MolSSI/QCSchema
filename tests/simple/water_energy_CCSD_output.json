@@ -54,7 +54,7 @@
     "ccsd_opposite_spin_correlation_energy": -0.16900441210310,
     "ccsd_singles_energy": 0.0,
     "ccsd_doubles_energy": -0.214295437375274,
-    "ccsd_total_correlation_energy": -0.214295437375274,
+    "ccsd_correlation_energy": -0.214295437375274,
     "ccsd_total_energy": -76.2357138044429
   }
 }
