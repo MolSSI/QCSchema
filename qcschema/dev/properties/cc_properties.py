@@ -43,3 +43,45 @@ cc_properties['ccsd_total_energy'] = {
     "description":
     "The total CCSD energy (CCSD correlation energy + HF energy)."
 }
+
+cc_properties['ccsd_t_correlation_energy'] = {
+    "type":
+    "number",
+    "description":
+    "The CCSD(T) correlation energy."
+}
+
+cc_properties['ccsd_t_total_energy'] = {
+    "type":
+    "number",
+    "description":
+    "The total CCSD(T) energy (CCSD(T) correlation energy + HF energy)."
+}
+
+cc_properties['ccsdt_correlation_energy'] = {
+    "type":
+    "number",
+    "description":
+    "The CCSDT correlation energy."
+}
+
+cc_properties['ccsdt_total_energy'] = {
+    "type":
+    "number",
+    "description":
+    "The total CCSDT energy (CCSDT correlation energy + HF energy)."
+}
+
+cc_properties['ccsdtq_correlation_energy'] = {
+    "type":
+    "number",
+    "description":
+    "The CCSDTQ correlation energy."
+}
+
+cc_properties['ccsdtq_total_energy'] = {
+    "type":
+    "number",
+    "description":
+    "The total CCSDTQ energy (CCSDTQ correlation energy + HF energy)."
+}
