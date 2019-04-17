@@ -86,6 +86,14 @@ cc_properties['ccsdtq_total_energy'] = {
     "The total CCSDTQ energy (CCSDTQ correlation energy + HF energy)."
 }
 
+cc_properties["cc_dipole_moment"] = {
+    "type": "array",
+    "description": "The X, Y, and Z dipole components.",
+    "items": {
+        "type": "number"
+    }
+}
+
 cc_properties["ccsd_iterations"] = {
     "type": "number",
     "multipleOf": 1.0,
