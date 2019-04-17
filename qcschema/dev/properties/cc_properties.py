@@ -85,3 +85,9 @@ cc_properties['ccsdtq_total_energy'] = {
     "description":
     "The total CCSDTQ energy (CCSDTQ correlation energy + HF energy)."
 }
+
+cc_properties["ccsd_iterations"] = {
+    "type": "number",
+    "multipleOf": 1.0,
+    "description": "The number of CCSD iterations taken before convergence."
+}
