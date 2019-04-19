@@ -123,3 +123,15 @@ cc_properties["ccsd_iterations"] = {
     "multipleOf": 1.0,
     "description": "The number of CCSD iterations taken before convergence."
 }
+
+cc_properties["ccsdt_iterations"] = {
+    "type": "number",
+    "multipleOf": 1.0,
+    "description": "The number of CCSDT iterations taken before convergence."
+}
+
+cc_properties["ccsdtq_iterations"] = {
+    "type": "number",
+    "multipleOf": 1.0,
+    "description": "The number of CCSDTQ iterations taken before convergence."
+}
