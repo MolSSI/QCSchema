@@ -44,14 +44,14 @@ cc_properties['ccsd_total_energy'] = {
     "The total CCSD energy (CCSD correlation energy + HF energy)."
 }
 
-cc_properties['ccsd_t_correlation_energy'] = {
+cc_properties['ccsd_prt_pr_correlation_energy'] = {
     "type":
     "number",
     "description":
     "The CCSD(T) correlation energy."
 }
 
-cc_properties['ccsd_t_total_energy'] = {
+cc_properties['ccsd_prt_pr_total_energy'] = {
     "type":
     "number",
     "description":
@@ -86,9 +86,33 @@ cc_properties['ccsdtq_total_energy'] = {
     "The total CCSDTQ energy (CCSDTQ correlation energy + HF energy)."
 }
 
-cc_properties["cc_dipole_moment"] = {
+cc_properties["ccsd_dipole_moment"] = {
     "type": "array",
-    "description": "The X, Y, and Z dipole components.",
+    "description": "The CCSD X, Y, and Z dipole components.",
+    "items": {
+        "type": "number"
+    }
+}
+
+cc_properties["ccsd_prt_pr_dipole_moment"] = {
+    "type": "array",
+    "description": "The CCSD(T) X, Y, and Z dipole components.",
+    "items": {
+        "type": "number"
+    }
+}
+
+cc_properties["ccsdt_dipole_moment"] = {
+    "type": "array",
+    "description": "The CCSDT X, Y, and Z dipole components.",
+    "items": {
+        "type": "number"
+    }
+}
+
+cc_properties["ccsdtq_dipole_moment"] = {
+    "type": "array",
+    "description": "The CCSDTQ X, Y, and Z dipole components.",
     "items": {
         "type": "number"
     }
