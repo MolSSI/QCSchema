@@ -56,8 +56,8 @@
     "ccsd_doubles_energy": -0.214295437375274,
     "ccsd_correlation_energy": -0.214295437375274,
     "ccsd_total_energy": -76.2357138044429,
-    "ccsd_t_correlation_energy": -0.217539342259069,
-    "ccsd_t_total_energy": -76.2389577093267,
+    "ccsd_prt_pr_correlation_energy": -0.217539342259069,
+    "ccsd_prt_pr_total_energy": -76.2389577093267,
     "ccsd_iterations": 7
   }
 }
