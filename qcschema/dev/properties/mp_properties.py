@@ -43,3 +43,11 @@ mp_properties['mp2_total_energy'] = {
     "description":
     "The total MP2 energy (MP2 correlation energy + HF energy)."
 }
+
+mp_properties["mp2_dipole_moment"] = {
+    "type": "array",
+    "description": "The MP2 X, Y, and Z dipole components.",
+    "items": {
+        "type": "number"
+    }
+}
