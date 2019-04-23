@@ -5,7 +5,7 @@ The complete list of SCF level properties.
 scf_properties = {}
 
 scf_properties["scf_one_electron_energy"] = {
-    "description": "The one-electron (core Hamiltonina) energy contribution to the total SCF energy.",
+    "description": "The one-electron (core Hamiltonian) energy contribution to the total SCF energy.",
     "type": "number"
 }
 
@@ -47,7 +47,6 @@ when a DFT-D method is requested.
 scf_properties["scf_dipole_moment"] = {
     "type": "array",
     "description": "The X, Y, and Z dipole components.",
-    "type": "array",
     "items": {
         "type": "number"
     }
