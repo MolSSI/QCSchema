@@ -40,21 +40,17 @@ definitions["provenance"] = {
     "additionalProperties": True
 }
 
-definitions["basis_electron_shell"] = {
+definitions["electron_shell"] = {
     "description": "Information for a single electronic shell",
     "additionalProperties": False,
     "required": [
-        "shell_angular_momentum",
-        "shell_exponents",
-        "shell_coefficients"
+        "angular_momentum",
+        "harmonic_type",
+        "exponents",
+        "coefficients"
     ],
     "properties": {
-        "shell_region": {
-            "description": "The region this shell describes",
-            "type": "string",
-            "enum": [ "valence", "polarization", "core", "tight", "diffuse" ]
-        },
-        "shell_angular_momentum": {
+        "angular_momentum": {
             "description": "Angular momentum (as an array of integers)",
             "type": "array",
             "minItems": 1,
@@ -64,7 +60,12 @@ definitions["basis_electron_shell"] = {
                 "minimum": 0
             }
         },
-        "shell_exponents": {
+        "harmonic_type": {
+            "description": "Whether this shell is spherical or cartesian",
+            "type": "string",
+            "enum": ["spherical", "cartesian"]
+        },
+        "exponents": {
             "description": "Exponents for this contracted shell",
             "type": "array",
             "minItems": 1,
@@ -72,7 +73,7 @@ definitions["basis_electron_shell"] = {
                 "type": "string"
             }
         },
-        "shell_coefficients": {
+        "coefficients": {
             "description": "General contraction coefficients for this contracted shell",
             "type": "array",
             "minItems": 1,
@@ -86,23 +87,23 @@ definitions["basis_electron_shell"] = {
     }
 }
 
-definitions["basis_ecp_potential"] = {
+definitions["ecp_potential"] = {
     "description": "ECP potential",
     "additionalProperties": False,
     "required": [
-        "potential_ecp_type",
-        "potential_angular_momentum",
-        "potential_r_exponents",
-        "potential_gaussian_exponents",
-        "potential_coefficients"
+        "ecp_type",
+        "angular_momentum",
+        "r_exponents",
+        "gaussian_exponents",
+        "coefficients"
     ],
     "properties": {
-        "potential_ecp_type": {
+        "ecp_type": {
             "description": "Type of the ECP Potential",
             "type": "string",
             "enum": [ "scalar", "spinorbit" ]
         },
-        "potential_angular_momentum": {
+        "angular_momentum": {
             "description": "Angular momentum (as an array of integers)",
             "type": "array",
             "minItems": 1,
@@ -112,7 +113,7 @@ definitions["basis_ecp_potential"] = {
                 "minimum": 0
             }
         },
-        "potential_r_exponents": {
+        "r_exponents": {
             "description": "Exponents of the r term",
             "type": "array",
             "minItems": 1,
@@ -120,7 +121,7 @@ definitions["basis_ecp_potential"] = {
                 "type": "integer"
             }
         },
-        "potential_gaussian_exponents": {
+        "gaussian_exponents": {
             "description": "Exponents of the gaussian term",
             "type": "array",
             "minItems": 1,
@@ -128,8 +129,8 @@ definitions["basis_ecp_potential"] = {
                 "type": "string"
             }
         },
-        "potential_coefficients": {
-            "description": "General contraction coefficients for this contracted shell",
+        "coefficients": {
+            "description": "General contraction coefficients for this potential",
             "type": "array",
             "minItems": 1,
             "items": {
@@ -142,77 +143,34 @@ definitions["basis_ecp_potential"] = {
     }
 }
 
-definitions["basis_single_data"] = {
+definitions["center_basis"] = {
     "description": "Data for a single atom/center in the basis set",
     "type": "object",
     "additionalProperties": False,
     "properties": {
-        "element_electron_shells": {
+        "electron_shells": {
             "description": "(Electronic) shells for this element",
             "type": "array",
             "minItems": 1,
             "uniqueItems": True,
             "items": {
-                "$ref": "#/definitions/basis_electron_shell"
+                "$ref": "#/definitions/electron_shell"
             }
         },
-        "element_ecp_electrons":
+        "ecp_electrons":
         {
             "description": "Number of electrons replaced by ECP",
             "type": "integer",
             "minimum": 1
         },
-        "element_ecp": {
+        "ecp_potentials": {
             "description": "Effective Core Potential for this element",
             "type": "array",
             "minItems": 1,
             "uniqueItems": True,
             "items": {
-                "$ref": "#/definitions/basis_ecp_potential"
+                "$ref": "#/definitions/ecp_potential"
             }
         }
-    }
-}
-
-definitions["basis_spec"] = {
-    "description": "Specification for a basis applied to a molecule",
-    "type": "object",
-    "additionalProperties": False,
-    "properties":
-    {
-        "basis_set_description": {
-            "description": "Brief description of the basis set",
-            "type": "string"
-        },  
-        "basis_function_type": {
-            "description": "Type of function for this basis",
-            "type": "string",
-            "enum": [ "gto", "sto" ]
-        },
-        "basis_harmonic_type": {
-            "description": "Harmonic type (spherical, cartesian)",
-            "type": "string",
-            "enum": [ "spherical", "cartesian" ]
-        },
-        "basis_set_elements": {
-            "description": "Per-element basis data",
-            "type": "object",
-            "additionalProperties": False,
-            "patternProperties":   {   
-                "^\\d+$" : { 
-                    "$ref" : "#/definitions/basis_single_data"
-                }   
-            }   
-        },  
-        "basis_set_atoms": {
-            "description": "Basis set overrides for particular atoms or centers",
-            "type": "object",
-            "additionalProperties": False,
-            "patternProperties":   {   
-                "^\\d+$" : { 
-                    "$ref" : "#/definitions/basis_single_data"
-                }   
-            }   
-        }   
     }
 }
