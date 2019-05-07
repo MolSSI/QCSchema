@@ -36,20 +36,16 @@ base_schema = {
                     "type": "string"
                 },
                 "basis": {
-                    "type": "string",
-                    "description": "Name of the basis set to be applied to the whole molecule"
-                },
-                "basis_spec": basis.basis
-            },
-            "required": [ "method" ],
-            "oneOf": [
-                {
-                    "required": ["basis"]
-                },
-                {
-                    "required": ["basis_spec"]
+                  "anyOf": [
+                    basis.basis,
+                    {
+                        "description": "Name of the basis set to apply to the whole molecule",
+                        "type": "string"
+                    },
+                  ]
                 }
-            ],
+            },
+            "required": [ "method", "basis" ],
             "description": "The quantum chemistry model to be run."
         },
         "keywords": {

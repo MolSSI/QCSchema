@@ -8,6 +8,10 @@ basis = {
     "version": "1.dev",
     "description": "The MolSSI Quantum Chemistry Basis Set Schema",
     "type": "object",
+    "required": [
+        "basis_data",
+        "basis_atom_map"
+    ],
     "additionalProperties": False,
     "properties": {
         "schema_name": {
@@ -21,25 +25,18 @@ basis = {
             "description": "Brief description of the basis set",
             "type": "string"
         },
-        "element_basis": {
-            "description": "Per-element basis data",
+        "basis_data": {
+            "description": "Basis data shared among all atoms/centers",
             "type": "object",
-            "additionalProperties": False,
-            "patternProperties": {
-                "^\\d+$": {
-                    "$ref": "#/definitions/center_basis"
-                }
+            "additionalProperties": {
+                "$ref": "#/definitions/center_basis"
             }
         },
-        "atom_basis": {
-            "description":
-            "Basis set overrides for particular atoms or centers",
-            "type": "object",
-            "additionalProperties": False,
-            "patternProperties": {
-                "^\\d+$": {
-                    "$ref": "#/definitions/center_basis"
-                }
+        "basis_atom_map": {
+            "description": "Mapping of atoms/centers to data in basis_data",
+            "type": "array",
+            "items": {
+                "type": "string"
             }
         }
     }

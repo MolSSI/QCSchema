@@ -28,10 +28,10 @@
   "driver": "energy",
   "model": {
     "method": "B3LYP",
-    "basis_spec": {
-      "description": "6-31G on all Hydrogen and Oxygen atom_basis",
-      "element_basis": {
-        "1": {
+    "basis": {
+      "description": "STO-3G on all Hydrogen and Oxygen, Def2-TZVP on Zr",
+      "basis_data": {
+        "bs_sto3g_h": {
           "electron_shells": [
             {
               "harmonic_type": "spherical",
@@ -53,7 +53,7 @@
             }
           ]
         },
-        "8": {
+        "bs_sto3g_o": {
           "electron_shells": [
             {
               "harmonic_type": "spherical",
@@ -98,10 +98,8 @@
               ]
             }
           ]
-        }
-      },
-      "atom_basis": {
-        "3": {
+        },
+        "bs_def2tzvp_zr": {
           "electron_shells": [
             {
               "harmonic_type": "spherical",
@@ -380,7 +378,13 @@
             }
           ]
         }
-      }
+      },
+      "basis_atom_map": [
+        "bs_sto3g_o",
+        "bs_sto3g_h",
+        "bs_sto3g_h",
+        "bs_def2tzvp_zr"
+      ]
     }
   },
   "keywords": {}

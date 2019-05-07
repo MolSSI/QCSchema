@@ -24,10 +24,10 @@
   "driver": "energy",
   "model": {
     "method": "B3LYP",
-    "basis_spec": {
+    "basis": {
       "description": "6-31G on all Hydrogen and Oxygen atoms",
-      "element_basis": {
-        "1": {
+      "basis_data": {
+        "bs_631g_h": {
           "electron_shells": [
             {
               "harmonic_type": "spherical",
@@ -63,7 +63,7 @@
             }
           ]
         },
-        "8": {
+        "bs_631g_o": {
           "electron_shells": [
             {
               "harmonic_type": "spherical",
@@ -133,7 +133,12 @@
             }
           ]
         }
-      }
+      },
+      "basis_atom_map": [
+        "bs_631g_o",
+        "bs_631g_h",
+        "bs_631g_h"
+      ]
     }
   },
   "keywords": {}
