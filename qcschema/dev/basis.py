@@ -26,14 +26,14 @@ basis = {
             "type": "string"
         },
         "basis_data": {
-            "description": "Basis data shared among all atoms/centers",
+            "description": "Shared basis data for all atoms/centers in the molecule",
             "type": "object",
             "additionalProperties": {
                 "$ref": "#/definitions/center_basis"
             }
         },
         "basis_atom_map": {
-            "description": "Mapping of atoms/centers to data in basis_data",
+            "description": "Mapping of all atoms/centers in the molecule to data in basis_data",
             "type": "array",
             "items": {
                 "type": "string"
