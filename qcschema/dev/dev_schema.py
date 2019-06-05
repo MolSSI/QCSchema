@@ -7,6 +7,7 @@ import copy
 from . import molecule
 from . import definitions
 from . import properties
+from . import basis
 
 # The base schema definition
 base_schema = {
@@ -35,21 +36,16 @@ base_schema = {
                     "type": "string"
                 },
                 "basis": {
-                    "type": "string"
-                },
-                "basis_spec": {
-                    "$ref": "#/definitions/basis_spec"
+                  "anyOf": [
+                    basis.basis,
+                    {
+                        "description": "Name of the basis set to apply to the whole molecule",
+                        "type": "string"
+                    },
+                  ]
                 }
             },
-            "required": [ "method" ],
-            "oneOf": [
-                {
-                    "required": ["basis"]
-                },
-                {
-                    "required": ["basis_spec"]
-                }
-            ],
+            "required": [ "method", "basis" ],
             "description": "The quantum chemistry model to be run."
         },
         "keywords": {
@@ -109,6 +105,9 @@ output_dev_schema["properties"]["schema_name"]["pattern"] = "^(qc_?schema_output
 
 # Build out the molecule schema
 molecule_dev_schema = copy.deepcopy(molecule.molecule)
+
+# Build out the basis schema
+basis_dev_schema = copy.deepcopy(basis.basis)
 
 #import json
 #print(json.dumps(input_dev_schema, indent=2))

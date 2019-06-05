@@ -28,24 +28,22 @@
   "driver": "energy",
   "model": {
     "method": "B3LYP",
-    "basis_spec": {
-      "basis_set_description": "6-31G on all Hydrogen and Oxygen atoms",
-      "basis_function_type": "gto",
-      "basis_harmonic_type": "spherical",
-      "basis_set_elements": {
-        "1": {
-          "element_electron_shells": [
+    "basis": {
+      "description": "STO-3G on all Hydrogen and Oxygen, Def2-TZVP on Zr",
+      "basis_data": {
+        "bs_sto3g_h": {
+          "electron_shells": [
             {
-              "shell_region": "valence",
-              "shell_angular_momentum": [
+              "harmonic_type": "spherical",
+              "angular_momentum": [
                 0
               ],
-              "shell_exponents": [
+              "exponents": [
                 "3.42525091",
                 "0.62391373",
                 "0.16885540"
               ],
-              "shell_coefficients": [
+              "coefficients": [
                 [
                   "0.15432897",
                   "0.53532814",
@@ -55,19 +53,19 @@
             }
           ]
         },
-        "8": {
-          "element_electron_shells": [
+        "bs_sto3g_o": {
+          "electron_shells": [
             {
-              "shell_region": "valence",
-              "shell_angular_momentum": [
+              "harmonic_type": "spherical",
+              "angular_momentum": [
                 0
               ],
-              "shell_exponents": [
+              "exponents": [
                 "130.70932",
                 "23.808861",
                 "6.4436083"
               ],
-              "shell_coefficients": [
+              "coefficients": [
                 [
                   "0.15432897",
                   "0.53532814",
@@ -76,17 +74,17 @@
               ]
             },
             {
-              "shell_region": "valence",
-              "shell_angular_momentum": [
+              "harmonic_type": "spherical",
+              "angular_momentum": [
                 0,
                 1
               ],
-              "shell_exponents": [
+              "exponents": [
                 "5.0331513",
                 "1.1695961",
                 "0.3803890"
               ],
-              "shell_coefficients": [
+              "coefficients": [
                 [
                   "-0.09996723",
                   "0.39951283",
@@ -100,17 +98,15 @@
               ]
             }
           ]
-        }
-      },
-      "basis_set_atoms": {
-        "3": {
-          "element_electron_shells": [
+        },
+        "bs_def2tzvp_zr": {
+          "electron_shells": [
             {
-              "shell_region": "valence",
-              "shell_angular_momentum": [
+              "harmonic_type": "spherical",
+              "angular_momentum": [
                 0
               ],
-              "shell_exponents": [
+              "exponents": [
                 "11.000000000",
                 "9.5000000000",
                 "3.6383667759",
@@ -119,7 +115,7 @@
                 "0.75261298085E-01",
                 "0.30131404705E-01"
               ],
-              "shell_coefficients": [
+              "coefficients": [
                 [
                   "-0.19075595257",
                   "0.33895588754",
@@ -177,11 +173,11 @@
               ]
             },
             {
-              "shell_region": "valence",
-              "shell_angular_momentum": [
+              "harmonic_type": "spherical",
+              "angular_momentum": [
                 1
               ],
-              "shell_exponents": [
+              "exponents": [
                 "8.6066305543",
                 "4.4400979958",
                 "1.1281026946",
@@ -190,7 +186,7 @@
                 "0.85000000000E-01",
                 "0.29000000000E-01"
               ],
-              "shell_coefficients": [
+              "coefficients": [
                 [
                   "0.40404260236E-01",
                   "-0.21187745201",
@@ -230,18 +226,18 @@
               ]
             },
             {
-              "shell_region": "valence",
-              "shell_angular_momentum": [
+              "harmonic_type": "spherical",
+              "angular_momentum": [
                 2
               ],
-              "shell_exponents": [
+              "exponents": [
                 "4.5567957795",
                 "1.2904939797",
                 "0.51646987222",
                 "0.19349797794",
                 "0.67309809967E-01"
               ],
-              "shell_coefficients": [
+              "coefficients": [
                 [
                   "-0.96190569023E-02",
                   "0.20569990155",
@@ -266,36 +262,36 @@
               ]
             },
             {
-              "shell_region": "valence",
-              "shell_angular_momentum": [
+              "harmonic_type": "spherical",
+              "angular_momentum": [
                 3
               ],
-              "shell_exponents": [
+              "exponents": [
                 "0.3926100"
               ],
-              "shell_coefficients": [
+              "coefficients": [
                 [
                   "1.0000000"
                 ]
               ]
             }
           ],
-          "element_ecp_electrons": 28,
-          "element_ecp": [
+          "ecp_electrons": 28,
+          "ecp_potentials": [
             {
-              "potential_ecp_type": "scalar",
-              "potential_angular_momentum": [
+              "ecp_type": "scalar",
+              "angular_momentum": [
                 3
               ],
-              "potential_r_exponents": [
+              "r_exponents": [
                 2,
                 2
               ],
-              "potential_gaussian_exponents": [
+              "gaussian_exponents": [
                 "6.5842120",
                 "3.2921060"
               ],
-              "potential_coefficients": [
+              "coefficients": [
                 [
                   "-19.12219811",
                   "-2.43637543"
@@ -303,23 +299,23 @@
               ]
             },
             {
-              "potential_ecp_type": "scalar",
-              "potential_angular_momentum": [
+              "ecp_type": "scalar",
+              "angular_momentum": [
                 0
               ],
-              "potential_r_exponents": [
+              "r_exponents": [
                 2,
                 2,
                 2,
                 2
               ],
-              "potential_gaussian_exponents": [
+              "gaussian_exponents": [
                 "7.4880494",
                 "3.7440247",
                 "6.5842120",
                 "3.2921060"
               ],
-              "potential_coefficients": [
+              "coefficients": [
                 [
                   "135.15384412",
                   "15.55244130",
@@ -329,23 +325,23 @@
               ]
             },
             {
-              "potential_ecp_type": "scalar",
-              "potential_angular_momentum": [
+              "ecp_type": "scalar",
+              "angular_momentum": [
                 1
               ],
-              "potential_r_exponents": [
+              "r_exponents": [
                 2,
                 2,
                 2,
                 2
               ],
-              "potential_gaussian_exponents": [
+              "gaussian_exponents": [
                 "6.4453772",
                 "3.2226886",
                 "6.5842120",
                 "3.2921060"
               ],
-              "potential_coefficients": [
+              "coefficients": [
                 [
                   "87.78499167",
                   "11.56406599",
@@ -355,23 +351,23 @@
               ]
             },
             {
-              "potential_ecp_type": "scalar",
-              "potential_angular_momentum": [
+              "ecp_type": "scalar",
+              "angular_momentum": [
                 2
               ],
-              "potential_r_exponents": [
+              "r_exponents": [
                 2,
                 2,
                 2,
                 2
               ],
-              "potential_gaussian_exponents": [
+              "gaussian_exponents": [
                 "4.6584472",
                 "2.3292236",
                 "6.5842120",
                 "3.2921060"
               ],
-              "potential_coefficients": [
+              "coefficients": [
                 [
                   "29.70100072",
                   "5.53996847",
@@ -382,7 +378,13 @@
             }
           ]
         }
-      }
+      },
+      "basis_atom_map": [
+        "bs_sto3g_o",
+        "bs_sto3g_h",
+        "bs_sto3g_h",
+        "bs_def2tzvp_zr"
+      ]
     }
   },
   "keywords": {}
