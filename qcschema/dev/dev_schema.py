@@ -8,6 +8,7 @@ from . import molecule
 from . import definitions
 from . import properties
 from . import basis
+from . import wavefunction
 
 # The base schema definition
 base_schema = {
@@ -100,6 +101,7 @@ input_dev_schema["properties"]["schema_name"]["pattern"] = "^(qc_?schema_input)$
 output_dev_schema = copy.deepcopy(base_schema)
 output_dev_schema["name"] = "qcschema_output"
 output_dev_schema["properties"].update(output_properties)
+output_dev_schema["properties"]["wavefunction"] = wavefunction.output_wavefunction
 output_dev_schema["required"].extend(["provenance", "properties", "success", "return_result"])
 output_dev_schema["properties"]["schema_name"]["pattern"] = "^(qc_?schema_output)$"
 

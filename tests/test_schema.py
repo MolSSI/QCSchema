@@ -42,3 +42,16 @@ def test_simple_basis_input(version, testfile):
 
     example = test_helpers.get_test(testfile)
     qcschema.validate(example, "input")
+
+
+
+### Test wavefunction outputs
+wavefunction_output = test_helpers.list_tests("wavefunction", matcher="output")
+
+# Loop over all tests that should pass the tests
+@pytest.mark.parametrize("testfile", wavefunction_output[0], ids=wavefunction_output[1])
+@pytest.mark.parametrize("version", qcschema.list_versions("output"))
+def test_wavefunction_output(version, testfile):
+
+    example = test_helpers.get_test(testfile)
+    qcschema.validate(example, "output")
