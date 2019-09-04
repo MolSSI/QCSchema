@@ -7,28 +7,28 @@ result_wavefunction = {}
 # Orbitals
 result_wavefunction["return_result_orbitals_a"] = {
     "type": "array",
-    "description": "The primary specified return alpha-spin orbitals",
+    "description": "The primary specified return alpha-spin orbitals in the AO basis",
     "items": {"type": "number"}
 }
 
 
 result_wavefunction["return_result_orbitals_b"] = {
     "type": "array",
-    "description": "The primary specified return beta-spin orbitals",
+    "description": "The primary specified return beta-spin orbitals in the AO basis",
     "items": {"type": "number"}
 }
 
 # Density
 result_wavefunction["return_result_density_a"] = {
     "type": "array",
-    "description": "The primary specified return alpha-spin density",
+    "description": "The primary specified return alpha-spin density in the AO basis",
     "items": {"type": "number"}
 }
 
 
 result_wavefunction["return_result_density_b"] = {
     "type": "array",
-    "description": "The primary specified return beta-spin density",
+    "description": "The primary specified return beta-spin density in the AO basis",
     "items": {"type": "number"}
 }
 
@@ -36,14 +36,14 @@ result_wavefunction["return_result_density_b"] = {
 # Fock matrix
 result_wavefunction["return_result_fock_a"] = {
     "type": "array",
-    "description": "The primary specified return alpha-spin Fock matrix",
+    "description": "The primary specified return alpha-spin Fock matrix in the AO basis",
     "items": {"type": "number"}
 }
 
 
 result_wavefunction["return_result_fock_b"] = {
     "type": "array",
-    "description": "The primary specified return beta-spin Fock matrix",
+    "description": "The primary specified return beta-spin Fock matrix in the AO basis",
     "items": {"type": "number"}
 }
 

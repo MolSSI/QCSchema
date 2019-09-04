@@ -7,28 +7,28 @@ scf_wavefunction = {}
 # Orbitals
 scf_wavefunction["scf_orbitals_a"] = {
     "type": "array",
-    "description": "SCF alpha-spin orbitals",
+    "description": "SCF alpha-spin orbitals in the AO basis",
     "items": {"type": "number"}
 }
 
 
 scf_wavefunction["scf_orbitals_b"] = {
     "type": "array",
-    "description": "SCF beta-spin orbitals",
+    "description": "SCF beta-spin orbitals in the AO basis",
     "items": {"type": "number"}
 }
 
 # Density
 scf_wavefunction["scf_density_a"] = {
     "type": "array",
-    "description": "SCF alpha-spin density",
+    "description": "SCF alpha-spin density in the AO basis",
     "items": {"type": "number"}
 }
 
 
 scf_wavefunction["scf_density_b"] = {
     "type": "array",
-    "description": "SCF beta-spin density",
+    "description": "SCF beta-spin density in the AO basis",
     "items": {"type": "number"}
 }
 
@@ -36,14 +36,14 @@ scf_wavefunction["scf_density_b"] = {
 # Fock matrix
 scf_wavefunction["scf_fock_a"] = {
     "type": "array",
-    "description": "SCF alpha-spin Fock matrix",
+    "description": "SCF alpha-spin Fock matrix in the AO basis",
     "items": {"type": "number"}
 }
 
 
 scf_wavefunction["scf_fock_b"] = {
     "type": "array",
-    "description": "SCF beta-spin Fock matrix",
+    "description": "SCF beta-spin Fock matrix in the AO basis",
     "items": {"type": "number"}
 }
 

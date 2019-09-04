@@ -7,14 +7,14 @@ localized_wavefunction = {}
 # Orbitals
 localized_wavefunction["localized_orbitals_a"] = {
     "type": "array",
-    "description": "Localized alpha-spin orbitals",
+    "description": "Localized alpha-spin orbitals in the AO basis",
     "items": {"type": "number"}
 }
 
 
 localized_wavefunction["localized_orbitals_b"] = {
     "type": "array",
-    "description": "Localized beta-spin orbitals",
+    "description": "Localized beta-spin orbitals in the AO basis",
     "items": {"type": "number"}
 }
 
