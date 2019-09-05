@@ -29,6 +29,7 @@
   "model": {
     "method": "B3LYP",
     "basis": {
+      "name": "Mixed Def2-TZVP/STO-3G",
       "description": "STO-3G on all Hydrogen and Oxygen, Def2-TZVP on Zr",
       "basis_data": {
         "bs_sto3g_h": {

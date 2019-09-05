@@ -25,6 +25,7 @@
   "model": {
     "method": "B3LYP",
     "basis": {
+      "name": "6-31G",
       "description": "6-31G on all Hydrogen and Oxygen atoms",
       "basis_data": {
         "bs_631g_h": {

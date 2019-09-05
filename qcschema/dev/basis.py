@@ -10,7 +10,8 @@ basis = {
     "type": "object",
     "required": [
         "basis_data",
-        "basis_atom_map"
+        "basis_atom_map",
+        "name"
     ],
     "additionalProperties": False,
     "properties": {
@@ -20,6 +21,10 @@ basis = {
         },
         "schema_version": {
             "type": "integer"
+        },
+        "name": {
+            "description": "Name of the basis set",
+            "type": "string"
         },
         "description": {
             "description": "Brief description of the basis set",

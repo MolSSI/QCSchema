@@ -20,14 +20,14 @@ core_wavefunction["h_core_b"] = {
 
 
 # effective core hamiltonian
-core_wavefunction["h_eff_a"] = {
+core_wavefunction["h_effective_a"] = {
     "type": "array",
     "description": "Alpha-spin effective core (one-electron) Hamiltonian in the AO basis",
     "items": {"type": "number"}
 }
 
 
-core_wavefunction["h_eff_b"] = {
+core_wavefunction["h_effective_b"] = {
     "type": "array",
     "description": "Beta-spin effective core (one-electron) Hamiltonian in the AO basis",
     "items": {"type": "number"}
