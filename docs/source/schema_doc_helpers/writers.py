@@ -38,10 +38,6 @@ def write_key_table(top_file, properties, keys=None):
 
         dtype = value["type"]
 
-        print(top_file)
-        print(properties)
-        print(f"key {key}")
-        print(value)
         if "description" in value:
             description = value["description"]
         elif value["type"] == "object":
