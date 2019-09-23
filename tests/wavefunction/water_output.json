@@ -57,7 +57,7 @@
     "basis": {
       "name": "6-31G",
       "description": "6-31G on all Hydrogen and Oxygen atoms",
-      "basis_data": {
+      "center_data": {
         "bs_631g_h": {
           "electron_shells": [
             {
@@ -165,7 +165,7 @@
           ]
         }
       },
-      "basis_atom_map": [
+      "atom_map": [
         "bs_631g_o",
         "bs_631g_h",
         "bs_631g_h"

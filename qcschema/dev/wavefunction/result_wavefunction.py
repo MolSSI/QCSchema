@@ -5,84 +5,84 @@ The primary specified return  wavefunction quantities.
 result_wavefunction = {}
 
 # Orbitals
-result_wavefunction["return_result_orbitals_a"] = {
+result_wavefunction["orbitals_a"] = {
     "type": "array",
-    "description": "The primary specified return alpha-spin orbitals in the AO basis",
+    "description": "Alpha-spin orbitals in the AO basis of the primary return.",
     "items": {"type": "number"},
     "shape": {"nao", "nmo"}
 }
 
 
-result_wavefunction["return_result_orbitals_b"] = {
+result_wavefunction["orbitals_b"] = {
     "type": "array",
-    "description": "The primary specified return beta-spin orbitals in the AO basis",
+    "description": "Beta-spin orbitals in the AO basis of the primary return.",
     "items": {"type": "number"},
     "shape": {"nao", "nmo"}
 }
 
 # Density
-result_wavefunction["return_result_density_a"] = {
+result_wavefunction["density_a"] = {
     "type": "array",
-    "description": "The primary specified return alpha-spin density in the AO basis",
+    "description": "Alpha-spin density in the AO basis of the primary return.",
     "items": {"type": "number"},
     "shape": {"nao", "nao"}
 }
 
 
-result_wavefunction["return_result_density_b"] = {
+result_wavefunction["density_b"] = {
     "type": "array",
-    "description": "The primary specified return beta-spin density in the AO basis",
+    "description": "Beta-spin density in the AO basis of the primary return.",
     "items": {"type": "number"},
     "shape": {"nao", "nao"}
 }
 
 
 # Fock matrix
-result_wavefunction["return_result_fock_a"] = {
+result_wavefunction["fock_a"] = {
     "type": "array",
-    "description": "The primary specified return alpha-spin Fock matrix in the AO basis",
+    "description": "Alpha-spin Fock matrix in the AO basis of the primary return.",
     "items": {"type": "number"},
     "shape": {"nao", "nao"}
 }
 
 
-result_wavefunction["return_result_fock_b"] = {
+result_wavefunction["fock_b"] = {
     "type": "array",
-    "description": "The primary specified return beta-spin Fock matrix in the AO basis",
+    "description": "Beta-spin Fock matrix in the AO basis of the primary return.",
     "items": {"type": "number"},
     "shape": {"nao", "nao"}
 }
 
 
 # Eigenvalues
-result_wavefunction["return_result_eigenvalues_a"] = {
+result_wavefunction["eigenvalues_a"] = {
     "type": "array",
-    "description": "The primary specified return alpha-spin orbital eigenvalues",
+    "description": "Alpha-spin orbital eigenvalues of the primary return.",
     "items": {"type": "number"},
     "shape": {"nmo"}
 }
 
 
-result_wavefunction["return_result_eigenvalues_b"] = {
+result_wavefunction["eigenvalues_b"] = {
     "type": "array",
-    "description": "SCF beta-spin orbital eigenvalues",
+    "description": "Beta-spin orbital eigenvalues of the primary return.",
     "items": {"type": "number"},
     "shape": {"nmo"}
 }
 
 
 # Occupations
-result_wavefunction["return_result_occupations_a"] = {
+result_wavefunction["occupations_a"] = {
     "type": "array",
-    "description": "SCF alpha-spin orbital occupations",
+    "description": "Alpha-spin orbital occupations of the primary return.",
     "items": {"type": "number"},
     "shape": {"nmo"}
 }
 
 
-result_wavefunction["return_result_occupations_b"] = {
+result_wavefunction["occupations_b"] = {
     "type": "array",
-    "description": "SCF beta-spin orbital occupations",
+    "description": "Beta-spin orbital occupations of the primary return.",
     "items": {"type": "number"},
     "shape": {"nmo"}
 }
