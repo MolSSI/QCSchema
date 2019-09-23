@@ -8,28 +8,32 @@ scf_wavefunction = {}
 scf_wavefunction["scf_orbitals_a"] = {
     "type": "array",
     "description": "SCF alpha-spin orbitals in the AO basis",
-    "items": {"type": "number"}
+    "items": {"type": "number"},
+    "shape": {"nao", "nmo"}
 }
 
 
 scf_wavefunction["scf_orbitals_b"] = {
     "type": "array",
     "description": "SCF beta-spin orbitals in the AO basis",
-    "items": {"type": "number"}
+    "items": {"type": "number"},
+    "shape": {"nao", "nmo"}
 }
 
 # Density
 scf_wavefunction["scf_density_a"] = {
     "type": "array",
     "description": "SCF alpha-spin density in the AO basis",
-    "items": {"type": "number"}
+    "items": {"type": "number"},
+    "shape": {"nao", "nao"}
 }
 
 
 scf_wavefunction["scf_density_b"] = {
     "type": "array",
     "description": "SCF beta-spin density in the AO basis",
-    "items": {"type": "number"}
+    "items": {"type": "number"},
+    "shape": {"nao", "nao"}
 }
 
 
@@ -37,14 +41,16 @@ scf_wavefunction["scf_density_b"] = {
 scf_wavefunction["scf_fock_a"] = {
     "type": "array",
     "description": "SCF alpha-spin Fock matrix in the AO basis",
-    "items": {"type": "number"}
+    "items": {"type": "number"},
+    "shape": {"nao", "nao"}
 }
 
 
 scf_wavefunction["scf_fock_b"] = {
     "type": "array",
     "description": "SCF beta-spin Fock matrix in the AO basis",
-    "items": {"type": "number"}
+    "items": {"type": "number"},
+    "shape": {"nao", "nao"}
 }
 
 
@@ -52,14 +58,16 @@ scf_wavefunction["scf_fock_b"] = {
 scf_wavefunction["scf_eigenvalues_a"] = {
     "type": "array",
     "description": "SCF alpha-spin orbital eigenvalues",
-    "items": {"type": "number"}
+    "items": {"type": "number"},
+    "shape": {"nmo"}
 }
 
 
 scf_wavefunction["scf_eigenvalues_b"] = {
     "type": "array",
     "description": "SCF beta-spin orbital eigenvalues",
-    "items": {"type": "number"}
+    "items": {"type": "number"},
+    "shape": {"nmo"}
 }
 
 
@@ -67,12 +75,14 @@ scf_wavefunction["scf_eigenvalues_b"] = {
 scf_wavefunction["scf_occupations_a"] = {
     "type": "array",
     "description": "SCF alpha-spin orbital occupations",
-    "items": {"type": "number"}
+    "items": {"type": "number"},
+    "shape": {"nmo"}
 }
 
 
 scf_wavefunction["scf_occupations_b"] = {
     "type": "array",
     "description": "SCF beta-spin orbital occupations",
-    "items": {"type": "number"}
+    "items": {"type": "number"},
+    "shape": {"nmo"}
 }
