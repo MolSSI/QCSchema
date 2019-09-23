@@ -114,6 +114,7 @@ wf_categories = [
     ("Result", """
 A list of fields comprising the primary result information. 
 e.g. SCF quantities for a DFT calculation and MP2 quantities for an MP2 calculation.  
+Result fields contain the names of other fields in the wavefunction schema.
 """, result_wf),
     ("Self-Consistent Field", """
 A list of fields added at the self-consistent field (SCF) level. This includes
