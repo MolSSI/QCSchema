@@ -102,7 +102,8 @@ wf_file.append("=" * len(wf_file[-1]))
 wf_file.extend("""
 A list of valid quantum chemistry wavefunction properties tracked by the schema.
 Matrices are in column-major order.
-AO basis functions are ordered according to the CCA standard. [TODO]
+AO basis functions are ordered according to the 
+`CCA standard as implemented in libint <https://github.com/evaleev/libint/wiki/using-modern-CPlusPlus-API#solid-harmonic-gaussians-ordering-and-normalization>`_.
 """.splitlines())
 
 sh.write_header(wf_file, "Basis Set")
