@@ -31,27 +31,29 @@ def write_key_table(top_file, properties, keys=None):
     top_file.append("   +={}=+={}=+={}=+".format(*equals_inds))
   
     if keys is None:
-        keys = properties.keys() 
+        keys = properties.keys()
 
     for key in keys:
         value = properties[key]
-   
+
         dtype = value["type"]
-   
-        if value["type"] == "object":
+
+        if "description" in value:
+            description = value["description"]
+        elif value["type"] == "object":
             description = value["$ref"]
         else:
-            description = value["description"]
-   
+            description = "No description provided."
+
         if value["type"] == "array":
             dtype = "array[" + value["items"]["type"] + "]"
-   
+
         # Figure out the needed slices
-   
+
         desc_parts = textwrap.wrap(description, width=table_widths[1])
         top_file.append(fmt_string.format(key, desc_parts[0], dtype))
-   
+
         for dp in desc_parts[1:]:
             top_file.append(fmt_string.format("", dp, ""))
-   
+
         top_file.append("   +-{}-+-{}-+-{}-+".format(*dash_inds))

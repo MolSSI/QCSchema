@@ -84,3 +84,5 @@ Contents
    
    auto_topology
    auto_props
+   auto_wf
+   auto_basis

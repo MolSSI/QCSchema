@@ -81,7 +81,7 @@ definitions["electron_shell"] = {
                 "description": "Segmented contraction coefficients",
                 "type": "array",
                 "minItems": 1,
-                "items": { "type": "string" }
+                "items": {"type": "string"}
             }
         }
     }
