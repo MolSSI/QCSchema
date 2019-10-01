@@ -38,6 +38,7 @@ A concrete list of requirements for this schema can be found [here](Requirements
  - `GAMESS <http://www.msg.ameslab.gov/gamess/>`_
  - `MPQC <https://github.com/ValeevGroup/mpqc>`_
  - `NWChem <http://www.nwchem-sw.org/index.php/Main_Page>`_
+ - `Q-Chem <https://www.q-chem.com>`_
  - `Psi4 <https://github.com/psi4/psi4>`_
  - `PySCF <http://sunqm.github.io/pyscf/>`_
 
