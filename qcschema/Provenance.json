@@ -1,0 +1,25 @@
+{
+    "title": "Provenance",
+    "description": "Provenance information.\n\n\nParameters\n----------\ncreator : str\n    The creator of the object.\nversion : str, Optional\n    The version of the creator, which should be sortable by the very broad [PEP 440](https://www.python.org/dev/peps/pep-0440/).\nroutine : str, Optional\n    The routine of the creator.",
+    "type": "object",
+    "properties": {
+        "creator": {
+            "title": "Creator",
+            "description": "The creator of the object.",
+            "type": "string"
+        },
+        "version": {
+            "title": "Version",
+            "description": "The version of the creator, which should be sortable by the very broad [PEP 440](https://www.python.org/dev/peps/pep-0440/).",
+            "type": "string"
+        },
+        "routine": {
+            "title": "Routine",
+            "description": "The routine of the creator.",
+            "type": "string"
+        }
+    },
+    "required": [
+        "creator"
+    ]
+}
