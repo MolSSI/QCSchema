@@ -33,8 +33,8 @@ A list of fields that involve basic information of the requested computation.
 A list of fields added at the self-consistent field (SCF) level. This includes
 both Hartree--Fock and Density Functional Theory.
 """, scf_props),
-    ("Møller-Plesset", """
-A list of fields added at the Møller--Plesset (MP) level.
+    ("Moller-Plesset", """
+A list of fields added at the Moller--Plesset (MP) level.
 """, mp_props),
     ("Coupled Cluster", """
 A list of fields added at the Coupled Cluster (CC) level.
