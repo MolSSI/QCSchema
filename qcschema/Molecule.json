@@ -1,0 +1,297 @@
+{
+    "title": "Molecule",
+    "description": "A QCSchema representation of a Molecule. This model contains\ndata for symbols, geometry, connectivity, charges, fragmentation, etc while also supporting a wide array of I/O and manipulation capabilities.\n\nMolecule objects geometry, masses, and charges are truncated to 8, 6, and 4 decimal places respectively to assist with duplicate detection.\n\n\nParameters\n----------\nschema_name : ConstrainedStrValue, Default: qcschema_molecule\n    The QCSchema specification this model conforms to. Explicitly fixed as qcschema_molecule.\nschema_version : int, Default: 2\n    The version number of ``schema_name`` that this Molecule model conforms to.\nvalidated : bool, Default: False\n    A boolean indicator (for speed purposes) that the input Molecule data has been previously checked for schema (data layout and type) and physics (e.g., non-overlapping atoms, feasible multiplicity) compliance. This should be False in most cases. A ``True`` setting should only ever be set by the constructor for this class itself or other trusted sources such as a Fractal Server or previously serialized Molecules.\nsymbols : Array\n    An ordered (nat,) array-like object of atomic elemental symbols of shape (nat,). The index of this attribute sets atomic order for all other per-atom setting like ``real`` and the first dimension of ``geometry``. Ghost/Virtual atoms must have an entry in this array-like and are indicated by the matching the 0-indexed indices in ``real`` field.\ngeometry : Array\n    An ordered (nat,3) array-like for XYZ atomic coordinates [a0]. Atom ordering is fixed; that is, a consumer who shuffles atoms must not reattach the input (pre-shuffling) molecule schema instance to any output (post-shuffling) per-atom results (e.g., gradient). Index of the first dimension matches the 0-indexed indices of all other per-atom settings like ``symbols`` and ``real``.\n    Can also accept array-likes which can be mapped to (nat,3) such as a 1-D list of length 3*nat, or the serialized version of the array in (3*nat,) shape; all forms will be reshaped to (nat,3) for this attribute.\nname : str, Optional\n    A common or human-readable name to assign to this molecule. Can be arbitrary.\nidentifiers : :class:`Identifiers`, Optional\n    An optional dictionary of additional identifiers by which this Molecule can be referenced, such as INCHI, canonical SMILES, etc. See the :class:``Identifiers`` model for more details.\ncomment : str, Optional\n    Additional comments for this Molecule. Intended for pure human/user consumption and clarity.\nmolecular_charge : float, Default: 0.0\n    The net electrostatic charge of this Molecule.\nmolecular_multiplicity : int, Default: 1\n    The total multiplicity of this Molecule.\nmasses_ : Array, Optional\n    An ordered 1-D array-like object of atomic masses [u] of shape (nat,). Index order matches the 0-indexed indices of all other per-atom settings like ``symbols`` and ``real``. If this is not provided, the mass of each atom is inferred from their most common isotope. If this is provided, it must be the same length as ``symbols`` but can accept ``None`` entries for standard masses to infer from the same index in the ``symbols`` field.\nreal_ : Array, Optional\n    An ordered 1-D array-like object of shape (nat,) indicating if each atom is real (``True``) or ghost/virtual (``False``). Index matches the 0-indexed indices of all other per-atom settings like ``symbols`` and the first dimension of ``geometry``. If this is not provided, all atoms are assumed to be real (``True``).If this is provided, the reality or ghostality of every atom must be specified.\natom_labels_ : Array, Optional\n    Additional per-atom labels as a 1-D array-like of of strings of shape (nat,). Typical use is in model conversions, such as Elemental <-> Molpro and not typically something which should be user assigned. See the ``comments`` field for general human-consumable text to affix to the Molecule.\natomic_numbers_ : Array, Optional\n    An optional ordered 1-D array-like object of atomic numbers of shape (nat,). Index matches the 0-indexed indices of all other per-atom settings like ``symbols`` and ``real``. Values are inferred from the ``symbols`` list if not explicitly set.\nmass_numbers_ : Array, Optional\n    An optional ordered 1-D array-like object of atomic *mass* numbers of shape (nat). Index matches the 0-indexed indices of all other per-atom settings like ``symbols`` and ``real``. Values are inferred from the most common isotopes of the ``symbols`` list if not explicitly set.\nconnectivity_ : List[Tuple[int, int, float]], Optional\n    The connectivity information between each atom in the ``symbols`` array. Each entry in this list is a Tuple of ``(atom_index_A, atom_index_B, bond_order)`` where the ``atom_index`` matches the 0-indexed indices of all other per-atom settings like ``symbols`` and ``real``.\nfragments_ : List[Array], Optional\n    An indication of which sets of atoms are fragments within the Molecule. This is a list of shape (nfr) of 1-D array-like objects of arbitrary length. Each entry in the list indicates a new fragment. The index of the list matches the 0-indexed indices of ``fragment_charges`` and ``fragment_multiplicities``. The 1-D array-like objects are sets of atom indices indicating the atoms which compose the fragment. The atom indices match the 0-indexed indices of all other per-atom settings like ``symbols`` and ``real``.\nfragment_charges_ : List[float], Optional\n    The total charge of each fragment in the ``fragments`` list of shape (nfr,). The index of this list matches the 0-index indices of ``fragment`` list. Will be filled in based on a set of rules if not provided (and ``fragments`` are specified).\nfragment_multiplicities_ : List[int], Optional\n    The multiplicity of each fragment in the ``fragments`` list of shape (nfr,). The index of this list matches the 0-index indices of ``fragment`` list. Will be filled in based on a set of rules if not provided (and ``fragments`` are specified).\nfix_com : bool, Default: False\n    An indicator which prevents pre-processing the Molecule object to translate the Center-of-Mass to (0,0,0) in euclidean coordinate space. Will result in a different ``geometry`` than the one provided if False.\nfix_orientation : bool, Default: False\n    An indicator which prevents pre-processes the Molecule object to orient via the inertia tensor.Will result in a different ``geometry`` than the one provided if False.\nfix_symmetry : str, Optional\n    Maximal point group symmetry which ``geometry`` should be treated. Lowercase.\nprovenance : :class:`Provenance`, Default: {'creator': 'QCElemental', 'version': 'v0.13.1+27.g8d1e857.dirty', 'routine': 'qcelemental.models.molecule'}\n    The provenance information about how this Molecule (and its attributes) were generated, provided, and manipulated.\nid : Any, Optional\n    A unique identifier for this Molecule object. This field exists primarily for Databases (e.g. Fractal's Server) to track and lookup this specific object and should virtually never need to be manually set.\nextras : Dict[str, Any], Optional\n    Extra information to associate with this Molecule.",
+    "type": "object",
+    "properties": {
+        "schema_name": {
+            "title": "Schema Name",
+            "description": "The QCSchema specification this model conforms to. Explicitly fixed as qcschema_molecule.",
+            "default": "qcschema_molecule",
+            "type": "string",
+            "pattern": "qcschema_molecule"
+        },
+        "schema_version": {
+            "title": "Schema Version",
+            "description": "The version number of ``schema_name`` that this Molecule model conforms to.",
+            "default": 2,
+            "type": "integer"
+        },
+        "validated": {
+            "title": "Validated",
+            "description": "A boolean indicator (for speed purposes) that the input Molecule data has been previously checked for schema (data layout and type) and physics (e.g., non-overlapping atoms, feasible multiplicity) compliance. This should be False in most cases. A ``True`` setting should only ever be set by the constructor for this class itself or other trusted sources such as a Fractal Server or previously serialized Molecules.",
+            "default": false,
+            "type": "boolean"
+        },
+        "symbols": {
+            "title": "Symbols",
+            "description": "An ordered (nat,) array-like object of atomic elemental symbols of shape (nat,). The index of this attribute sets atomic order for all other per-atom setting like ``real`` and the first dimension of ``geometry``. Ghost/Virtual atoms must have an entry in this array-like and are indicated by the matching the 0-indexed indices in ``real`` field.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "geometry": {
+            "title": "Geometry",
+            "description": "An ordered (nat,3) array-like for XYZ atomic coordinates [a0]. Atom ordering is fixed; that is, a consumer who shuffles atoms must not reattach the input (pre-shuffling) molecule schema instance to any output (post-shuffling) per-atom results (e.g., gradient). Index of the first dimension matches the 0-indexed indices of all other per-atom settings like ``symbols`` and ``real``.\nCan also accept array-likes which can be mapped to (nat,3) such as a 1-D list of length 3*nat, or the serialized version of the array in (3*nat,) shape; all forms will be reshaped to (nat,3) for this attribute.",
+            "type": "array",
+            "items": {
+                "type": "number"
+            }
+        },
+        "name": {
+            "title": "Name",
+            "description": "A common or human-readable name to assign to this molecule. Can be arbitrary.",
+            "type": "string"
+        },
+        "identifiers": {
+            "title": "Identifiers",
+            "description": "An optional dictionary of additional identifiers by which this Molecule can be referenced, such as INCHI, canonical SMILES, etc. See the :class:``Identifiers`` model for more details.",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/Identifiers"
+                }
+            ]
+        },
+        "comment": {
+            "title": "Comment",
+            "description": "Additional comments for this Molecule. Intended for pure human/user consumption and clarity.",
+            "type": "string"
+        },
+        "molecular_charge": {
+            "title": "Molecular Charge",
+            "description": "The net electrostatic charge of this Molecule.",
+            "default": 0.0,
+            "type": "number"
+        },
+        "molecular_multiplicity": {
+            "title": "Molecular Multiplicity",
+            "description": "The total multiplicity of this Molecule.",
+            "default": 1,
+            "type": "integer"
+        },
+        "masses": {
+            "title": "Masses",
+            "description": "An ordered 1-D array-like object of atomic masses [u] of shape (nat,). Index order matches the 0-indexed indices of all other per-atom settings like ``symbols`` and ``real``. If this is not provided, the mass of each atom is inferred from their most common isotope. If this is provided, it must be the same length as ``symbols`` but can accept ``None`` entries for standard masses to infer from the same index in the ``symbols`` field.",
+            "type": "array",
+            "items": {
+                "type": "number"
+            }
+        },
+        "real": {
+            "title": "Real",
+            "description": "An ordered 1-D array-like object of shape (nat,) indicating if each atom is real (``True``) or ghost/virtual (``False``). Index matches the 0-indexed indices of all other per-atom settings like ``symbols`` and the first dimension of ``geometry``. If this is not provided, all atoms are assumed to be real (``True``).If this is provided, the reality or ghostality of every atom must be specified.",
+            "type": "array",
+            "items": {
+                "type": "boolean"
+            }
+        },
+        "atom_labels": {
+            "title": "Atom Labels",
+            "description": "Additional per-atom labels as a 1-D array-like of of strings of shape (nat,). Typical use is in model conversions, such as Elemental <-> Molpro and not typically something which should be user assigned. See the ``comments`` field for general human-consumable text to affix to the Molecule.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "atomic_numbers": {
+            "title": "Atomic Numbers",
+            "description": "An optional ordered 1-D array-like object of atomic numbers of shape (nat,). Index matches the 0-indexed indices of all other per-atom settings like ``symbols`` and ``real``. Values are inferred from the ``symbols`` list if not explicitly set.",
+            "type": "array",
+            "items": {
+                "type": "number",
+                "multipleOf": 1.0
+            }
+        },
+        "mass_numbers": {
+            "title": "Mass Numbers",
+            "description": "An optional ordered 1-D array-like object of atomic *mass* numbers of shape (nat). Index matches the 0-indexed indices of all other per-atom settings like ``symbols`` and ``real``. Values are inferred from the most common isotopes of the ``symbols`` list if not explicitly set.",
+            "type": "array",
+            "items": {
+                "type": "number",
+                "multipleOf": 1.0
+            }
+        },
+        "connectivity": {
+            "title": "Connectivity",
+            "description": "The connectivity information between each atom in the ``symbols`` array. Each entry in this list is a Tuple of ``(atom_index_A, atom_index_B, bond_order)`` where the ``atom_index`` matches the 0-indexed indices of all other per-atom settings like ``symbols`` and ``real``.",
+            "type": "array",
+            "items": {
+                "type": "array",
+                "items": [
+                    {
+                        "type": "integer"
+                    },
+                    {
+                        "type": "integer"
+                    },
+                    {
+                        "type": "number"
+                    }
+                ]
+            }
+        },
+        "fragments": {
+            "title": "Fragments",
+            "description": "An indication of which sets of atoms are fragments within the Molecule. This is a list of shape (nfr) of 1-D array-like objects of arbitrary length. Each entry in the list indicates a new fragment. The index of the list matches the 0-indexed indices of ``fragment_charges`` and ``fragment_multiplicities``. The 1-D array-like objects are sets of atom indices indicating the atoms which compose the fragment. The atom indices match the 0-indexed indices of all other per-atom settings like ``symbols`` and ``real``.",
+            "type": "array",
+            "items": {
+                "type": "array",
+                "items": {
+                    "type": "number",
+                    "multipleOf": 1.0
+                }
+            }
+        },
+        "fragment_charges": {
+            "title": "Fragment Charges",
+            "description": "The total charge of each fragment in the ``fragments`` list of shape (nfr,). The index of this list matches the 0-index indices of ``fragment`` list. Will be filled in based on a set of rules if not provided (and ``fragments`` are specified).",
+            "type": "array",
+            "items": {
+                "type": "number"
+            }
+        },
+        "fragment_multiplicities": {
+            "title": "Fragment Multiplicities",
+            "description": "The multiplicity of each fragment in the ``fragments`` list of shape (nfr,). The index of this list matches the 0-index indices of ``fragment`` list. Will be filled in based on a set of rules if not provided (and ``fragments`` are specified).",
+            "type": "array",
+            "items": {
+                "type": "integer"
+            }
+        },
+        "fix_com": {
+            "title": "Fix Com",
+            "description": "An indicator which prevents pre-processing the Molecule object to translate the Center-of-Mass to (0,0,0) in euclidean coordinate space. Will result in a different ``geometry`` than the one provided if False.",
+            "default": false,
+            "type": "boolean"
+        },
+        "fix_orientation": {
+            "title": "Fix Orientation",
+            "description": "An indicator which prevents pre-processes the Molecule object to orient via the inertia tensor.Will result in a different ``geometry`` than the one provided if False.",
+            "default": false,
+            "type": "boolean"
+        },
+        "fix_symmetry": {
+            "title": "Fix Symmetry",
+            "description": "Maximal point group symmetry which ``geometry`` should be treated. Lowercase.",
+            "type": "string"
+        },
+        "provenance": {
+            "title": "Provenance",
+            "description": "The provenance information about how this Molecule (and its attributes) were generated, provided, and manipulated.",
+            "default": {
+                "creator": "QCElemental",
+                "version": "v0.13.1+27.g8d1e857.dirty",
+                "routine": "qcelemental.models.molecule"
+            },
+            "allOf": [
+                {
+                    "$ref": "#/definitions/Provenance"
+                }
+            ]
+        },
+        "id": {
+            "title": "Id",
+            "description": "A unique identifier for this Molecule object. This field exists primarily for Databases (e.g. Fractal's Server) to track and lookup this specific object and should virtually never need to be manually set."
+        },
+        "extras": {
+            "title": "Extras",
+            "description": "Extra information to associate with this Molecule.",
+            "type": "object"
+        }
+    },
+    "required": [
+        "symbols",
+        "geometry"
+    ],
+    "additionalProperties": false,
+    "definitions": {
+        "Identifiers": {
+            "title": "Identifiers",
+            "description": "Canonical chemical identifiers\n\nParameters\n----------\nmolecule_hash : str, Optional\nmolecular_formula : str, Optional\nsmiles : str, Optional\ninchi : str, Optional\ninchikey : str, Optional\ncanonical_explicit_hydrogen_smiles : str, Optional\ncanonical_isomeric_explicit_hydrogen_mapped_smiles : str, Optional\ncanonical_isomeric_explicit_hydrogen_smiles : str, Optional\ncanonical_isomeric_smiles : str, Optional\ncanonical_smiles : str, Optional\npubchem_cid : str, Optional\n    PubChem Compound ID\npubchem_sid : str, Optional\n    PubChem Substance ID\npubchem_conformerid : str, Optional\n    PubChem Conformer ID",
+            "type": "object",
+            "properties": {
+                "molecule_hash": {
+                    "title": "Molecule Hash",
+                    "type": "string"
+                },
+                "molecular_formula": {
+                    "title": "Molecular Formula",
+                    "type": "string"
+                },
+                "smiles": {
+                    "title": "Smiles",
+                    "type": "string"
+                },
+                "inchi": {
+                    "title": "Inchi",
+                    "type": "string"
+                },
+                "inchikey": {
+                    "title": "Inchikey",
+                    "type": "string"
+                },
+                "canonical_explicit_hydrogen_smiles": {
+                    "title": "Canonical Explicit Hydrogen Smiles",
+                    "type": "string"
+                },
+                "canonical_isomeric_explicit_hydrogen_mapped_smiles": {
+                    "title": "Canonical Isomeric Explicit Hydrogen Mapped Smiles",
+                    "type": "string"
+                },
+                "canonical_isomeric_explicit_hydrogen_smiles": {
+                    "title": "Canonical Isomeric Explicit Hydrogen Smiles",
+                    "type": "string"
+                },
+                "canonical_isomeric_smiles": {
+                    "title": "Canonical Isomeric Smiles",
+                    "type": "string"
+                },
+                "canonical_smiles": {
+                    "title": "Canonical Smiles",
+                    "type": "string"
+                },
+                "pubchem_cid": {
+                    "title": "Pubchem Cid",
+                    "description": "PubChem Compound ID",
+                    "type": "string"
+                },
+                "pubchem_sid": {
+                    "title": "Pubchem Sid",
+                    "description": "PubChem Substance ID",
+                    "type": "string"
+                },
+                "pubchem_conformerid": {
+                    "title": "Pubchem Conformerid",
+                    "description": "PubChem Conformer ID",
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        },
+        "Provenance": {
+            "title": "Provenance",
+            "description": "Provenance information.\n\n\nParameters\n----------\ncreator : str\n    The creator of the object.\nversion : str, Optional\n    The version of the creator, which should be sortable by the very broad [PEP 440](https://www.python.org/dev/peps/pep-0440/).\nroutine : str, Optional\n    The routine of the creator.",
+            "type": "object",
+            "properties": {
+                "creator": {
+                    "title": "Creator",
+                    "description": "The creator of the object.",
+                    "type": "string"
+                },
+                "version": {
+                    "title": "Version",
+                    "description": "The version of the creator, which should be sortable by the very broad [PEP 440](https://www.python.org/dev/peps/pep-0440/).",
+                    "type": "string"
+                },
+                "routine": {
+                    "title": "Routine",
+                    "description": "The routine of the creator.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "creator"
+            ]
+        }
+    }
+}

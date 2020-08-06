@@ -1,0 +1,199 @@
+{
+    "title": "BasisSet",
+    "description": "A quantum chemistry basis description.\n\n\nParameters\n----------\nschema_name : ConstrainedStrValue, Default: qcschema_basis\nschema_version : int, Default: 1\nname : str\n    A standard basis name if available (e.g., 'cc-pVDZ').\ndescription : str, Optional\n    A brief description of the basis set.\ncenter_data : :class:`BasisCenter`\n    A mapping of all types of centers available.\natom_map : List[str]\n    Mapping of all centers in the parent molecule to centers in `center_data`.\nnbf : int, Optional\n    The number of basis functions.",
+    "type": "object",
+    "properties": {
+        "schema_name": {
+            "title": "Schema Name",
+            "default": "qcschema_basis",
+            "type": "string",
+            "pattern": "qcschema_basis"
+        },
+        "schema_version": {
+            "title": "Schema Version",
+            "default": 1,
+            "type": "integer"
+        },
+        "name": {
+            "title": "Name",
+            "description": "A standard basis name if available (e.g., 'cc-pVDZ').",
+            "type": "string"
+        },
+        "description": {
+            "title": "Description",
+            "description": "A brief description of the basis set.",
+            "type": "string"
+        },
+        "center_data": {
+            "title": "Center Data",
+            "description": "A mapping of all types of centers available.",
+            "type": "object",
+            "additionalProperties": {
+                "$ref": "#/definitions/BasisCenter"
+            }
+        },
+        "atom_map": {
+            "title": "Atom Map",
+            "description": "Mapping of all centers in the parent molecule to centers in `center_data`.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "nbf": {
+            "title": "Nbf",
+            "description": "The number of basis functions.",
+            "type": "integer"
+        }
+    },
+    "required": [
+        "name",
+        "center_data",
+        "atom_map"
+    ],
+    "additionalProperties": false,
+    "definitions": {
+        "ElectronShell": {
+            "title": "ElectronShell",
+            "description": "Information for a single electronic shell\n\n\nParameters\n----------\nangular_momentum : List[int]\n    Angular momentum for this shell.\nharmonic_type : {spherical,cartesian}\n\n        The angular momentum representation of a shell.\n    \nexponents : List[float]\n    Exponents for this contracted shell.\ncoefficients : List[List[float]]\n    General contraction coefficients for this shell, individual list components will be the individual segment contraction coefficients.",
+            "type": "object",
+            "properties": {
+                "angular_momentum": {
+                    "title": "Angular Momentum",
+                    "description": "Angular momentum for this shell.",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "harmonic_type": {
+                    "title": "Harmonic Type",
+                    "description": "\n    The angular momentum representation of a shell.\n    ",
+                    "enum": [
+                        "spherical",
+                        "cartesian"
+                    ],
+                    "type": "string"
+                },
+                "exponents": {
+                    "title": "Exponents",
+                    "description": "Exponents for this contracted shell.",
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "coefficients": {
+                    "title": "Coefficients",
+                    "description": "General contraction coefficients for this shell, individual list components will be the individual segment contraction coefficients.",
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        }
+                    }
+                }
+            },
+            "required": [
+                "angular_momentum",
+                "harmonic_type",
+                "exponents",
+                "coefficients"
+            ],
+            "additionalProperties": false
+        },
+        "ECPPotential": {
+            "title": "ECPPotential",
+            "description": "Information for a single ECP potential.\n\n\nParameters\n----------\necp_type : {scalar,spinorbit}\n\n        The type of the ECP potential.\n    \nangular_momentum : List[int]\n    Angular momentum for the ECPs.\nr_exponents : List[int]\n    Exponents of the 'r' term.\ngaussian_exponents : List[float]\n    Exponents of the 'gaussian' term.\ncoefficients : List[List[float]]\n    General contraction coefficients for this shell, individual list components will be the individual segment contraction coefficients.",
+            "type": "object",
+            "properties": {
+                "ecp_type": {
+                    "title": "Ecp Type",
+                    "description": "\n    The type of the ECP potential.\n    ",
+                    "enum": [
+                        "scalar",
+                        "spinorbit"
+                    ],
+                    "type": "string"
+                },
+                "angular_momentum": {
+                    "title": "Angular Momentum",
+                    "description": "Angular momentum for the ECPs.",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "r_exponents": {
+                    "title": "R Exponents",
+                    "description": "Exponents of the 'r' term.",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "gaussian_exponents": {
+                    "title": "Gaussian Exponents",
+                    "description": "Exponents of the 'gaussian' term.",
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "coefficients": {
+                    "title": "Coefficients",
+                    "description": "General contraction coefficients for this shell, individual list components will be the individual segment contraction coefficients.",
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        }
+                    }
+                }
+            },
+            "required": [
+                "ecp_type",
+                "angular_momentum",
+                "r_exponents",
+                "gaussian_exponents",
+                "coefficients"
+            ],
+            "additionalProperties": false
+        },
+        "BasisCenter": {
+            "title": "BasisCenter",
+            "description": "Data for a single atom/center in a basis set.\n\n\nParameters\n----------\nelectron_shells : :class:`ElectronShell`\n    Electronic shells for this center.\necp_electrons : int, Default: 0\n    Number of electrons replace by ECP potentials.\necp_potentials : :class:`ECPPotential`, Optional\n    ECPs for this center.",
+            "type": "object",
+            "properties": {
+                "electron_shells": {
+                    "title": "Electron Shells",
+                    "description": "Electronic shells for this center.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ElectronShell"
+                    }
+                },
+                "ecp_electrons": {
+                    "title": "Ecp Electrons",
+                    "description": "Number of electrons replace by ECP potentials.",
+                    "default": 0,
+                    "type": "integer"
+                },
+                "ecp_potentials": {
+                    "title": "Ecp Potentials",
+                    "description": "ECPs for this center.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ECPPotential"
+                    }
+                }
+            },
+            "required": [
+                "electron_shells"
+            ],
+            "additionalProperties": false
+        }
+    }
+}

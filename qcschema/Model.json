@@ -1,0 +1,20 @@
+{
+    "title": "Model",
+    "description": "The quantum chemistry model specification for a given operation to compute against\n\n\nParameters\n----------\nmethod : str\n    The quantum chemistry method to evaluate (e.g., B3LYP, PBE, ...).\nbasis : str, Optional\n    The quantum chemistry basis set to evaluate (e.g., 6-31g, cc-pVDZ, ...). Can be ``None`` for methods without basis sets.",
+    "type": "object",
+    "properties": {
+        "method": {
+            "title": "Method",
+            "description": "The quantum chemistry method to evaluate (e.g., B3LYP, PBE, ...).",
+            "type": "string"
+        },
+        "basis": {
+            "title": "Basis",
+            "description": "The quantum chemistry basis set to evaluate (e.g., 6-31g, cc-pVDZ, ...). Can be ``None`` for methods without basis sets.",
+            "type": "string"
+        }
+    },
+    "required": [
+        "method"
+    ]
+}

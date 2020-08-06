@@ -1,0 +1,59 @@
+{
+    "title": "ECPPotential",
+    "description": "Information for a single ECP potential.\n\n\nParameters\n----------\necp_type : {scalar,spinorbit}\n\n        The type of the ECP potential.\n    \nangular_momentum : List[int]\n    Angular momentum for the ECPs.\nr_exponents : List[int]\n    Exponents of the 'r' term.\ngaussian_exponents : List[float]\n    Exponents of the 'gaussian' term.\ncoefficients : List[List[float]]\n    General contraction coefficients for this shell, individual list components will be the individual segment contraction coefficients.",
+    "type": "object",
+    "properties": {
+        "ecp_type": {
+            "title": "Ecp Type",
+            "description": "\n    The type of the ECP potential.\n    ",
+            "enum": [
+                "scalar",
+                "spinorbit"
+            ],
+            "type": "string"
+        },
+        "angular_momentum": {
+            "title": "Angular Momentum",
+            "description": "Angular momentum for the ECPs.",
+            "type": "array",
+            "items": {
+                "type": "integer"
+            }
+        },
+        "r_exponents": {
+            "title": "R Exponents",
+            "description": "Exponents of the 'r' term.",
+            "type": "array",
+            "items": {
+                "type": "integer"
+            }
+        },
+        "gaussian_exponents": {
+            "title": "Gaussian Exponents",
+            "description": "Exponents of the 'gaussian' term.",
+            "type": "array",
+            "items": {
+                "type": "number"
+            }
+        },
+        "coefficients": {
+            "title": "Coefficients",
+            "description": "General contraction coefficients for this shell, individual list components will be the individual segment contraction coefficients.",
+            "type": "array",
+            "items": {
+                "type": "array",
+                "items": {
+                    "type": "number"
+                }
+            }
+        }
+    },
+    "required": [
+        "ecp_type",
+        "angular_momentum",
+        "r_exponents",
+        "gaussian_exponents",
+        "coefficients"
+    ],
+    "additionalProperties": false
+}
