@@ -1,6 +1,6 @@
 {
-  "schema_name": "qcschema_output",
-  "schema_version": 1,
+  "schema_name": "qc_schema_output",
+  "schema_version": 2,
   "molecule": {
     "schema_name": "qcschema_molecule",
     "schema_version": 2,

@@ -3,11 +3,12 @@ A simple program to construct the input and ouput Quantum Chemistry Schema's
 from the development branch
 """
 
+import json
 import os
 
 from . import dev
 
-_data_path = os.path.dirname(__file__)
+_data_path = os.path.dirname(__file__) + os.sep + "data"
 
 _input_version_list = ["dev", 1]
 _output_version_list = ["dev", 1]
@@ -30,7 +31,7 @@ def _load_schema(schema_type, version):
 
     fpath = os.path.join(_data_path, "v" + str(version), fname)
     with open(fpath, "r") as handle:
-        ret = json.loads(handle)
+        ret = json.loads(handle.read())
 
     return ret
 

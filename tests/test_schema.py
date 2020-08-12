@@ -17,7 +17,11 @@ simple_input = test_helpers.list_tests("simple", matcher="input")
 def test_simple_input(version, testfile):
 
     example = test_helpers.get_test(testfile)
-    qcschema.validate(example, "input")
+    if isinstance(version, int) and version < example["schema_version"]:
+        with pytest.raises(jsonschema.exceptions.ValidationError):
+            qcschema.validate(example, "input", version=version)
+    else:
+        qcschema.validate(example, "input", version=version)
 
 ### Test input validation errors
 simple_output = test_helpers.list_tests("simple", matcher="output")
@@ -28,7 +32,12 @@ simple_output = test_helpers.list_tests("simple", matcher="output")
 def test_simple_output(version, testfile):
 
     example = test_helpers.get_test(testfile)
-    qcschema.validate(example, "output")
+
+    if isinstance(version, int) and version < example["schema_version"]:
+        with pytest.raises(jsonschema.exceptions.ValidationError):
+            qcschema.validate(example, "output", version=version)
+    else:
+        qcschema.validate(example, "output", version=version)
 
 
 
@@ -41,7 +50,11 @@ basis_input = test_helpers.list_tests("basis", matcher="input")
 def test_simple_basis_input(version, testfile):
 
     example = test_helpers.get_test(testfile)
-    qcschema.validate(example, "input")
+    if isinstance(version, int) and version < example["schema_version"]:
+        with pytest.raises(jsonschema.exceptions.ValidationError):
+            qcschema.validate(example, "input", version=version)
+    else:
+        qcschema.validate(example, "input", version=version)
 
 
 
@@ -54,4 +67,8 @@ wavefunction_output = test_helpers.list_tests("wavefunction", matcher="output")
 def test_wavefunction_output(version, testfile):
 
     example = test_helpers.get_test(testfile)
-    qcschema.validate(example, "output")
+    if isinstance(version, int) and version < example["schema_version"]:
+        with pytest.raises(jsonschema.exceptions.ValidationError):
+            qcschema.validate(example, "output", version=version)
+    else:
+        qcschema.validate(example, "output", version=version)
