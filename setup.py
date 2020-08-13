@@ -6,11 +6,12 @@ if __name__ == "__main__":
         version="1",
         description='A schema for quantum chemistry',
         author='',
-        url="https://github.com/MolSSI/QC_JSON_Schema",
+        url="https://github.com/MolSSI/QCSchema",
         license='',
         packages=setuptools.find_packages(),
         install_requires=[
             'jsonschema',
+            'pathlib2; python_version < "3.5"',  # redundant with jsonschema
         ],
         extras_require={
             'docs': [
