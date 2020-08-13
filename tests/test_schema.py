@@ -32,7 +32,6 @@ simple_output = test_helpers.list_tests("simple", matcher="output")
 def test_simple_output(version, testfile):
 
     example = test_helpers.get_test(testfile)
-
     if isinstance(version, int) and version < example["schema_version"]:
         with pytest.raises(jsonschema.exceptions.ValidationError):
             qcschema.validate(example, "output", version=version)
