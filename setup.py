@@ -11,6 +11,7 @@ if __name__ == "__main__":
         packages=setuptools.find_packages(),
         install_requires=[
             'jsonschema',
+            'pathlib2; python_version < "3.5"',  # redundant with jsonschema
         ],
         extras_require={
             'docs': [
