@@ -5,14 +5,15 @@ from the development branch
 
 import json
 import os
+from pathlib import Path
 
 from . import dev
 
-_data_path = os.path.dirname(__file__) + os.sep + "data"
+_data_path = Path(__file__).resolve().parent / "data"
 
-_input_version_list = ["dev", 1]
-_output_version_list = ["dev", 1]
-_molecule_version_list = ["dev", 1]
+_input_version_list = ["dev", 1, 2]
+_output_version_list = ["dev", 1, 2]
+_molecule_version_list = ["dev", 1, 2]
 
 _schema_input_dict = {"dev": dev.input_dev_schema}
 _schema_output_dict = {"dev": dev.output_dev_schema}
@@ -29,9 +30,8 @@ def _load_schema(schema_type, version):
     else:
         raise KeyError("Schema type %s not understood." % schema_type)
 
-    fpath = os.path.join(_data_path, "v" + str(version), fname)
-    with open(fpath, "r") as handle:
-        ret = json.loads(handle.read())
+    fpath = _data_path / ("v" + str(version)) / fname
+    ret = json.loads(fpath.read_text())
 
     return ret
 
