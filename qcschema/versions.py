@@ -14,9 +14,9 @@ from . import dev
 
 _data_path = Path(__file__).resolve().parent / "data"
 
-_input_version_list = ["dev", 1]
-_output_version_list = ["dev", 1]
-_molecule_version_list = ["dev", 1]
+_input_version_list = ["dev", 1, 2]
+_output_version_list = ["dev", 1, 2]
+_molecule_version_list = ["dev", 1, 2]
 
 _schema_input_dict = {"dev": dev.input_dev_schema}
 _schema_output_dict = {"dev": dev.output_dev_schema}
