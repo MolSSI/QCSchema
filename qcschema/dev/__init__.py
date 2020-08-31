@@ -1,1 +1,5 @@
-from .dev_schema import input_dev_schema, output_dev_schema, molecule_dev_schema, basis_dev_schema
+import json
+from pathlib import Path
+
+fpath = Path(__file__).parent.resolve() / "QCSchema.schema"
+qcschema = json.loads(fpath.read_text())
