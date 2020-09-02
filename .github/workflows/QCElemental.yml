@@ -1,0 +1,16 @@
+name: QCElemental
+
+on: [push]
+
+jobs:
+  auto-pull-request:
+    name: PullRequestAction
+    runs-on: ubuntu-latest
+    steps:
+      - name: pull-request-action
+        uses: vsoch/pull-request-action@1.0.7
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_PREFIX: "qcel-"
+          PULL_REQUEST_BRANCH: "master"
+          MAINTAINER_CANT_MODIFY: 1

@@ -26,7 +26,7 @@ sys.path.insert(1, os.path.dirname(__file__))
 import gen_schema_docs
 
 project = 'A schema for Quantum Chemistry'
-copyright = "2018, The Molecular Sciences Software Institute"
+copyright = f'2018-{datetime.datetime.today().year}, The Molecular Sciences Software Institute'
 author = 'The Molecular Sciences Software Institute'
 
 # The short X.Y version
