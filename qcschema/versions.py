@@ -10,7 +10,6 @@ try:
 except ImportError:
     from pathlib2 import Path
 
-from . import dev
 
 _data_path = Path(__file__).parent.resolve() / "data"
 
