@@ -49,10 +49,6 @@ def get_schema(schema_type, version="dev"):
     """
     Returns the requested schema (input or output) for a given version number.
     """
-    # temporary
-    if version == "dev":
-        version = 2
-
     for sk, aliases in _laliases.items():
         if schema_type.lower() in aliases:
             if str(version) in _sversions_list[sk]:
