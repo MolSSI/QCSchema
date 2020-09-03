@@ -29,9 +29,10 @@ as the definition of QCSchema, rather than hand-writing schema here
 and synching versions.
 
 The gist of the above is that schema in this repository are read-only. To
-propose a change, open an issue here at QCSchema or open a pull request
-at QCElemental. Any discussion of changes to QCSchema will take place
-here or will be cross-linked to here in accordance with The Guidance.
+propose a change, open an issue here at QCSchema or open a pull
+request at QCElemental. Any discussion of changes to QCSchema will
+take place here or will be cross-linked to here in accordance with [The
+Guidance](https://github.com/MolSSI/QCSchema/issues/68#issuecomment-578256825).
 
 * [`qcschema/dev/QCSchema.schema`](qcschema/dev/QCSchema.schema) — single-file, human-readable development schema exported from QCElemental.
 * [`qcschema/data/vdev/`](qcschema/data/vdev) — multi-file, compressed development schema exported from QCElemental. contents redundant to above.

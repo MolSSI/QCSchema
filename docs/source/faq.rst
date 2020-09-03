@@ -10,7 +10,9 @@ found at the `JSON-Schema website <http://json-schema.org/implementations.html>`
 Does the schema accept arbitrary extra fields if my software piece needs internal extensions?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Yes, we are currently discussing which fields are reserved and where the best
-place for arbitrary fields would be.
+place for arbitrary fields would be. Most high-level schema do *not* accept
+additional arbitrary fields, but they do have an ``extras`` dictionary-like field
+that can be used for schema development and scratch space.
 
 Are there libraries for writing the schema in [programming-language]?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
