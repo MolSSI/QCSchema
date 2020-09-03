@@ -66,7 +66,7 @@
         },
         "Provenance": {
             "title": "Provenance",
-            "description": "Provenance information.\n\n\nParameters\n----------\ncreator : str\n    The name of the program, library, or person who created the object.\nversion : str, Default: \n    The version of the creator, blank otherwise. This should be sortable by the very broad [PEP 440](https://www.python.org/dev/peps/pep-0440/).\nroutine : str, Default: \n    The name of the routine or function within the creator, blank otherwise.",
+            "description": "Provenance information.\n\nParameters\n----------\ncreator : str\n    The name of the program, library, or person who created the object.\nversion : str, Default: \n    The version of the creator, blank otherwise. This should be sortable by the very broad [PEP 440](https://www.python.org/dev/peps/pep-0440/).\nroutine : str, Default: \n    The name of the routine or function within the creator, blank otherwise.",
             "type": "object",
             "properties": {
                 "creator": {
@@ -94,7 +94,7 @@
         },
         "Molecule": {
             "title": "Molecule",
-            "description": "The physical Cartesian representation of the molecular system.\n\nA QCSchema representation of a Molecule. This model contains\ndata for symbols, geometry, connectivity, charges, fragmentation, etc while also supporting a wide array of I/O and manipulation capabilities.\n\nMolecule objects geometry, masses, and charges are truncated to 8, 6, and 4 decimal places respectively to assist with duplicate detection.",
+            "description": "The physical Cartesian representation of the molecular system.\n\nA QCSchema representation of a Molecule. This model contains\ndata for symbols, geometry, connectivity, charges, fragmentation, etc while also supporting a wide array of I/O and manipulation capabilities.\n\nMolecule objects geometry, masses, and charges are truncated to 8, 6, and 4 decimal places respectively to assist with duplicate detection.\n\nNotes\n-----\nAll arrays are stored flat but must be reshapable into the dimensions in attribute ``shape``, with abbreviations as follows:\n    nat: number of atomic = calcinfo_natom\n    nfr: number of fragments\n    <varies>: irregular dimension not systematically reshapable",
             "type": "object",
             "properties": {
                 "schema_name": {
@@ -118,7 +118,7 @@
                 },
                 "symbols": {
                     "title": "Symbols",
-                    "description": "An ordered (nat,) array-like object of atomic elemental symbols in title case. The index of this attribute sets atomic order for all other per-atom fields like ``real`` and the first dimension of ``geometry``. Ghost/Virtual atoms must have an entry here in ``symbols``; ghostedness is indicated through the ``real`` field.",
+                    "description": "The ordered array of atomic elemental symbols in title case. This field's index sets atomic order for all other per-atom fields like ``real`` and the first dimension of ``geometry``. Ghost/virtual atoms must have an entry here in ``symbols``; ghostedness is indicated through the ``real`` field.",
                     "shape": [
                         "nat"
                     ],
@@ -129,11 +129,12 @@
                 },
                 "geometry": {
                     "title": "Geometry",
-                    "description": "An ordered (nat,3) array-like for XYZ atomic coordinates [a0]. Atom ordering is fixed; that is, a consumer who shuffles atoms must not reattach the input (pre-shuffling) molecule schema instance to any output (post-shuffling) per-atom results (e.g., gradient). Index of the first dimension matches the 0-indexed indices of all other per-atom settings like ``symbols`` and ``real``.\nSerialized storage is always flat, (3*nat,), but QCSchema implementations will want to reshape it. QCElemental can also accept array-likes which can be mapped to (nat,3) such as a 1-D list of length 3*nat, or the serialized version of the array in (3*nat,) shape; all forms will be reshaped to (nat,3) for this attribute.",
+                    "description": "The ordered array for Cartesian XYZ atomic coordinates [a0]. Atom ordering is fixed; that is, a consumer who shuffles atoms must not reattach the input (pre-shuffling) molecule schema instance to any output (post-shuffling) per-atom results (e.g., gradient). Index of the first dimension matches the 0-indexed indices of all other per-atom settings like ``symbols`` and ``real``.\nSerialized storage is always flat, (3*nat,), but QCSchema implementations will want to reshape it. QCElemental can also accept array-likes which can be mapped to (nat,3) such as a 1-D list of length 3*nat, or the serialized version of the array in (3*nat,) shape; all forms will be reshaped to (nat,3) for this attribute.",
                     "shape": [
                         "nat",
                         3
                     ],
+                    "units": "a0",
                     "type": "array",
                     "items": {
                         "type": "number"
@@ -141,12 +142,12 @@
                 },
                 "name": {
                     "title": "Name",
-                    "description": "A common or human-readable name to assign to this molecule. Can be arbitrary.",
+                    "description": "Common or human-readable name to assign to this molecule. This field can be arbitrary; see ``identifiers`` for well-defined labels.",
                     "type": "string"
                 },
                 "identifiers": {
                     "title": "Identifiers",
-                    "description": "An optional dictionary of additional identifiers by which this Molecule can be referenced, such as INCHI, canonical SMILES, etc. See the :class:``Identifiers`` model for more details.",
+                    "description": "An optional dictionary of additional identifiers by which this molecule can be referenced, such as INCHI, canonical SMILES, etc. See the :class:``Identifiers`` model for more details.",
                     "allOf": [
                         {
                             "$ref": "#/definitions/Identifiers"
@@ -155,27 +156,28 @@
                 },
                 "comment": {
                     "title": "Comment",
-                    "description": "Additional comments for this Molecule. Intended for pure human/user consumption and clarity.",
+                    "description": "Additional comments for this molecule. Intended for pure human/user consumption and clarity.",
                     "type": "string"
                 },
                 "molecular_charge": {
                     "title": "Molecular Charge",
-                    "description": "The net electrostatic charge of the Molecule.",
+                    "description": "The net electrostatic charge of the molecule.",
                     "default": 0.0,
                     "type": "number"
                 },
                 "molecular_multiplicity": {
                     "title": "Molecular Multiplicity",
-                    "description": "The total multiplicity of the Molecule.",
+                    "description": "The total multiplicity of the molecule.",
                     "default": 1,
                     "type": "integer"
                 },
                 "masses": {
                     "title": "Masses",
-                    "description": "An ordered 1-D array-like object of atomic masses [u] of shape (nat,). Index order matches the 0-indexed indices of all other per-atom fields like ``symbols`` and ``real``. If this is not provided, the mass of each atom is inferred from their most common isotope. If this is provided, it must be the same length as ``symbols`` but can accept ``None`` entries for standard masses to infer from the same index in the ``symbols`` field.",
+                    "description": "The ordered array of atomic masses. Index order matches the 0-indexed indices of all other per-atom fields like ``symbols`` and ``real``. If this is not provided, the mass of each atom is inferred from its most common isotope. If this is provided, it must be the same length as ``symbols`` but can accept ``None`` entries for standard masses to infer from the same index in the ``symbols`` field.",
                     "shape": [
                         "nat"
                     ],
+                    "units": "u",
                     "type": "array",
                     "items": {
                         "type": "number"
@@ -183,7 +185,7 @@
                 },
                 "real": {
                     "title": "Real",
-                    "description": "An ordered 1-D array-like object of shape (nat,) indicating if each atom is real (``True``) or ghost/virtual (``False``). Index matches the 0-indexed indices of all other per-atom settings like ``symbols`` and the first dimension of ``geometry``. If this is not provided, all atoms are assumed to be real (``True``).If this is provided, the reality or ghostedness of every atom must be specified.",
+                    "description": "The ordered array indicating if each atom is real (``True``) or ghost/virtual (``False``). Index matches the 0-indexed indices of all other per-atom settings like ``symbols`` and the first dimension of ``geometry``. If this is not provided, all atoms are assumed to be real (``True``).If this is provided, the reality or ghostedness of every atom must be specified.",
                     "shape": [
                         "nat"
                     ],
@@ -194,7 +196,7 @@
                 },
                 "atom_labels": {
                     "title": "Atom Labels",
-                    "description": "Additional per-atom labels as a 1-D array-like of of strings of shape (nat,). Typical use is in model conversions, such as Elemental <-> Molpro and not typically something which should be user assigned. See the ``comments`` field for general human-consumable text to affix to the Molecule.",
+                    "description": "Additional per-atom labels as an array of strings. Typical use is in model conversions, such as Elemental <-> Molpro and not typically something which should be user assigned. See the ``comments`` field for general human-consumable text to affix to the molecule.",
                     "shape": [
                         "nat"
                     ],
@@ -230,8 +232,7 @@
                 "connectivity": {
                     "title": "Connectivity",
                     "description": "A list of bonds within the molecule. Each entry is a tuple of ``(atom_index_A, atom_index_B, bond_order)`` where the ``atom_index`` matches the 0-indexed indices of all other per-atom settings like ``symbols`` and ``real``. Bonds may be freely reordered and inverted.",
-                    "minItems": 3,
-                    "maxItems": 3,
+                    "minItems": 1,
                     "type": "array",
                     "items": {
                         "type": "array",
@@ -254,7 +255,7 @@
                 },
                 "fragments": {
                     "title": "Fragments",
-                    "description": "List of indices grouping atoms (0-indexed) into molecular fragments within the Molecule. This is a list of shape (nfr) of 1-D array-like objects of arbitrary length. Each entry in the list indicates a new fragment. The index of the list matches the 0-indexed indices of ``fragment_charges`` and ``fragment_multiplicities``. The 1-D array-like objects are sets of atom indices indicating the atoms which compose the fragment. The atom indices match the 0-indexed indices of all other per-atom settings like ``symbols`` and ``real``. Fragment ordering is fixed; that is, a consumer who shuffles fragments must not reattach the input (pre-shuffling) molecule schema instance to any output (post-shuffling) per-fragment results (e.g., n-body energy arrays).",
+                    "description": "List of indices grouping atoms (0-indexed) into molecular fragments within the molecule. Each entry in the outer list is a new fragment; index matches the ordering in ``fragment_charges`` and ``fragment_multiplicities``. Inner lists are 0-indexed atoms which compose the fragment; every atom must be in exactly one inner list. Noncontiguous fragments are allowed, though no QM program is known to support them. Fragment ordering is fixed; that is, a consumer who shuffles fragments must not reattach the input (pre-shuffling) molecule schema instance to any output (post-shuffling) per-fragment results (e.g., n-body energy arrays).",
                     "shape": [
                         "nfr",
                         "<varies>"
@@ -270,7 +271,7 @@
                 },
                 "fragment_charges": {
                     "title": "Fragment Charges",
-                    "description": "The total charge of each fragment in the ``fragments`` list of shape (nfr,). The index of this list matches the 0-index indices of ``fragments`` list. Will be filled in based on a set of rules if not provided (and ``fragments`` are specified).",
+                    "description": "The total charge of each fragment in the ``fragments`` list. The index of this list matches the 0-index indices of ``fragments`` list. Will be filled in based on a set of rules if not provided (and ``fragments`` are specified).",
                     "shape": [
                         "nfr"
                     ],
@@ -281,7 +282,7 @@
                 },
                 "fragment_multiplicities": {
                     "title": "Fragment Multiplicities",
-                    "description": "The multiplicity of each fragment in the ``fragments`` list of shape (nfr,). The index of this list matches the 0-index indices of ``fragments`` list. Will be filled in based on a set of rules if not provided (and ``fragments`` are specified).",
+                    "description": "The multiplicity of each fragment in the ``fragments`` list. The index of this list matches the 0-index indices of ``fragments`` list. Will be filled in based on a set of rules if not provided (and ``fragments`` are specified).",
                     "shape": [
                         "nfr"
                     ],
@@ -310,11 +311,6 @@
                 "provenance": {
                     "title": "Provenance",
                     "description": "The provenance information about how this Molecule (and its attributes) were generated, provided, and manipulated.",
-                    "default": {
-                        "creator": "QCElemental",
-                        "version": "v0.15.1+31.g0faaa1f.dirty",
-                        "routine": "qcelemental.models.molecule"
-                    },
                     "allOf": [
                         {
                             "$ref": "#/definitions/Provenance"
@@ -327,7 +323,7 @@
                 },
                 "extras": {
                     "title": "Extras",
-                    "description": "Extra information to associate with this Molecule.",
+                    "description": "Additional information to bundle with the molecule. Use for schema development and scratch space.",
                     "type": "object"
                 }
             },
@@ -340,7 +336,7 @@
         },
         "DriverEnum": {
             "title": "DriverEnum",
-            "description": "Allowed computation driver values.\n    ",
+            "description": "Allowed computation driver values.",
             "enum": [
                 "energy",
                 "gradient",
@@ -360,7 +356,7 @@
         },
         "ElectronShell": {
             "title": "ElectronShell",
-            "description": "Information for a single electronic shell",
+            "description": "Information for a single electronic shell.",
             "type": "object",
             "properties": {
                 "angular_momentum": {
@@ -395,7 +391,7 @@
                 },
                 "coefficients": {
                     "title": "Coefficients",
-                    "description": "General contraction coefficients for the shell, individual list components will be the individual segment contraction coefficients.",
+                    "description": "General contraction coefficients for the shell; individual list components will be the individual segment contraction coefficients.",
                     "minItems": 1,
                     "type": "array",
                     "items": {
@@ -477,7 +473,7 @@
                 },
                 "coefficients": {
                     "title": "Coefficients",
-                    "description": "General contraction coefficients for the potential, individual list components will be the individual segment contraction coefficients.",
+                    "description": "General contraction coefficients for the potential; individual list components will be the individual segment contraction coefficients.",
                     "minItems": 1,
                     "type": "array",
                     "items": {
@@ -507,7 +503,7 @@
         },
         "BasisCenter": {
             "title": "BasisCenter",
-            "description": "Data for a single atom/center in a basis set.\n\n\nParameters\n----------\nelectron_shells : :class:`ElectronShell`\n    Electronic shells for this center.\necp_electrons : int, Default: 0\n    Number of electrons replaced by ECP, MCP, or other field potentials.\necp_potentials : :class:`ECPPotential`, Optional\n    ECPs, MCPs, or other field potentials for this center.",
+            "description": "Data for a single atom/center in a basis set.\n\nParameters\n----------\nelectron_shells : :class:`ElectronShell`\n    Electronic shells for this center.\necp_electrons : int, Default: 0\n    Number of electrons replaced by ECP, MCP, or other field potentials.\necp_potentials : :class:`ECPPotential`, Optional\n    ECPs, MCPs, or other field potentials for this center.",
             "type": "object",
             "properties": {
                 "electron_shells": {
@@ -544,7 +540,7 @@
         },
         "BasisSet": {
             "title": "BasisSet",
-            "description": "A quantum chemistry basis description.\n\n\nParameters\n----------\nschema_name : ConstrainedStrValue, Default: qcschema_basis\n    The QCSchema specification to which this model conforms. Explicitly fixed as qcschema_basis.\nschema_version : int, Default: 1\n    The version number of ``schema_name`` to which this model conforms.\nname : str\n    A standard basis name if available (e.g., 'cc-pVDZ').\ndescription : str, Optional\n    A brief description of the basis set.\ncenter_data : :class:`BasisCenter`\n    Shared basis data for all atoms/centers in the parent molecule\natom_map : List[str]\n    Mapping of all atoms/centers in the parent molecule to centers in `center_data`.\nnbf : int, Optional\n    The number of basis functions.",
+            "description": "A quantum chemistry basis description.\n\n\nParameters\n----------\nschema_name : ConstrainedStrValue, Default: qcschema_basis\n    The QCSchema specification to which this model conforms. Explicitly fixed as qcschema_basis.\nschema_version : int, Default: 1\n    The version number of ``schema_name`` to which this model conforms.\nname : str\n    The standard basis name if available (e.g., 'cc-pVDZ').\ndescription : str, Optional\n    Brief description of the basis set.\ncenter_data : :class:`BasisCenter`\n    Shared basis data for all atoms/centers in the parent molecule\natom_map : List[str]\n    Mapping of all atoms/centers in the parent molecule to centers in ``center_data``.\nnbf : int, Optional\n    The number of basis functions. Use for convenience or as checksum",
             "type": "object",
             "properties": {
                 "schema_name": {
@@ -562,12 +558,12 @@
                 },
                 "name": {
                     "title": "Name",
-                    "description": "A standard basis name if available (e.g., 'cc-pVDZ').",
+                    "description": "The standard basis name if available (e.g., 'cc-pVDZ').",
                     "type": "string"
                 },
                 "description": {
                     "title": "Description",
-                    "description": "A brief description of the basis set.",
+                    "description": "Brief description of the basis set.",
                     "type": "string"
                 },
                 "center_data": {
@@ -580,7 +576,7 @@
                 },
                 "atom_map": {
                     "title": "Atom Map",
-                    "description": "Mapping of all atoms/centers in the parent molecule to centers in `center_data`.",
+                    "description": "Mapping of all atoms/centers in the parent molecule to centers in ``center_data``.",
                     "type": "array",
                     "items": {
                         "type": "string"
@@ -588,7 +584,7 @@
                 },
                 "nbf": {
                     "title": "Nbf",
-                    "description": "The number of basis functions.",
+                    "description": "The number of basis functions. Use for convenience or as checksum",
                     "type": "integer"
                 }
             },
@@ -602,7 +598,7 @@
         },
         "Model": {
             "title": "Model",
-            "description": "The computational molecular sciences model to run.\n\n\nParameters\n----------\nmethod : str\n    The quantum chemistry method to evaluate (e.g., B3LYP, PBE, ...). For MM, name of the force field.\nbasis : Union[str, :class:`BasisSet`], Optional\n    The quantum chemistry basis set to evaluate (e.g., 6-31g, cc-pVDZ, ...). Can be ``None`` for methods without basis sets. For molecular mechanics, name of the atom-typer.",
+            "description": "The computational molecular sciences model to run.\n\nParameters\n----------\nmethod : str\n    The quantum chemistry method to evaluate (e.g., B3LYP, PBE, ...). For MM, name of the force field.\nbasis : Union[str, :class:`BasisSet`], Optional\n    The quantum chemistry basis set to evaluate (e.g., 6-31g, cc-pVDZ, ...). Can be ``None`` for methods without basis sets. For molecular mechanics, name of the atom-typer.",
             "type": "object",
             "properties": {
                 "method": {
@@ -629,7 +625,7 @@
         },
         "WavefunctionProtocolEnum": {
             "title": "WavefunctionProtocolEnum",
-            "description": "Wavefunction to keep from a Result computation.",
+            "description": "Wavefunction to keep from a computation.",
             "enum": [
                 "all",
                 "orbitals_and_eigenvalues",
@@ -662,7 +658,7 @@
         },
         "AtomicResultProtocols": {
             "title": "AtomicResultProtocols",
-            "description": "Protocols regarding the manipulation of a Result output data.\n\n\nParameters\n----------\nwavefunction : {all,orbitals_and_eigenvalues,return_results,none}, Default: none\n\n        Wavefunction to keep from a Result computation.\n    \nstdout : bool, Default: True\n    Primary output file to keep from a Result computation\nerror_correction : :class:`ErrorCorrectionProtocol`, Optional\n    Policies for error correction",
+            "description": "Protocols regarding the manipulation of computational result data.\n\nParameters\n----------\nwavefunction : {all,orbitals_and_eigenvalues,return_results,none}, Default: none\n    Wavefunction to keep from a computation.\nstdout : bool, Default: True\n    Primary output file to keep from the computation\nerror_correction : :class:`ErrorCorrectionProtocol`, Optional\n    Policies for error correction",
             "type": "object",
             "properties": {
                 "wavefunction": {
@@ -670,17 +666,13 @@
                 },
                 "stdout": {
                     "title": "Stdout",
-                    "description": "Primary output file to keep from a Result computation",
+                    "description": "Primary output file to keep from the computation",
                     "default": true,
                     "type": "boolean"
                 },
                 "error_correction": {
                     "title": "Error Correction",
                     "description": "Policies for error correction",
-                    "default": {
-                        "default_policy": true,
-                        "policies": null
-                    },
                     "allOf": [
                         {
                             "$ref": "#/definitions/ErrorCorrectionProtocol"
@@ -692,12 +684,12 @@
         },
         "AtomicInput": {
             "title": "AtomicInput",
-            "description": "The MolSSI Quantum Chemistry Schema\n\nParameters\n----------\nid : str, Optional\n    An optional ID of the ResultInput object.\nschema_name : ConstrainedStrValue, Default: qcschema_input\n    The QCSchema specification this model conforms to. Explicitly fixed as qcschema_input.\nschema_version : int, Default: 1\n    The version number of ``schema_name`` to which this model conforms.\nmolecule : :class:`Molecule`\n    The molecule to use in the computation.\ndriver : {energy,gradient,hessian,properties}\n    Allowed computation driver values.\n    \nmodel : :class:`Model`\n\n        The computational molecular sciences model to run.\n    \nkeywords : Dict[str, Any], Default: {}\n    The program-specific keywords to be used.\nprotocols : :class:`AtomicResultProtocols`, Optional\n\n        Protocols regarding the manipulation of a Result output data.\n    \nextras : Dict[str, Any], Default: {}\n    Extra fields not part of the schema. Used for schema development and scratch space.\nprovenance : :class:`Provenance`, Optional\n\n        Provenance information.\n    ",
+            "description": "The MolSSI Quantum Chemistry Schema\n\nParameters\n----------\nid : str, Optional\n    The optional ID for the computation.\nschema_name : ConstrainedStrValue, Default: qcschema_input\n    The QCSchema specification this model conforms to. Explicitly fixed as qcschema_input.\nschema_version : int, Default: 1\n    The version number of ``schema_name`` to which this model conforms.\nmolecule : :class:`Molecule`\n    The molecule to use in the computation.\ndriver : {energy,gradient,hessian,properties}\n    Allowed computation driver values.\nmodel : :class:`Model`\n    The computational molecular sciences model to run.\nkeywords : Dict[str, Any], Default: {}\n    The program-specific keywords to be used.\nprotocols : :class:`AtomicResultProtocols`, Optional\n    Protocols regarding the manipulation of computational result data.\nextras : Dict[str, Any], Default: {}\n    Additional information to bundle with the computation. Use for schema development and scratch space.\nprovenance : :class:`Provenance`, Optional\n    Provenance information.",
             "type": "object",
             "properties": {
                 "id": {
                     "title": "Id",
-                    "description": "An optional ID of the ResultInput object.",
+                    "description": "The optional ID for the computation.",
                     "type": "string"
                 },
                 "schema_name": {
@@ -727,7 +719,7 @@
                 },
                 "model": {
                     "title": "Model",
-                    "description": "\n    The computational molecular sciences model to run.\n    ",
+                    "description": "The computational molecular sciences model to run.",
                     "allOf": [
                         {
                             "$ref": "#/definitions/Model"
@@ -742,7 +734,7 @@
                 },
                 "protocols": {
                     "title": "Protocols",
-                    "description": "\n    Protocols regarding the manipulation of a Result output data.\n    ",
+                    "description": "Protocols regarding the manipulation of computational result data.",
                     "default": {},
                     "allOf": [
                         {
@@ -752,18 +744,13 @@
                 },
                 "extras": {
                     "title": "Extras",
-                    "description": "Extra fields not part of the schema. Used for schema development and scratch space.",
+                    "description": "Additional information to bundle with the computation. Use for schema development and scratch space.",
                     "default": {},
                     "type": "object"
                 },
                 "provenance": {
                     "title": "Provenance",
-                    "description": "\n    Provenance information.\n    ",
-                    "default": {
-                        "creator": "QCElemental",
-                        "version": "v0.15.1+31.g0faaa1f.dirty",
-                        "routine": "qcelemental.models.results"
-                    },
+                    "description": "Provenance information.",
                     "allOf": [
                         {
                             "$ref": "#/definitions/Provenance"
@@ -781,7 +768,7 @@
         },
         "AtomicResultProperties": {
             "title": "AtomicResultProperties",
-            "description": "Named properties of quantum chemistry computations following the MolSSI QCSchema.\n\n\nParameters\n----------\ncalcinfo_nbasis : int, Optional\n    The number of basis functions for the computation.\ncalcinfo_nmo : int, Optional\n    The number of molecular orbitals for the computation.\ncalcinfo_nalpha : int, Optional\n    The number of alpha electrons in the computation.\ncalcinfo_nbeta : int, Optional\n    The number of beta electrons in the computation.\ncalcinfo_natom : int, Optional\n    The number of atoms in the computation.\nnuclear_repulsion_energy : float, Optional\n    The nuclear repulsion energy energy.\nreturn_energy : float, Optional\n    The energy of the requested method, identical to `return_value` for energy computations.\nscf_one_electron_energy : float, Optional\n    The one-electron (core Hamiltonian) energy contribution to the total SCF energy.\nscf_two_electron_energy : float, Optional\n    The two-electron energy contribution to the total SCF energy.\nscf_vv10_energy : float, Optional\n    The VV10 functional energy contribution to the total SCF energy.\nscf_xc_energy : float, Optional\n    The functional (XC) energy contribution to the total SCF energy.\nscf_dispersion_correction_energy : float, Optional\n    The dispersion correction appended to an underlying functional when a DFT-D method is requested.\nscf_dipole_moment : Array, Optional\n    The SCF X, Y, and Z dipole components.\nscf_quadrupole_moment : Array, Optional\n    The (3, 3) quadrupole components (redundant; 6 unique).\nscf_total_energy : float, Optional\n    The total electronic energy of the SCF stage of the calculation.\nscf_iterations : int, Optional\n    The number of SCF iterations taken before convergence.\nmp2_same_spin_correlation_energy : float, Optional\n    The portion of MP2 doubles correlation energy from same-spin (i.e. triplet) correlations, without any user scaling.\nmp2_opposite_spin_correlation_energy : float, Optional\n    The portion of MP2 doubles correlation energy from opposite-spin (i.e. singlet) correlations, without any user scaling.\nmp2_singles_energy : float, Optional\n    The singles portion of the MP2 correlation energy. Zero except in ROHF.\nmp2_doubles_energy : float, Optional\n    The doubles portion of the MP2 correlation energy including same-spin and opposite-spin correlations.\nmp2_correlation_energy : float, Optional\n    The MP2 correlation energy.\nmp2_total_energy : float, Optional\n    The total MP2 energy (MP2 correlation energy + HF energy).\nmp2_dipole_moment : Array, Optional\n    The MP2 X, Y, and Z dipole components.\nccsd_same_spin_correlation_energy : float, Optional\n    The portion of CCSD doubles correlation energy from same-spin (i.e. triplet) correlations, without any user scaling.\nccsd_opposite_spin_correlation_energy : float, Optional\n    The portion of CCSD doubles correlation energy from opposite-spin (i.e. singlet) correlations, without any user scaling.\nccsd_singles_energy : float, Optional\n    The singles portion of the CCSD correlation energy. Zero except in ROHF.\nccsd_doubles_energy : float, Optional\n    The doubles portion of the CCSD correlation energy including same-spin and opposite-spin correlations.\nccsd_correlation_energy : float, Optional\n    The CCSD correlation energy.\nccsd_total_energy : float, Optional\n    The total CCSD energy (CCSD correlation energy + HF energy).\nccsd_dipole_moment : Array, Optional\n    The CCSD X, Y, and Z dipole components.\nccsd_iterations : int, Optional\n    The number of CCSD iterations taken before convergence.\nccsd_prt_pr_correlation_energy : float, Optional\n    The CCSD(T) correlation energy.\nccsd_prt_pr_total_energy : float, Optional\n    The total CCSD(T) energy (CCSD(T) correlation energy + HF energy).\nccsd_prt_pr_dipole_moment : Array, Optional\n    The CCSD(T) X, Y, and Z dipole components.\nccsdt_correlation_energy : float, Optional\n    The CCSDT correlation energy.\nccsdt_total_energy : float, Optional\n    The total CCSDT energy (CCSDT correlation energy + HF energy).\nccsdt_dipole_moment : Array, Optional\n    The CCSDT X, Y, and Z dipole components.\nccsdt_iterations : int, Optional\n    The number of CCSDT iterations taken before convergence.\nccsdtq_correlation_energy : float, Optional\n    The CCSDTQ correlation energy.\nccsdtq_total_energy : float, Optional\n    The total CCSDTQ energy (CCSDTQ correlation energy + HF energy).\nccsdtq_dipole_moment : Array, Optional\n    The CCSDTQ X, Y, and Z dipole components.\nccsdtq_iterations : int, Optional\n    The number of CCSDTQ iterations taken before convergence.",
+            "description": "Named properties of quantum chemistry computations following the MolSSI QCSchema.\n\n    Notes\n    -----\n    All arrays are stored flat but must be reshapable into the dimensions in attribute ``shape``, with abbreviations as follows:\n        nao: number of atomic orbitals = calcinfo_nbasis\n        nmo: number of molecular orbitals\n\n\nParameters\n----------\ncalcinfo_nbasis : int, Optional\n    The number of basis functions for the computation.\ncalcinfo_nmo : int, Optional\n    The number of molecular orbitals for the computation.\ncalcinfo_nalpha : int, Optional\n    The number of alpha electrons in the computation.\ncalcinfo_nbeta : int, Optional\n    The number of beta electrons in the computation.\ncalcinfo_natom : int, Optional\n    The number of atoms in the computation.\nnuclear_repulsion_energy : float, Optional\n    The nuclear repulsion energy.\nreturn_energy : float, Optional\n    The energy of the requested method, identical to ``return_result`` for ``driver=energy`` computations.\nscf_one_electron_energy : float, Optional\n    The one-electron (core Hamiltonian) energy contribution to the total SCF energy.\nscf_two_electron_energy : float, Optional\n    The two-electron energy contribution to the total SCF energy.\nscf_vv10_energy : float, Optional\n    The VV10 functional energy contribution to the total SCF energy.\nscf_xc_energy : float, Optional\n    The functional (XC) energy contribution to the total SCF energy.\nscf_dispersion_correction_energy : float, Optional\n    The dispersion correction appended to an underlying functional when a DFT-D method is requested.\nscf_dipole_moment : Array, Optional\n    The SCF X, Y, and Z dipole components\nscf_quadrupole_moment : Array, Optional\n    The quadrupole components (redundant; 6 unique).\nscf_total_energy : float, Optional\n    The total electronic energy of the SCF stage of the calculation.\nscf_iterations : int, Optional\n    The number of SCF iterations taken before convergence.\nmp2_same_spin_correlation_energy : float, Optional\n    The portion of MP2 doubles correlation energy from same-spin (i.e. triplet) correlations, without any user scaling.\nmp2_opposite_spin_correlation_energy : float, Optional\n    The portion of MP2 doubles correlation energy from opposite-spin (i.e. singlet) correlations, without any user scaling.\nmp2_singles_energy : float, Optional\n    The singles portion of the MP2 correlation energy. Zero except in ROHF.\nmp2_doubles_energy : float, Optional\n    The doubles portion of the MP2 correlation energy including same-spin and opposite-spin correlations.\nmp2_total_correlation_energy : float, Optional\n    The MP2 correlation energy.\nmp2_correlation_energy : float, Optional\n    The MP2 correlation energy.\nmp2_total_energy : float, Optional\n    The total MP2 energy (MP2 correlation energy + HF energy).\nmp2_dipole_moment : Array, Optional\n    The MP2 X, Y, and Z dipole components.\nccsd_same_spin_correlation_energy : float, Optional\n    The portion of CCSD doubles correlation energy from same-spin (i.e. triplet) correlations, without any user scaling.\nccsd_opposite_spin_correlation_energy : float, Optional\n    The portion of CCSD doubles correlation energy from opposite-spin (i.e. singlet) correlations, without any user scaling.\nccsd_singles_energy : float, Optional\n    The singles portion of the CCSD correlation energy. Zero except in ROHF.\nccsd_doubles_energy : float, Optional\n    The doubles portion of the CCSD correlation energy including same-spin and opposite-spin correlations.\nccsd_correlation_energy : float, Optional\n    The CCSD correlation energy.\nccsd_total_energy : float, Optional\n    The total CCSD energy (CCSD correlation energy + HF energy).\nccsd_dipole_moment : Array, Optional\n    The CCSD X, Y, and Z dipole components.\nccsd_iterations : int, Optional\n    The number of CCSD iterations taken before convergence.\nccsd_prt_pr_correlation_energy : float, Optional\n    The CCSD(T) correlation energy.\nccsd_prt_pr_total_energy : float, Optional\n    The total CCSD(T) energy (CCSD(T) correlation energy + HF energy).\nccsd_prt_pr_dipole_moment : Array, Optional\n    The CCSD(T) X, Y, and Z dipole components.\nccsdt_correlation_energy : float, Optional\n    The CCSDT correlation energy.\nccsdt_total_energy : float, Optional\n    The total CCSDT energy (CCSDT correlation energy + HF energy).\nccsdt_dipole_moment : Array, Optional\n    The CCSDT X, Y, and Z dipole components.\nccsdt_iterations : int, Optional\n    The number of CCSDT iterations taken before convergence.\nccsdtq_correlation_energy : float, Optional\n    The CCSDTQ correlation energy.\nccsdtq_total_energy : float, Optional\n    The total CCSDTQ energy (CCSDTQ correlation energy + HF energy).\nccsdtq_dipole_moment : Array, Optional\n    The CCSDTQ X, Y, and Z dipole components.\nccsdtq_iterations : int, Optional\n    The number of CCSDTQ iterations taken before convergence.",
             "type": "object",
             "properties": {
                 "calcinfo_nbasis": {
@@ -811,42 +798,48 @@
                 },
                 "nuclear_repulsion_energy": {
                     "title": "Nuclear Repulsion Energy",
-                    "description": "The nuclear repulsion energy energy.",
+                    "description": "The nuclear repulsion energy.",
                     "type": "number"
                 },
                 "return_energy": {
                     "title": "Return Energy",
-                    "description": "The energy of the requested method, identical to `return_value` for energy computations.",
+                    "description": "The energy of the requested method, identical to ``return_result`` for ``driver=energy`` computations.",
                     "type": "number"
                 },
                 "scf_one_electron_energy": {
                     "title": "Scf One Electron Energy",
                     "description": "The one-electron (core Hamiltonian) energy contribution to the total SCF energy.",
+                    "units": "E_h",
                     "type": "number"
                 },
                 "scf_two_electron_energy": {
                     "title": "Scf Two Electron Energy",
                     "description": "The two-electron energy contribution to the total SCF energy.",
+                    "units": "E_h",
                     "type": "number"
                 },
                 "scf_vv10_energy": {
                     "title": "Scf Vv10 Energy",
                     "description": "The VV10 functional energy contribution to the total SCF energy.",
+                    "units": "E_h",
                     "type": "number"
                 },
                 "scf_xc_energy": {
                     "title": "Scf Xc Energy",
                     "description": "The functional (XC) energy contribution to the total SCF energy.",
+                    "units": "E_h",
                     "type": "number"
                 },
                 "scf_dispersion_correction_energy": {
                     "title": "Scf Dispersion Correction Energy",
                     "description": "The dispersion correction appended to an underlying functional when a DFT-D method is requested.",
+                    "units": "E_h",
                     "type": "number"
                 },
                 "scf_dipole_moment": {
                     "title": "Scf Dipole Moment",
-                    "description": "The SCF X, Y, and Z dipole components.",
+                    "description": "The SCF X, Y, and Z dipole components",
+                    "units": "e a0",
                     "type": "array",
                     "items": {
                         "type": "number"
@@ -854,7 +847,12 @@
                 },
                 "scf_quadrupole_moment": {
                     "title": "Scf Quadrupole Moment",
-                    "description": "The (3, 3) quadrupole components (redundant; 6 unique).",
+                    "description": "The quadrupole components (redundant; 6 unique).",
+                    "shape": [
+                        3,
+                        3
+                    ],
+                    "units": "e a0^2",
                     "type": "array",
                     "items": {
                         "type": "number"
@@ -863,6 +861,7 @@
                 "scf_total_energy": {
                     "title": "Scf Total Energy",
                     "description": "The total electronic energy of the SCF stage of the calculation.",
+                    "units": "E_h",
                     "type": "number"
                 },
                 "scf_iterations": {
@@ -873,36 +872,51 @@
                 "mp2_same_spin_correlation_energy": {
                     "title": "Mp2 Same Spin Correlation Energy",
                     "description": "The portion of MP2 doubles correlation energy from same-spin (i.e. triplet) correlations, without any user scaling.",
+                    "units": "E_h",
                     "type": "number"
                 },
                 "mp2_opposite_spin_correlation_energy": {
                     "title": "Mp2 Opposite Spin Correlation Energy",
                     "description": "The portion of MP2 doubles correlation energy from opposite-spin (i.e. singlet) correlations, without any user scaling.",
+                    "units": "E_h",
                     "type": "number"
                 },
                 "mp2_singles_energy": {
                     "title": "Mp2 Singles Energy",
                     "description": "The singles portion of the MP2 correlation energy. Zero except in ROHF.",
+                    "units": "E_h",
                     "type": "number"
                 },
                 "mp2_doubles_energy": {
                     "title": "Mp2 Doubles Energy",
                     "description": "The doubles portion of the MP2 correlation energy including same-spin and opposite-spin correlations.",
+                    "units": "E_h",
+                    "type": "number"
+                },
+                "mp2_total_correlation_energy": {
+                    "title": "Mp2 Total Correlation Energy",
+                    "description": "The MP2 correlation energy.",
                     "type": "number"
                 },
                 "mp2_correlation_energy": {
                     "title": "Mp2 Correlation Energy",
                     "description": "The MP2 correlation energy.",
+                    "units": "E_h",
                     "type": "number"
                 },
                 "mp2_total_energy": {
                     "title": "Mp2 Total Energy",
                     "description": "The total MP2 energy (MP2 correlation energy + HF energy).",
+                    "units": "E_h",
                     "type": "number"
                 },
                 "mp2_dipole_moment": {
                     "title": "Mp2 Dipole Moment",
                     "description": "The MP2 X, Y, and Z dipole components.",
+                    "shape": [
+                        3
+                    ],
+                    "units": "e a0",
                     "type": "array",
                     "items": {
                         "type": "number"
@@ -911,36 +925,46 @@
                 "ccsd_same_spin_correlation_energy": {
                     "title": "Ccsd Same Spin Correlation Energy",
                     "description": "The portion of CCSD doubles correlation energy from same-spin (i.e. triplet) correlations, without any user scaling.",
+                    "units": "E_h",
                     "type": "number"
                 },
                 "ccsd_opposite_spin_correlation_energy": {
                     "title": "Ccsd Opposite Spin Correlation Energy",
                     "description": "The portion of CCSD doubles correlation energy from opposite-spin (i.e. singlet) correlations, without any user scaling.",
+                    "units": "E_h",
                     "type": "number"
                 },
                 "ccsd_singles_energy": {
                     "title": "Ccsd Singles Energy",
                     "description": "The singles portion of the CCSD correlation energy. Zero except in ROHF.",
+                    "units": "E_h",
                     "type": "number"
                 },
                 "ccsd_doubles_energy": {
                     "title": "Ccsd Doubles Energy",
                     "description": "The doubles portion of the CCSD correlation energy including same-spin and opposite-spin correlations.",
+                    "units": "E_h",
                     "type": "number"
                 },
                 "ccsd_correlation_energy": {
                     "title": "Ccsd Correlation Energy",
                     "description": "The CCSD correlation energy.",
+                    "units": "E_h",
                     "type": "number"
                 },
                 "ccsd_total_energy": {
                     "title": "Ccsd Total Energy",
                     "description": "The total CCSD energy (CCSD correlation energy + HF energy).",
+                    "units": "E_h",
                     "type": "number"
                 },
                 "ccsd_dipole_moment": {
                     "title": "Ccsd Dipole Moment",
                     "description": "The CCSD X, Y, and Z dipole components.",
+                    "shape": [
+                        3
+                    ],
+                    "units": "e a0",
                     "type": "array",
                     "items": {
                         "type": "number"
@@ -954,16 +978,22 @@
                 "ccsd_prt_pr_correlation_energy": {
                     "title": "Ccsd Prt Pr Correlation Energy",
                     "description": "The CCSD(T) correlation energy.",
+                    "units": "E_h",
                     "type": "number"
                 },
                 "ccsd_prt_pr_total_energy": {
                     "title": "Ccsd Prt Pr Total Energy",
                     "description": "The total CCSD(T) energy (CCSD(T) correlation energy + HF energy).",
+                    "units": "E_h",
                     "type": "number"
                 },
                 "ccsd_prt_pr_dipole_moment": {
                     "title": "Ccsd Prt Pr Dipole Moment",
                     "description": "The CCSD(T) X, Y, and Z dipole components.",
+                    "shape": [
+                        3
+                    ],
+                    "units": "e a0",
                     "type": "array",
                     "items": {
                         "type": "number"
@@ -972,16 +1002,22 @@
                 "ccsdt_correlation_energy": {
                     "title": "Ccsdt Correlation Energy",
                     "description": "The CCSDT correlation energy.",
+                    "units": "E_h",
                     "type": "number"
                 },
                 "ccsdt_total_energy": {
                     "title": "Ccsdt Total Energy",
                     "description": "The total CCSDT energy (CCSDT correlation energy + HF energy).",
+                    "units": "E_h",
                     "type": "number"
                 },
                 "ccsdt_dipole_moment": {
                     "title": "Ccsdt Dipole Moment",
                     "description": "The CCSDT X, Y, and Z dipole components.",
+                    "shape": [
+                        3
+                    ],
+                    "units": "e a0",
                     "type": "array",
                     "items": {
                         "type": "number"
@@ -995,16 +1031,22 @@
                 "ccsdtq_correlation_energy": {
                     "title": "Ccsdtq Correlation Energy",
                     "description": "The CCSDTQ correlation energy.",
+                    "units": "E_h",
                     "type": "number"
                 },
                 "ccsdtq_total_energy": {
                     "title": "Ccsdtq Total Energy",
                     "description": "The total CCSDTQ energy (CCSDTQ correlation energy + HF energy).",
+                    "units": "E_h",
                     "type": "number"
                 },
                 "ccsdtq_dipole_moment": {
                     "title": "Ccsdtq Dipole Moment",
                     "description": "The CCSDTQ X, Y, and Z dipole components.",
+                    "shape": [
+                        3
+                    ],
+                    "units": "e a0",
                     "type": "array",
                     "items": {
                         "type": "number"
@@ -1020,12 +1062,12 @@
         },
         "WavefunctionProperties": {
             "title": "WavefunctionProperties",
-            "description": "Wavefunction properties resulting from a computation. Matrix quantities are stored in column-major order.\n\nParameters\n----------\nbasis : :class:`BasisSet`\n\n    A quantum chemistry basis description.\n\n\n    Parameters\n    ----------\n    schema_name : ConstrainedStrValue, Default: qcschema_basis\n        The QCSchema specification to which this model conforms. Explicitly fixed as qcschema_basis.\n    schema_version : int, Default: 1\n        The version number of ``schema_name`` to which this model conforms.\n    name : str\n        A standard basis name if available (e.g., 'cc-pVDZ').\n    description : str, Optional\n        A brief description of the basis set.\n    center_data : :class:`BasisCenter`\n        Shared basis data for all atoms/centers in the parent molecule\n    atom_map : List[str]\n        Mapping of all atoms/centers in the parent molecule to centers in `center_data`.\n    nbf : int, Optional\n        The number of basis functions.\n\nrestricted : bool\n    If the computation was restricted or not (alpha == beta). If True, all beta quantities are skipped.\nh_core_a : Array, Optional\n    Alpha-spin core (one-electron) Hamiltonian in the AO basis.\nh_core_b : Array, Optional\n    Beta-spin core (one-electron) Hamiltonian in the AO basis.\nh_effective_a : Array, Optional\n    Alpha-spin effective core (one-electron) Hamiltonian in the AO basis.\nh_effective_b : Array, Optional\n    Beta-spin effective core (one-electron) Hamiltonian in the AO basis\nscf_orbitals_a : Array, Optional\n    SCF alpha-spin orbitals in the AO basis.\nscf_orbitals_b : Array, Optional\n    SCF beta-spin orbitals in the AO basis.\nscf_density_a : Array, Optional\n    SCF alpha-spin density matrix in the AO basis.\nscf_density_b : Array, Optional\n    SCF beta-spin density matrix in the AO basis.\nscf_fock_a : Array, Optional\n    SCF alpha-spin Fock matrix in the AO basis.\nscf_fock_b : Array, Optional\n    SCF beta-spin Fock matrix in the AO basis.\nscf_eigenvalues_a : Array, Optional\n    SCF alpha-spin orbital eigenvalues.\nscf_eigenvalues_b : Array, Optional\n    SCF beta-spin orbital eigenvalues.\nscf_occupations_a : Array, Optional\n    SCF alpha-spin orbital occupations.\nscf_occupations_b : Array, Optional\n    SCF beta-spin orbital occupations.\nscf_coulomb_a : Array, Optional\n    SCF alpha-spin Coulomb matrix in the AO basis.\nscf_coulomb_b : Array, Optional\n    SCF beta-spin Coulomb matrix in the AO basis.\nscf_exchange_a : Array, Optional\n    SCF alpha-spin exchange matrix in the AO basis.\nscf_exchange_b : Array, Optional\n    SCF beta-spin exchange matrix in the AO basis.\nlocalized_orbitals_a : Array, Optional\n    Localized alpha-spin orbitals in the AO basis. All nmo orbitals are included, even if only a subset were localized.\nlocalized_orbitals_b : Array, Optional\n    Localized beta-spin orbitals in the AO basis. All nmo orbitals are included, even if only a subset were localized.\nlocalized_fock_a : Array, Optional\n    Alpha-spin Fock matrix in the localized molecular orbital basis. All nmo orbitals are included, even if only a subset were localized.\nlocalized_fock_b : Array, Optional\n    Beta-spin Fock matrix in the localized molecular orbital basis. All nmo orbitals are included, even if only a subset were localized.\norbitals_a : str, Optional\n    Index to the alpha-spin orbitals of the primary return in the AO basis.\norbitals_b : str, Optional\n    Index to the beta-spin orbitals of the primary return in the AO basis.\ndensity_a : str, Optional\n    Index to the alpha-spin density of the primary return in the AO basis.\ndensity_b : str, Optional\n    Index to the beta-spin density of the primary return in the AO basis.\nfock_a : str, Optional\n    Index to the alpha-spin Fock matrix of the primary return in the AO basis.\nfock_b : str, Optional\n    Index to the beta-spin Fock matrix of the primary return in the AO basis.\neigenvalues_a : str, Optional\n    Index to the alpha-spin orbital eigenvalues of the primary return.\neigenvalues_b : str, Optional\n    Index to the beta-spin orbital eigenvalues of the primary return.\noccupations_a : str, Optional\n    Index to the alpha-spin orbital occupations of the primary return.\noccupations_b : str, Optional\n    Index to the beta-spin orbital occupations of the primary return.",
+            "description": "Wavefunction properties resulting from a computation. Matrix quantities are stored in column-major order. Presence and contents configurable by protocol.\n\nParameters\n----------\nbasis : :class:`BasisSet`\n\n    A quantum chemistry basis description.\n\n\n    Parameters\n    ----------\n    schema_name : ConstrainedStrValue, Default: qcschema_basis\n        The QCSchema specification to which this model conforms. Explicitly fixed as qcschema_basis.\n    schema_version : int, Default: 1\n        The version number of ``schema_name`` to which this model conforms.\n    name : str\n        The standard basis name if available (e.g., 'cc-pVDZ').\n    description : str, Optional\n        Brief description of the basis set.\n    center_data : :class:`BasisCenter`\n        Shared basis data for all atoms/centers in the parent molecule\n    atom_map : List[str]\n        Mapping of all atoms/centers in the parent molecule to centers in ``center_data``.\n    nbf : int, Optional\n        The number of basis functions. Use for convenience or as checksum\n\nrestricted : bool\n    If the computation was restricted or not (alpha == beta). If True, all beta quantities are skipped.\nh_core_a : Array, Optional\n    Alpha-spin core (one-electron) Hamiltonian in the AO basis.\nh_core_b : Array, Optional\n    Beta-spin core (one-electron) Hamiltonian in the AO basis.\nh_effective_a : Array, Optional\n    Alpha-spin effective core (one-electron) Hamiltonian in the AO basis.\nh_effective_b : Array, Optional\n    Beta-spin effective core (one-electron) Hamiltonian in the AO basis\nscf_orbitals_a : Array, Optional\n    SCF alpha-spin orbitals in the AO basis.\nscf_orbitals_b : Array, Optional\n    SCF beta-spin orbitals in the AO basis.\nscf_density_a : Array, Optional\n    SCF alpha-spin density matrix in the AO basis.\nscf_density_b : Array, Optional\n    SCF beta-spin density matrix in the AO basis.\nscf_fock_a : Array, Optional\n    SCF alpha-spin Fock matrix in the AO basis.\nscf_fock_b : Array, Optional\n    SCF beta-spin Fock matrix in the AO basis.\nscf_eigenvalues_a : Array, Optional\n    SCF alpha-spin orbital eigenvalues.\nscf_eigenvalues_b : Array, Optional\n    SCF beta-spin orbital eigenvalues.\nscf_occupations_a : Array, Optional\n    SCF alpha-spin orbital occupations.\nscf_occupations_b : Array, Optional\n    SCF beta-spin orbital occupations.\nscf_coulomb_a : Array, Optional\n    SCF alpha-spin Coulomb matrix in the AO basis.\nscf_coulomb_b : Array, Optional\n    SCF beta-spin Coulomb matrix in the AO basis.\nscf_exchange_a : Array, Optional\n    SCF alpha-spin exchange matrix in the AO basis.\nscf_exchange_b : Array, Optional\n    SCF beta-spin exchange matrix in the AO basis.\nlocalized_orbitals_a : Array, Optional\n    Localized alpha-spin orbitals in the AO basis. All nmo orbitals are included, even if only a subset were localized.\nlocalized_orbitals_b : Array, Optional\n    Localized beta-spin orbitals in the AO basis. All nmo orbitals are included, even if only a subset were localized.\nlocalized_fock_a : Array, Optional\n    Alpha-spin Fock matrix in the localized molecular orbital basis. All nmo orbitals are included, even if only a subset were localized.\nlocalized_fock_b : Array, Optional\n    Beta-spin Fock matrix in the localized molecular orbital basis. All nmo orbitals are included, even if only a subset were localized.\norbitals_a : str, Optional\n    Index to the alpha-spin orbitals of the primary return.\norbitals_b : str, Optional\n    Index to the beta-spin orbitals of the primary return.\ndensity_a : str, Optional\n    Index to the alpha-spin density of the primary return.\ndensity_b : str, Optional\n    Index to the beta-spin density of the primary return.\nfock_a : str, Optional\n    Index to the alpha-spin Fock matrix of the primary return.\nfock_b : str, Optional\n    Index to the beta-spin Fock matrix of the primary return.\neigenvalues_a : str, Optional\n    Index to the alpha-spin orbital eigenvalues of the primary return.\neigenvalues_b : str, Optional\n    Index to the beta-spin orbital eigenvalues of the primary return.\noccupations_a : str, Optional\n    Index to the alpha-spin orbital occupations of the primary return.\noccupations_b : str, Optional\n    Index to the beta-spin orbital occupations of the primary return.",
             "type": "object",
             "properties": {
                 "basis": {
                     "title": "Basis",
-                    "description": "\nA quantum chemistry basis description.\n\n\nParameters\n----------\nschema_name : ConstrainedStrValue, Default: qcschema_basis\n    The QCSchema specification to which this model conforms. Explicitly fixed as qcschema_basis.\nschema_version : int, Default: 1\n    The version number of ``schema_name`` to which this model conforms.\nname : str\n    A standard basis name if available (e.g., 'cc-pVDZ').\ndescription : str, Optional\n    A brief description of the basis set.\ncenter_data : :class:`BasisCenter`\n    Shared basis data for all atoms/centers in the parent molecule\natom_map : List[str]\n    Mapping of all atoms/centers in the parent molecule to centers in `center_data`.\nnbf : int, Optional\n    The number of basis functions.\n",
+                    "description": "\nA quantum chemistry basis description.\n\n\nParameters\n----------\nschema_name : ConstrainedStrValue, Default: qcschema_basis\n    The QCSchema specification to which this model conforms. Explicitly fixed as qcschema_basis.\nschema_version : int, Default: 1\n    The version number of ``schema_name`` to which this model conforms.\nname : str\n    The standard basis name if available (e.g., 'cc-pVDZ').\ndescription : str, Optional\n    Brief description of the basis set.\ncenter_data : :class:`BasisCenter`\n    Shared basis data for all atoms/centers in the parent molecule\natom_map : List[str]\n    Mapping of all atoms/centers in the parent molecule to centers in ``center_data``.\nnbf : int, Optional\n    The number of basis functions. Use for convenience or as checksum\n",
                     "allOf": [
                         {
                             "$ref": "#/definitions/BasisSet"
@@ -1299,32 +1341,32 @@
                 },
                 "orbitals_a": {
                     "title": "Orbitals A",
-                    "description": "Index to the alpha-spin orbitals of the primary return in the AO basis.",
+                    "description": "Index to the alpha-spin orbitals of the primary return.",
                     "type": "string"
                 },
                 "orbitals_b": {
                     "title": "Orbitals B",
-                    "description": "Index to the beta-spin orbitals of the primary return in the AO basis.",
+                    "description": "Index to the beta-spin orbitals of the primary return.",
                     "type": "string"
                 },
                 "density_a": {
                     "title": "Density A",
-                    "description": "Index to the alpha-spin density of the primary return in the AO basis.",
+                    "description": "Index to the alpha-spin density of the primary return.",
                     "type": "string"
                 },
                 "density_b": {
                     "title": "Density B",
-                    "description": "Index to the beta-spin density of the primary return in the AO basis.",
+                    "description": "Index to the beta-spin density of the primary return.",
                     "type": "string"
                 },
                 "fock_a": {
                     "title": "Fock A",
-                    "description": "Index to the alpha-spin Fock matrix of the primary return in the AO basis.",
+                    "description": "Index to the alpha-spin Fock matrix of the primary return.",
                     "type": "string"
                 },
                 "fock_b": {
                     "title": "Fock B",
-                    "description": "Index to the beta-spin Fock matrix of the primary return in the AO basis.",
+                    "description": "Index to the beta-spin Fock matrix of the primary return.",
                     "type": "string"
                 },
                 "eigenvalues_a": {
@@ -1356,7 +1398,7 @@
         },
         "ComputeError": {
             "title": "ComputeError",
-            "description": "A complete description of the error.\n\nParameters\n----------\nerror_type : str\n    The type of error which was thrown. Restrict this field to short classifiers e.g. 'input_error'. Suggested classifiers: https://github.com/MolSSI/QCEngine/blob/master/qcengine/exceptions.py\nerror_message : str\n    Text associated with the thrown error, often the backtrace, but can contain additional information as well.\nextras : Dict[str, Any], Optional\n    Additional data to ship with the error object.",
+            "description": "Complete description of the error from an unsuccessful program execution.\n\nParameters\n----------\nerror_type : str\n    The type of error which was thrown. Restrict this field to short classifiers e.g. 'input_error'. Suggested classifiers: https://github.com/MolSSI/QCEngine/blob/master/qcengine/exceptions.py\nerror_message : str\n    Text associated with the thrown error. This is often the backtrace, but it can contain additional information as well.\nextras : Dict[str, Any], Optional\n    Additional information to bundle with the error.",
             "type": "object",
             "properties": {
                 "error_type": {
@@ -1366,12 +1408,12 @@
                 },
                 "error_message": {
                     "title": "Error Message",
-                    "description": "Text associated with the thrown error, often the backtrace, but can contain additional information as well.",
+                    "description": "Text associated with the thrown error. This is often the backtrace, but it can contain additional information as well.",
                     "type": "string"
                 },
                 "extras": {
                     "title": "Extras",
-                    "description": "Additional data to ship with the error object.",
+                    "description": "Additional information to bundle with the error.",
                     "type": "object"
                 }
             },
@@ -1383,12 +1425,12 @@
         },
         "AtomicResult": {
             "title": "AtomicResult",
-            "description": "Parameters\n----------\nid : str, Optional\n    An optional ID of the ResultInput object.\nschema_name : ConstrainedStrValue, Default: qcschema_output\n    The QCSchema specification this model conforms to. Explicitly fixed as qcschema_output.\nschema_version : int, Default: 1\n    The version number of ``schema_name`` to which this model conforms.\nmolecule : :class:`Molecule`\n    The molecule to use in the computation.\ndriver : {energy,gradient,hessian,properties}\n    Allowed computation driver values.\n    \nmodel : :class:`Model`\n\n        The computational molecular sciences model to run.\n    \nkeywords : Dict[str, Any], Default: {}\n    The program-specific keywords to be used.\nprotocols : :class:`AtomicResultProtocols`, Optional\n\n        Protocols regarding the manipulation of a Result output data.\n    \nextras : Dict[str, Any], Default: {}\n    Extra fields not part of the schema. Used for schema development and scratch space.\nprovenance : :class:`Provenance`\n\n        Provenance information.\n    \nproperties : :class:`AtomicResultProperties`\n\n        Named properties of quantum chemistry computations following the MolSSI QCSchema.\n    \nwavefunction : :class:`WavefunctionProperties`, Optional\n    Wavefunction properties resulting from a computation. Matrix quantities are stored in column-major order.\nreturn_result : Union[float, Array, Dict[str, Any]]\n    The primary specified return requested by the 'driver' attribute.\nstdout : str, Optional\n    The standard output of the program.\nstderr : str, Optional\n    The standard error of the program.\nsuccess : bool\n    The success of a given programs execution. If False, other fields may be blank.\nerror : :class:`ComputeError`, Optional\n    A complete description of the error.",
+            "description": "Results from a CMS program execution.\n\nParameters\n----------\nid : str, Optional\n    The optional ID for the computation.\nschema_name : ConstrainedStrValue, Default: qcschema_output\n    The QCSchema specification this model conforms to. Explicitly fixed as qcschema_output.\nschema_version : int, Default: 1\n    The version number of ``schema_name`` to which this model conforms.\nmolecule : :class:`Molecule`\n    The molecule to use in the computation.\ndriver : {energy,gradient,hessian,properties}\n    Allowed computation driver values.\nmodel : :class:`Model`\n    The computational molecular sciences model to run.\nkeywords : Dict[str, Any], Default: {}\n    The program-specific keywords to be used.\nprotocols : :class:`AtomicResultProtocols`, Optional\n    Protocols regarding the manipulation of computational result data.\nextras : Dict[str, Any], Default: {}\n    Additional information to bundle with the computation. Use for schema development and scratch space.\nprovenance : :class:`Provenance`\n    Provenance information.\nproperties : :class:`AtomicResultProperties`\n    Named properties of quantum chemistry computations following the MolSSI QCSchema.\n\n        Notes\n        -----\n        All arrays are stored flat but must be reshapable into the dimensions in attribute ``shape``, with abbreviations as follows:\n            nao: number of atomic orbitals = calcinfo_nbasis\n            nmo: number of molecular orbitals\n    \nwavefunction : :class:`WavefunctionProperties`, Optional\n    Wavefunction properties resulting from a computation. Matrix quantities are stored in column-major order. Presence and contents configurable by protocol.\nreturn_result : Union[float, Array, Dict[str, Any]]\n    The primary return specified by the ``driver`` field. Scalar if energy; array if gradient or hessian; dictionary with property keys if properties.\nstdout : str, Optional\n    The primary logging output of the program, whether natively standard output or a file. Presence vs. absence (or null-ness?) configurable by protocol.\nstderr : str, Optional\n    The standard error of the program execution.\nsuccess : bool\n    The success of program execution. If False, other fields may be blank.\nerror : :class:`ComputeError`, Optional\n    Complete description of the error from an unsuccessful program execution.",
             "type": "object",
             "properties": {
                 "id": {
                     "title": "Id",
-                    "description": "An optional ID of the ResultInput object.",
+                    "description": "The optional ID for the computation.",
                     "type": "string"
                 },
                 "schema_name": {
@@ -1418,7 +1460,7 @@
                 },
                 "model": {
                     "title": "Model",
-                    "description": "\n    The computational molecular sciences model to run.\n    ",
+                    "description": "The computational molecular sciences model to run.",
                     "allOf": [
                         {
                             "$ref": "#/definitions/Model"
@@ -1433,7 +1475,7 @@
                 },
                 "protocols": {
                     "title": "Protocols",
-                    "description": "\n    Protocols regarding the manipulation of a Result output data.\n    ",
+                    "description": "Protocols regarding the manipulation of computational result data.",
                     "default": {},
                     "allOf": [
                         {
@@ -1443,13 +1485,13 @@
                 },
                 "extras": {
                     "title": "Extras",
-                    "description": "Extra fields not part of the schema. Used for schema development and scratch space.",
+                    "description": "Additional information to bundle with the computation. Use for schema development and scratch space.",
                     "default": {},
                     "type": "object"
                 },
                 "provenance": {
                     "title": "Provenance",
-                    "description": "\n    Provenance information.\n    ",
+                    "description": "Provenance information.",
                     "allOf": [
                         {
                             "$ref": "#/definitions/Provenance"
@@ -1458,7 +1500,7 @@
                 },
                 "properties": {
                     "title": "Properties",
-                    "description": "\n    Named properties of quantum chemistry computations following the MolSSI QCSchema.\n    ",
+                    "description": "Named properties of quantum chemistry computations following the MolSSI QCSchema.\n\n    Notes\n    -----\n    All arrays are stored flat but must be reshapable into the dimensions in attribute ``shape``, with abbreviations as follows:\n        nao: number of atomic orbitals = calcinfo_nbasis\n        nmo: number of molecular orbitals\n    ",
                     "allOf": [
                         {
                             "$ref": "#/definitions/AtomicResultProperties"
@@ -1467,7 +1509,7 @@
                 },
                 "wavefunction": {
                     "title": "Wavefunction",
-                    "description": "Wavefunction properties resulting from a computation. Matrix quantities are stored in column-major order.",
+                    "description": "Wavefunction properties resulting from a computation. Matrix quantities are stored in column-major order. Presence and contents configurable by protocol.",
                     "allOf": [
                         {
                             "$ref": "#/definitions/WavefunctionProperties"
@@ -1476,7 +1518,7 @@
                 },
                 "return_result": {
                     "title": "Return Result",
-                    "description": "The primary specified return requested by the 'driver' attribute.",
+                    "description": "The primary return specified by the ``driver`` field. Scalar if energy; array if gradient or hessian; dictionary with property keys if properties.",
                     "anyOf": [
                         {
                             "type": "number"
@@ -1494,22 +1536,22 @@
                 },
                 "stdout": {
                     "title": "Stdout",
-                    "description": "The standard output of the program.",
+                    "description": "The primary logging output of the program, whether natively standard output or a file. Presence vs. absence (or null-ness?) configurable by protocol.",
                     "type": "string"
                 },
                 "stderr": {
                     "title": "Stderr",
-                    "description": "The standard error of the program.",
+                    "description": "The standard error of the program execution.",
                     "type": "string"
                 },
                 "success": {
                     "title": "Success",
-                    "description": "The success of a given programs execution. If False, other fields may be blank.",
+                    "description": "The success of program execution. If False, other fields may be blank.",
                     "type": "boolean"
                 },
                 "error": {
                     "title": "Error",
-                    "description": "A complete description of the error.",
+                    "description": "Complete description of the error from an unsuccessful program execution.",
                     "allOf": [
                         {
                             "$ref": "#/definitions/ComputeError"
