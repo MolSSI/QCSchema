@@ -6,6 +6,7 @@ import jsonschema
 
 from . import versions
 
+
 def validate(data, schema_type, version="dev"):
     """
     Validates a given input for a schema input and output type.

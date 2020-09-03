@@ -4,81 +4,71 @@ from the development branch
 """
 
 import json
-import os
+
 try:
     from pathlib import Path
 except ImportError:
     from pathlib2 import Path
 
-from . import dev
 
-_data_path = Path(__file__).resolve().parent / "data"
+_data_path = Path(__file__).parent.resolve() / "data"
 
-_input_version_list = ["dev", 1, 2]
-_output_version_list = ["dev", 1, 2]
-_molecule_version_list = ["dev", 1, 2]
+_aliases = {
+    "input": ["input", "AtomicInput"],
+    "output": ["output", "AtomicResult"],
+    "molecule": ["molecule", "topology", "Molecule"],
+    "basis": ["basis", "BasisSet"],
+    "properties": ["properties", "AtomicResultProperties"],
+    "provenance": ["provenance", "Provenance"],
+}
+_laliases = {k: [v2.lower() for v2 in v] for k, v in _aliases.items()}
 
-_schema_input_dict = {"dev": dev.input_dev_schema}
-_schema_output_dict = {"dev": dev.output_dev_schema}
-_schema_molecule_dict = {"dev": dev.molecule_dev_schema}
-
-
-def _load_schema(schema_type, version):
-    if schema_type == "input":
-        fname = "qc_schema_input.schema"
-    elif schema_type == "output":
-        fname = "qc_schema_output.schema"
-    elif schema_type == "molecule":
-        fname = "qc_schema_molecule.schema"
-    else:
-        raise KeyError("Schema type %s not understood." % schema_type)
-
-    fpath = _data_path / ("v" + str(version)) / fname
-    ret = json.loads(fpath.read_text())
-
-    return ret
+_versions_list = {
+    "input": [1, 2, "dev"],
+    "output": [1, 2, "dev"],
+    "molecule": [1, 2, "dev"],
+    "basis": ["dev"],
+    "properties": ["dev"],
+    "provenance": ["dev"],
+}
+_sversions_list = {k: [str(v2) for v2 in v] for k, v in _versions_list.items()}
 
 
 def list_versions(schema_type):
     """
     Lists all current JSON schema versions.
     """
-    if schema_type == "input":
-        return list(_input_version_list)
-    elif schema_type == "output":
-        return list(_output_version_list)
-    elif schema_type == "molecule":
-        return list(_molecule_version_list)
-    else:
-        raise KeyError("Schema type %s not understood." % schema_type)
+    for sk, aliases in _laliases.items():
+        if schema_type.lower() in aliases:
+            return _versions_list[sk]
+
+    raise KeyError("Schema type should be among {} (+aliases), not '{}'.".format(list(_aliases.keys()), schema_type))
 
 
 def get_schema(schema_type, version="dev"):
     """
     Returns the requested schema (input or output) for a given version number.
     """
+    # temporary
+    if version == "dev":
+        version = 2
 
-    schema_type = schema_type.lower()
-
-    # Correctly type the results
-    if schema_type == "input":
-        versions = _input_version_list
-        data = _schema_input_dict
-    elif schema_type == "output":
-        versions = _output_version_list
-        data = _schema_output_dict
-    elif schema_type == "molecule":
-        versions = _molecule_version_list
-        data = _schema_molecule_dict
+    for sk, aliases in _laliases.items():
+        if schema_type.lower() in aliases:
+            if str(version) in _sversions_list[sk]:
+                if version == "dev" or int(version) > 2:
+                    fname = _aliases[sk][-1]
+                else:  # v1, v2
+                    fname = "qc_schema_" + sk
+                break
+            else:
+                raise KeyError("Schema version should be among {}, not '{}'.".format(_versions_list[sk], version))
     else:
-        raise KeyError("Schema type should either be 'input', 'output', or 'molecule' given: %s." %
-                       schema_type)
+        raise KeyError(
+            "Schema type should be among {} (+aliases), not '{}'.".format(list(_aliases.keys()), schema_type)
+        )
 
-    if version not in versions:
-        raise KeyError("Schema version %s not found." % version)
+    fpath = _data_path / ("v" + str(version)) / (fname + ".schema")
+    ret = json.loads(fpath.read_text())
 
-    # Lazy load data
-    if version not in data:
-        data[version] = _load_schema(schema_type, version)
-
-    return data[version]
+    return ret
