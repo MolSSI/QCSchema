@@ -67,10 +67,6 @@ def test_wavefunction_output(version, testfile, request):
 
     example = test_helpers.get_test(testfile)
 
-    # temporary - dev:=2 doesn't pass, but dev:=qcel will
-    if version == "dev" and ("water_output" in request.node.name):
-        pytest.skip()
-
     # by chance, this validates with v1 instead of triggering pytest.raises below, so skip
     if version == 1 and ("water_output_v3" in request.node.name):
         pytest.skip()
