@@ -82,7 +82,7 @@ Program specific keywords requesting a density-fitting SCF call and a specific e
   {
     "keywords": {
       "scf_type": "df",
-      "e_congerence": 1.e-7
+      "e_convergence": 1.e-7
     }
   }
 
@@ -103,7 +103,7 @@ A successful example:
 
   {
     "success": true,
-  {
+  }
 
 An unsuccessful example:
 
@@ -113,8 +113,9 @@ An unsuccessful example:
     "success": false,
     "error": {
       "error_type": "convergence_error",
-      "errorm_message": "SCF failed to converge after 50 iterations"
-  {
+      "error_message": "SCF failed to converge after 50 iterations"
+    }
+  }
 
 
 Returned Result
@@ -127,7 +128,7 @@ A simple "energy" driver example:
 
   {
      "return_result": -76.4187620271478
-  {
+  }
 
 Provenance
 ~~~~~~~~~~
@@ -146,7 +147,7 @@ include more detailed information such as computation time, processor informatio
 
 Properties
 ~~~~~~~~~~
-A set of intermediate values produced by the QM program such as the one-elecron and two-electron energies in SCF.
+A set of intermediate values produced by the QM program such as the one-electron and two-electron energies in SCF.
 In addition, this will include such values such as the number of atomic orbitals and the number of alpha and beta electrons.
 
 An example properties from a water HF/cc-pVDZ computation:

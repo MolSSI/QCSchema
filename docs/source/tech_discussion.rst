@@ -91,6 +91,6 @@ The "small" approach which has a closer object-base mapping:
 
 For the QC Schema it was decided to follow the big approach as it has the following benefits:
  -  Serialization/deserialization is much faster due to the smaller number of objects generated.
- -  The "small" approach can lead to a complex hierachy of fields.
- -  It is generally thought the "big" approach is more straightfoward to program due to its flatter structure.
+ -  The "small" approach can lead to a complex hierarchy of fields.
+ -  It is generally thought the "big" approach is more straightforward to program due to its flatter structure.
 

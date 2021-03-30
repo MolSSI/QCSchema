@@ -4,7 +4,7 @@ Frequently Asked Questions
 Will the json be validated before it reaches my software?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 This is a question for the producer and consumers of the QC Schema. It is certainly recommended
-to validate the schema and validation can be accomplished in a variety of langauges
+to validate the schema and validation can be accomplished in a variety of languages
 found at the `JSON-Schema website <http://json-schema.org/implementations.html>`_.
 
 Does the schema accept arbitrary extra fields if my software piece needs internal extensions?
