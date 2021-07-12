@@ -1,0 +1,43 @@
+name: QCSchema
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Test on Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7, 3.8, 3.9]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install test dependencies
+        shell: bash
+        run: |
+          python -m pip install -U pip setuptools
+          python -m pip install pytest-cov
+      - name: Install package
+        shell: bash
+        run: |
+          python -m pip install .
+      - name: Run tests
+        shell: bash
+        run: |
+          python -m pytest -v --cov=qcschema --cov-report=xml
+      # - name: Install docs dependencies
+      #   shell: bash
+      #   run: |
+      #     python -m pip install sphinx==1.2.3 sphinxcontrib-napoleon sphinx_rtd_theme numpydoc
+      # - name: Make docs
+      #   shell: bash
+      #   run: make docs
+      # - name: CodeCov
+      #   users: codecov/codecov-action@v1
+      #   with:
+      #     file: ./coverage.xml
+      #     flags: unittests
+      #     name: codecov-py${{ matrix.python-version }}
