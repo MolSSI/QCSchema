@@ -28,6 +28,8 @@ jobs:
         shell: bash
         run: |
           PACKAGE_INSTALL_DIR=$(python -c 'import qcschema as _; print(_.__path__[0])')
+          # Testing the installed package requires moving out of the source directory.
+          cd /
           python -m pytest -v --cov=qcschema --cov-report=xml ${PACKAGE_INSTALL_DIR}
       # - name: Install docs dependencies
       #   shell: bash
