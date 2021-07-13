@@ -24,6 +24,8 @@ jobs:
         shell: bash
         run: |
           python -m pip install .
+          PACKAGE_INSTALL_DIR=$(python -c 'import qcschema as _; print(_.__path__[0])')
+          find $PACKAGE_INSTALL_DIR -type f | sort
       - name: Run tests
         shell: bash
         run: |
