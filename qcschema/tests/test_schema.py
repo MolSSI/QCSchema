@@ -5,7 +5,7 @@ import jsonschema
 import pytest
 import os
 
-import test_helpers
+from qcschema.tests import test_helpers
 import qcschema
 
 
