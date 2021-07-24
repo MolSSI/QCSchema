@@ -28,5 +28,5 @@ if __name__ == "__main__":
         tests_require=[
             'pytest',
         ],
-        zip_safe=True,
+        zip_safe=False,
     )
