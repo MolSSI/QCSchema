@@ -15,7 +15,7 @@ def _read_json_file(*filename):
 
 # Find a few required relative paths
 _test_path = os.path.dirname(os.path.abspath(__file__))
-_base_path = os.path.dirname(_test_path)
+
 
 def list_tests(folder, ext=".json", matcher=""):
     """
@@ -32,7 +32,9 @@ def list_tests(folder, ext=".json", matcher=""):
     if not files:
         raise RuntimeError(
             "No files were found in the folder "
-            "{} with the extension {} and matcher {}".format(folder, ext, matcher)
+            "{} with the extension '{}' and matcher '{}'".format(
+                os.path.abspath(folder), ext, matcher
+            )
         )
 
     return files, names
