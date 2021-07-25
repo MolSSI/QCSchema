@@ -45,13 +45,13 @@ jobs:
         run: python -m pip config list
       - name: Install test dependencies
         run: python -m pip install pytest-cov
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        timeout-minutes: 15
       - name: Install package
+        run: python -m pip install .
+      - name: Print installed package contents
         run: |
-          python -m pip install .
+          cd ~
           PACKAGE_INSTALL_DIR=$(python -c 'import qcschema as _; print(_.__path__[0])')
+          echo "${PACKAGE_INSTALL_DIR}"
           find $PACKAGE_INSTALL_DIR -type f | sort
       - name: Print Python environment
         run: python -m pip list
@@ -66,11 +66,12 @@ jobs:
         if: ${{ matrix.env-type.env-type-name == 'conda' }}
       - name: Run tests
         run: |
-          PACKAGE_INSTALL_DIR=$(python -c 'import qcschema as _; print(_.__path__[0])')
           # Testing the installed package requires moving out of the source
           # directory.  There are problems with the pytest cache when trying
           # to run from a non-writable dir.
           cd ~
+          PACKAGE_INSTALL_DIR=$(python -c 'import qcschema as _; print(_.__path__[0])')
+          echo "${PACKAGE_INSTALL_DIR}"
           python -m pytest -v --cov=qcschema --cov-report=xml ${PACKAGE_INSTALL_DIR}
       # - name: Install docs dependencies
       #   run: |
