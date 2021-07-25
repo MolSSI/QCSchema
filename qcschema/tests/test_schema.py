@@ -3,7 +3,6 @@ Tests the JSON schema
 """
 import jsonschema
 import pytest
-import os
 
 from qcschema.tests import test_helpers
 import qcschema
