@@ -1,0 +1,2 @@
+recursive-include qcschema *.json
+recursive-include qcschema *.schema

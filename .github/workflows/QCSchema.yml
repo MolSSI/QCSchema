@@ -1,0 +1,86 @@
+---
+name: QCSchema
+
+# yamllint disable-line rule:truthy
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Test on Python ${{ matrix.python-version }} using ${{ matrix.env-type.env-type-name }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7, 3.8, 3.9]
+        # yamllint disable rule:braces
+        env-type:
+          - { env-type-name: venv, shell: bash }
+          - { env-type-name: conda, shell: 'bash -l {0}' }
+          # yamllint enable rule:braces
+    defaults:
+      run:
+        shell: ${{ matrix.env-type.shell }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+        if: ${{ matrix.env-type.env-type-name == 'venv' }}
+      - name: Set up Python ${{ matrix.python-version }} with conda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: test
+          auto-activate-base: false
+          auto-update-conda: true
+          miniforge-version: latest
+          python-version: ${{ matrix.python-version }}
+        if: ${{ matrix.env-type.env-type-name == 'conda' }}
+      - name: Print Python information
+        run: |
+          command -v python
+          $(command -v python) --version
+      - name: Update pip and setuptools
+        run: python -m pip install -U pip setuptools
+      - name: Print pip config
+        run: python -m pip config list
+      - name: Install test dependencies
+        run: python -m pip install pytest-cov
+      - name: Install package
+        run: python -m pip install .
+      - name: Print installed package contents
+        run: |
+          cd ~
+          PACKAGE_INSTALL_DIR=$(python -c 'import qcschema as _; print(_.__path__[0])')
+          echo "${PACKAGE_INSTALL_DIR}"
+          find $PACKAGE_INSTALL_DIR -type f | sort
+      - name: Print Python environment
+        run: python -m pip list
+      - name: Print conda environment
+        run: conda list
+        if: ${{ matrix.env-type.env-type-name == 'conda' }}
+      - name: Print conda info
+        run: conda info
+        if: ${{ matrix.env-type.env-type-name == 'conda' }}
+      - name: Print conda config
+        run: conda config --show
+        if: ${{ matrix.env-type.env-type-name == 'conda' }}
+      - name: Run tests
+        run: |
+          # Testing the installed package requires moving out of the source
+          # directory.  There are problems with the pytest cache when trying
+          # to run from a non-writable dir.
+          cd ~
+          PACKAGE_INSTALL_DIR=$(python -c 'import qcschema as _; print(_.__path__[0])')
+          echo "${PACKAGE_INSTALL_DIR}"
+          python -m pytest -v --cov=qcschema --cov-report=xml ${PACKAGE_INSTALL_DIR}
+      # - name: Install docs dependencies
+      #   run: |
+      #     python -m pip install sphinx==1.2.3 sphinxcontrib-napoleon sphinx_rtd_theme numpydoc
+      # - name: Make docs
+      #   run: make docs
+      # - name: CodeCov
+      #   users: codecov/codecov-action@v1
+      #   with:
+      #     file: ./coverage.xml
+      #     flags: unittests
+      #     name: codecov-py${{ matrix.python-version }}
