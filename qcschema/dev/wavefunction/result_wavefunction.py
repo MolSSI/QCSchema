@@ -29,6 +29,18 @@ result_wavefunction["density_b"] = {
 }
 
 
+result_wavefunction["density_mo_a"] = {
+    "type": "string",
+    "description": "Alpha-spin density in the MO basis of the primary return."
+}
+
+
+result_wavefunction["density_mo_b"] = {
+    "type": "string",
+    "description": "Beta-spin density in the MO basis of the primary return."
+}
+
+
 # Fock matrix
 result_wavefunction["fock_a"] = {
     "type": "string",
@@ -39,6 +51,18 @@ result_wavefunction["fock_a"] = {
 result_wavefunction["fock_b"] = {
     "type": "string",
     "description": "Beta-spin Fock matrix in the AO basis of the primary return."
+}
+
+
+result_wavefunction["fock_mo_a"] = {
+    "type": "string",
+    "description": "Alpha-spin Fock matrix in the MO basis of the primary return."
+}
+
+
+result_wavefunction["fock_mo_b"] = {
+    "type": "string",
+    "description": "Beta-spin Fock matrix in the MO basis of the primary return."
 }
 
 
@@ -90,4 +114,28 @@ result_wavefunction["eri_ba"] = {
 result_wavefunction["eri_bb"] = {
     "type": "string",
     "description": "Beta-beta-spin electron-repulsion integrals in the AO basis of the primary return."
+}
+
+
+result_wavefunction["eri_mo_aa"] = {
+    "type": "string",
+    "description": "Alpha-alpha-spin electron-repulsion integrals in the MO basis of the primary return."
+}
+
+
+result_wavefunction["eri_mo_ab"] = {
+    "type": "string",
+    "description": "Alpha-beta-spin electron-repulsion integrals in the MO basis of the primary return."
+}
+
+
+result_wavefunction["eri_mo_ba"] = {
+    "type": "string",
+    "description": "Beta-alpha-spin electron-repulsion integrals in the MO basis of the primary return."
+}
+
+
+result_wavefunction["eri_mo_bb"] = {
+    "type": "string",
+    "description": "Beta-beta-spin electron-repulsion integrals in the MO basis of the primary return."
 }
