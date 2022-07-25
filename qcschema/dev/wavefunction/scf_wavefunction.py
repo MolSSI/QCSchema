@@ -37,6 +37,22 @@ scf_wavefunction["scf_density_b"] = {
 }
 
 
+scf_wavefunction["scf_density_mo_a"] = {
+    "type": "array",
+    "description": "SCF alpha-spin density in the MO basis.",
+    "items": {"type": "number"},
+    "shape": ["nmo", "nmo"]
+}
+
+
+scf_wavefunction["scf_density_mo_b"] = {
+    "type": "array",
+    "description": "SCF beta-spin density in the MO basis.",
+    "items": {"type": "number"},
+    "shape": ["nmo", "nmo"]
+}
+
+
 # Fock matrix
 scf_wavefunction["scf_fock_a"] = {
     "type": "array",
@@ -51,6 +67,22 @@ scf_wavefunction["scf_fock_b"] = {
     "description": "SCF beta-spin Fock matrix in the AO basis.",
     "items": {"type": "number"},
     "shape": ["nao", "nao"]
+}
+
+
+scf_wavefunction["scf_fock_mo_a"] = {
+    "type": "array",
+    "description": "SCF alpha-spin Fock matrix in the MO basis.",
+    "items": {"type": "number"},
+    "shape": ["nmo", "nmo"]
+}
+
+
+scf_wavefunction["scf_fock_mo_b"] = {
+    "type": "array",
+    "description": "SCF beta-spin Fock matrix in the MO basis.",
+    "items": {"type": "number"},
+    "shape": ["nmo", "nmo"]
 }
 
 
@@ -119,3 +151,43 @@ scf_wavefunction["scf_occupations_b"] = {
     "shape": ["nmo"]
 }
 
+
+# Electron-Repulsion Integrals
+scf_wavefunction["scf_eri"] = {
+    "type": "array",
+    "description": "SCF electron-repulsion integrals in the AO basis.",
+    "items": {"type": "number"},
+    "shape": ["nao", "nao", "nao", "nao"],
+}
+
+
+scf_wavefunction["scf_eri_mo_aa"] = {
+    "type": "array",
+    "description": "SCF alpha-alpha-spin electron-repulsion integrals in the MO basis.",
+    "items": {"type": "number"},
+    "shape": ["nmo", "nmo", "nmo", "nmo"],
+}
+
+
+scf_wavefunction["scf_eri_mo_ab"] = {
+    "type": "array",
+    "description": "SCF alpha-beta-spin electron-repulsion integrals in the MO basis.",
+    "items": {"type": "number"},
+    "shape": ["nmo", "nmo", "nmo", "nmo"],
+}
+
+
+scf_wavefunction["scf_eri_mo_ba"] = {
+    "type": "array",
+    "description": "SCF beta-alpha-spin electron-repulsion integrals in the MO basis.",
+    "items": {"type": "number"},
+    "shape": ["nmo", "nmo", "nmo", "nmo"],
+}
+
+
+scf_wavefunction["scf_eri_mo_bb"] = {
+    "type": "array",
+    "description": "SCF beta-beta-spin electron-repulsion integrals in the MO basis.",
+    "items": {"type": "number"},
+    "shape": ["nmo", "nmo", "nmo", "nmo"],
+}
