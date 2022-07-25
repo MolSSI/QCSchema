@@ -153,33 +153,9 @@ scf_wavefunction["scf_occupations_b"] = {
 
 
 # Electron-Repulsion Integrals
-scf_wavefunction["scf_eri_aa"] = {
+scf_wavefunction["scf_eri"] = {
     "type": "array",
-    "description": "SCF alpha-alpha-spin electron-repulsion integrals in the AO basis.",
-    "items": {"type": "number"},
-    "shape": ["nao", "nao", "nao", "nao"],
-}
-
-
-scf_wavefunction["scf_eri_ab"] = {
-    "type": "array",
-    "description": "SCF alpha-beta-spin electron-repulsion integrals in the AO basis.",
-    "items": {"type": "number"},
-    "shape": ["nao", "nao", "nao", "nao"],
-}
-
-
-scf_wavefunction["scf_eri_ba"] = {
-    "type": "array",
-    "description": "SCF beta-alpha-spin electron-repulsion integrals in the AO basis.",
-    "items": {"type": "number"},
-    "shape": ["nao", "nao", "nao", "nao"],
-}
-
-
-scf_wavefunction["scf_eri_bb"] = {
-    "type": "array",
-    "description": "SCF beta-beta-spin electron-repulsion integrals in the AO basis.",
+    "description": "SCF electron-repulsion integrals in the AO basis.",
     "items": {"type": "number"},
     "shape": ["nao", "nao", "nao", "nao"],
 }

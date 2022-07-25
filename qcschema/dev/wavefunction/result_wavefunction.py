@@ -93,27 +93,9 @@ result_wavefunction["occupations_b"] = {
 
 
 # Electron-Repulsion Integrals
-result_wavefunction["eri_aa"] = {
+result_wavefunction["eri"] = {
     "type": "string",
-    "description": "Alpha-alpha-spin electron-repulsion integrals in the AO basis of the primary return."
-}
-
-
-result_wavefunction["eri_ab"] = {
-    "type": "string",
-    "description": "Alpha-beta-spin electron-repulsion integrals in the AO basis of the primary return."
-}
-
-
-result_wavefunction["eri_ba"] = {
-    "type": "string",
-    "description": "Beta-alpha-spin electron-repulsion integrals in the AO basis of the primary return."
-}
-
-
-result_wavefunction["eri_bb"] = {
-    "type": "string",
-    "description": "Beta-beta-spin electron-repulsion integrals in the AO basis of the primary return."
+    "description": "Electron-repulsion integrals in the AO basis of the primary return."
 }
 
 
