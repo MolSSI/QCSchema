@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+.agents/
+.claude/
+
 # C extensions
 *.so
 
@@ -24,6 +27,8 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+*.whl
+*.tar.gz
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -103,3 +108,8 @@ ENV/
 
 # Dev schema
 docs/source/auto*rst
+
+
+# Agent workflow (local only, not tracked)
+.agents/
+

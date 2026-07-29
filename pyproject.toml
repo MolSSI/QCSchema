@@ -1,3 +1,66 @@
-[tool.black]
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qcschema"
+version = "1"
+description = "A schema for quantum chemistry"
+readme = "README.md"
+requires-python = ">3.11"
+dependencies = [
+    "jsonschema",
+    "pathlib2; python_version < '3.5'",
+]
+
+[project.optional-dependencies]
+docs = [
+    "sphinx==1.2.3",
+    "sphinxcontrib-napoleon",
+    "sphinx_rtd_theme",
+    "numpydoc",
+]
+tests = [
+    "pytest",
+]
+
+[project.urls]
+Homepage = "https://github.com/MolSSI/QCSchema"
+
+[tool.setuptools]
+packages = [
+    "qcschema",
+    "qcschema.data",
+    "qcschema.data.v1",
+    "qcschema.data.v2",
+    "qcschema.dev",
+    "qcschema.dev.properties",
+    "qcschema.dev.wavefunction",
+]
+zip-safe = true
+
+[tool.setuptools.package-data]
+"qcschema.data.v1" = ["*.schema"]
+"qcschema.data.v2" = ["*.schema"]
+
+[tool.ruff]
 line-length = 120
-target-version = ['py27', 'py36', 'py37', 'py38']
+target-version = "py311"
+lint.select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # Pyflakes
+    "I",      # isort
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+    "UP",     # pyupgrade
+]
+lint.ignore = [
+    "E501",   # Line too long (handled by formatter)
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["qcschema"]
+
+[tool.ruff.format]
+line-length = 120
