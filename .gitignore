@@ -103,5 +103,6 @@ ENV/
 # mypy
 .mypy_cache/
 
-# Dev schema
-docs/source/auto*rst
+# Reference checkouts used while writing the docs, not part of this project
+/qcelemental/
+/qcfractal_docs/

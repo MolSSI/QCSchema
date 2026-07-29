@@ -1,0 +1,63 @@
+{#
+  Schema-version dropdown.
+
+  Both schema versions are documented inside this single Sphinx build — v2 at the
+  root, v1 under v1/ — so the links are resolved at build time with pathto()
+  rather than fetched from a switcher.json. That means the dropdown works offline,
+  works when the docs are served from a subpath, and can never point at a page
+  that does not exist.
+
+  Versions are declared in conf.py as html_context["schema_versions"]:
+      [{"name": ..., "root": <docname>, "note": ..., "prefix": <dir or "">}, ...]
+#}
+{%- set versions = schema_versions | default([], true) -%}
+{%- if versions -%}
+
+  {#- Work out which version the current page belongs to: the active entry is the
+      one whose "prefix" directory contains this page. The entry with an empty
+      prefix is the default version (documented at the root) and acts as the
+      fallback for any page not under one of the prefixed directories. -#}
+  {%- set ns = namespace(active=versions[0]) -%}
+  {%- for v in versions -%}
+    {%- if not v.prefix -%}
+      {%- set ns.active = v -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- for v in versions -%}
+    {%- if v.prefix and (pagename == v.prefix or pagename.startswith(v.prefix ~ "/")) -%}
+      {%- set ns.active = v -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+<div class="dropdown qcs-version-switcher">
+  <button
+    class="btn btn-sm dropdown-toggle qcs-version-switcher__button"
+    type="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+    aria-label="{{ _('Choose schema version') }}"
+    title="{{ _('Switch schema version') }}"
+  >
+    <span class="qcs-version-switcher__label">{{ _('Schema') }}</span>
+    <span class="qcs-version-switcher__current">{{ ns.active.name }}</span>
+  </button>
+  <ul class="dropdown-menu qcs-version-switcher__menu">
+    <li><h6 class="dropdown-header">{{ _('Schema version') }}</h6></li>
+    {%- for v in versions %}
+    <li>
+      <a
+        class="dropdown-item{% if v.name == ns.active.name %} active{% endif %}"
+        href="{{ pathto(v.root) }}"
+        {%- if v.name == ns.active.name %} aria-current="true"{% endif %}
+      >
+        <span class="qcs-version-switcher__name">{{ v.name }}</span>
+        {%- if v.note %}
+        <span class="qcs-version-switcher__note">{{ v.note }}</span>
+        {%- endif %}
+      </a>
+    </li>
+    {%- endfor %}
+  </ul>
+</div>
+
+{%- endif -%}

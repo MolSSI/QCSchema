@@ -1,0 +1,238 @@
+
+
+body, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif;
+}
+
+
+/* Make headings a little bit smaller */
+html {
+	--pst-font-family-base: 'Roboto', sans-serif;
+    --pst-font-size-h1: 2.00rem;
+    --pst-font-size-h2: 1.50rem;
+    --pst-font-size-h3: 1.25rem;
+    --pst-font-size-h4: 1.00rem;
+    --pst-font-size-h5: 1.00rem;
+    --pst-font-size-h6: 1.00rem;
+}
+
+
+html[data-theme="light"] {
+    --pst-color-primary: #0080C7;
+	--pst-color-warning: #ed1c24;
+	--pst-color-primary-highlight: #288ec5;
+	--pst-color-secondary: #513D92;
+	--pst-color-secondary-highlight: #5f48a9;
+}
+
+
+html[data-theme="dark"] {
+    --pst-color-primary: #0080C7;
+	--pst-color-warning: #ed1c24;
+	--pst-color-primary-highlight: #288ec5;
+	--pst-color-background: #1A1A1A;
+	--pst-color-on-background: #222222;
+	--pst-color-surface: #222222;
+	--pst-color-secondary: #513D92;
+	--pst-color-secondary-highlight: #5f48a9;
+}
+
+html[data-theme="light"] a:hover {
+	color: #1A1A1A;
+}
+
+html[data-theme="dark"] a:hover {
+	color: var(--pst-color-primary);
+}
+
+html[data-theme="dark"] h1, html[data-theme="dark"] h2, html[data-theme="dark"] h3, html[data-theme="dark"] h4, html[data-theme="dark"] h5, html[data-theme="dark"] h6 {
+	color: #ffffff;
+}
+
+a.headerlink {
+    color: var(--pst-color-primary-highlight);
+}
+
+
+html[data-theme="dark"] a {
+	color: #ffffff;
+}
+
+html[data-theme="dark"] .reference.external {
+	text-decoration: underline;
+
+}
+
+html[data-theme="dark"] p .reference.internal {
+	text-decoration: underline;
+
+}
+
+html[data-theme="dark"] a:hover {
+	color: var(--pst-color-primary);
+}
+
+html[data-theme="dark"] .prev-next-area a p.prev-next-title {
+    color: white;
+}
+
+html[data-theme="dark"] .prev-next-area:hover a:hover p.prev-next-title:hover {
+    color: var(--pst-color-primary);
+}
+
+html[data-theme="dark"] dt:target {
+    background-color: #000000;
+}
+
+
+html .toctree-wrapper li[class^=toctree-l] {
+	list-style: circle;
+}
+
+img:not(.logo__image, .footer_logo) {
+	padding: 20px;
+}
+
+
+.footer_logo {
+	max-height: 60px;
+}
+
+
+.footer-items__start {
+	width: 100%;
+  }
+
+/* Tighten up text in API docs */
+dl.class p {
+    margin-bottom: 0.4rem;
+}
+
+dl.class em.property {
+	font-size: smaller;
+	font-style: normal;
+}
+
+/* Get rid of side bar , based on https://github.com/executablebooks/sphinx-book-theme/issues/732#issuecomment-1752572223 */
+.bd-sidebar-primary div#rtd-footer-container {
+bottom:-1rem;
+margin:-1rem;
+position:fixed;
+}
+
+/* ---------------------------------------------------------------------------
+   Landing-page navigation cards (sphinx-design grid-item-card with :link:).
+   These are entirely clickable, which is not obvious by default, so give them
+   an explicit link affordance: a link-coloured title, a border that responds
+   to hover, and a call-to-action footer with a nudging arrow.
+   --------------------------------------------------------------------------- */
+
+.qcs-nav-card {
+	border: 1px solid var(--pst-color-border);
+	transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.qcs-nav-card .sd-card-title {
+	color: var(--pst-color-primary);
+}
+
+.qcs-nav-card .sd-card-footer {
+	color: var(--pst-color-primary);
+	font-weight: 600;
+	border-top: 1px solid var(--pst-color-border);
+}
+
+/* The arrow in the footer slides right on hover. */
+.qcs-nav-card .sd-card-footer .sd-octicon {
+	transition: transform 0.2s ease;
+	vertical-align: text-bottom;
+}
+
+.qcs-nav-card:hover,
+.qcs-nav-card:focus-within {
+	border-color: var(--pst-color-primary);
+	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.12) !important;
+	transform: translateY(-2px);
+}
+
+.qcs-nav-card:hover .sd-card-footer .sd-octicon {
+	transform: translateX(0.25rem);
+}
+
+.qcs-nav-card:hover .sd-card-title,
+.qcs-nav-card:hover .sd-card-footer {
+	color: var(--pst-color-primary-highlight);
+}
+
+/* Keyboard users need to see the focus ring on the stretched link. */
+.qcs-nav-card .sd-stretched-link:focus-visible {
+	outline: 2px solid var(--pst-color-primary);
+	outline-offset: 2px;
+}
+
+/* The generic img padding rule would otherwise offset the inline octicons. */
+.qcs-nav-card .sd-card-title .sd-octicon {
+	vertical-align: text-bottom;
+}
+
+
+/* ---------------------------------------------------------------------------
+   Schema-version dropdown (docs/_templates/schema-version-switcher.html).
+   --------------------------------------------------------------------------- */
+
+.qcs-version-switcher {
+	margin-left: 0.5rem;
+}
+
+.qcs-version-switcher__button {
+	align-items: baseline;
+	border: 1px solid var(--pst-color-border);
+	color: var(--pst-color-text-base);
+	display: inline-flex;
+	gap: 0.35rem;
+	white-space: nowrap;
+}
+
+.qcs-version-switcher__button:hover,
+.qcs-version-switcher__button[aria-expanded="true"] {
+	border-color: var(--pst-color-primary);
+	color: var(--pst-color-primary);
+}
+
+/* "Schema" is context; the version number is the value being switched. */
+.qcs-version-switcher__label {
+	color: var(--pst-color-text-muted);
+	font-size: 0.8em;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+}
+
+.qcs-version-switcher__current {
+	font-weight: 700;
+}
+
+.qcs-version-switcher__menu .dropdown-item {
+	display: flex;
+	align-items: baseline;
+	gap: 0.5rem;
+}
+
+.qcs-version-switcher__note {
+	color: var(--pst-color-text-muted);
+	font-size: 0.85em;
+}
+
+.qcs-version-switcher__menu .dropdown-item.active,
+.qcs-version-switcher__menu .dropdown-item.active .qcs-version-switcher__note {
+	background-color: var(--pst-color-primary);
+	color: var(--pst-color-background);
+}
+
+/* The v1 pages stay in the root toctree so that Sphinx gives them a sidebar,
+   prev/next links and breadcrumbs — but that also puts a "QCSchema v1" entry in
+   the header nav, which duplicates the version dropdown a few pixels away. Hide
+   just that entry. If :has() is unsupported the link simply remains visible,
+   which is harmless. */
+.bd-navbar-elements .nav-item:has(> a[href$="v1/index.html"]) {
+	display: none;
+}
