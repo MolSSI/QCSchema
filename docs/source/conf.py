@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Configuration file for the Sphinx documentation builder.
 #
@@ -20,10 +19,10 @@
 # -- Project information -----------------------------------------------------
 
 # Super hacky auto gen
-import sys
 import os
+import sys
+
 sys.path.insert(1, os.path.dirname(__file__))
-import gen_schema_docs
 
 project = 'A schema for Quantum Chemistry'
 copyright = f'2018-{datetime.datetime.today().year}, The Molecular Sciences Software Institute'

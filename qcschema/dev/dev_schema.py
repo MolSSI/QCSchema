@@ -4,11 +4,7 @@ Integrates all components of the QC Schema into a single one.
 
 import copy
 
-from . import molecule
-from . import definitions
-from . import properties
-from . import basis
-from . import wavefunction
+from . import basis, definitions, molecule, properties, wavefunction
 
 # The base schema definition
 base_schema = {

@@ -2,11 +2,11 @@
 The base file for QC Schema properties.
 """
 
+from ..basis import basis
+from .core_wavefunction import core_wavefunction
+from .localized_wavefunction import localized_wavefunction
 from .result_wavefunction import result_wavefunction
 from .scf_wavefunction import scf_wavefunction
-from .localized_wavefunction import localized_wavefunction
-from .core_wavefunction import core_wavefunction
-from ..basis import basis
 
 output_wavefunction = {
     "type": "object",

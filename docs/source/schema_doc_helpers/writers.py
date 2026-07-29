@@ -3,6 +3,7 @@ A small module to assist in the writing of RST
 """
 import textwrap
 
+
 def write_header(data, header):
     data.append("")
     data.append(header)
@@ -25,11 +26,11 @@ def write_key_table(top_file, properties, keys=None):
     fmt_string = '   | {:%s} | {:%s} | {:%s} |' % tuple(table_widths)
     dash_inds = tuple("-" * w for w in table_widths)
     equals_inds = tuple("=" * w for w in table_widths)
-   
+
     top_file.append("   +-{}-+-{}-+-{}-+".format(*dash_inds))
     top_file.append(fmt_string.format("Key Name", "Description", "Field Type"))
     top_file.append("   +={}=+={}=+={}=+".format(*equals_inds))
-  
+
     if keys is None:
         keys = properties.keys()
 
