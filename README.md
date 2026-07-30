@@ -1,6 +1,5 @@
 # QCSchema
 
-[![Build Status](https://img.shields.io/travis/MolSSI/QCSchema/master.svg?logo=linux&logoColor=white)](https://travis-ci.org/MolSSI/QCSchema)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/MolSSI/QCSchema.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/MolSSI/QCSchema/context:python)
 [![Documentation Status](https://readthedocs.org/projects/molssi-qc-schema/badge/?version=latest)](https://molssi-qc-schema.readthedocs.io/en/latest/?badge=latest)
 
@@ -11,5 +10,17 @@ chemistry packages to enable more complex workflows.  The core of this is to
 avoid parsing ASCII-based output files and place output variables, vectors,
 matrices in a consistent format that can be easily parsed.
 
-Please see the [website](http://molssi-qc-schema.readthedocs.io/en/latest/index.html#) for the current specification. 
+Please see the [website](http://molssi-qc-schema.readthedocs.io/en/latest/index.html#) for the current specification.
+
+## Development
+
+Install the package with development dependencies and set up pre-commit hooks:
+
+```bash
+pip install -e .
+pip install pre-commit
+pre-commit install
+```
+
+Pre-commit will automatically lint and format code on each commit using [ruff](https://github.com/astral-sh/ruff).
 

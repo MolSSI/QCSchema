@@ -2,19 +2,14 @@
 Contains helper scripts to assist in testing the schema
 """
 
-import pytest
-import os
 import glob
-import copy
 import json
-import subprocess
-
-import qcschema
+import os
 
 
 def _read_json_file(*filename):
     filename = os.path.join(*filename)
-    with open(filename, "r") as infile:
+    with open(filename) as infile:
         data = json.load(infile)
     return data
 
@@ -33,4 +28,4 @@ def list_tests(folder, ext=".json", matcher=""):
 
 def get_test(name):
     return _read_json_file(name)
-    
+

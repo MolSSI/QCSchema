@@ -1,12 +1,12 @@
 """
 Very hacky way to write out the schema (for demo purposes only)
 """
-import qcschema
-import textwrap
+import os
 
 # Import headers from this
 import sys
-import os
+
+import qcschema
 
 sys.path.insert(1, os.path.dirname(__file__))
 import schema_doc_helpers as sh

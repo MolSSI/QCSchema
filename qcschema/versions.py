@@ -42,7 +42,7 @@ def list_versions(schema_type):
         if schema_type.lower() in aliases:
             return _versions_list[sk]
 
-    raise KeyError("Schema type should be among {} (+aliases), not '{}'.".format(list(_aliases.keys()), schema_type))
+    raise KeyError(f"Schema type should be among {list(_aliases.keys())} (+aliases), not '{schema_type}'.")
 
 
 def get_schema(schema_type, version="dev"):
@@ -62,10 +62,10 @@ def get_schema(schema_type, version="dev"):
                     fname = "qc_schema_" + sk
                 break
             else:
-                raise KeyError("Schema version should be among {}, not '{}'.".format(_versions_list[sk], version))
+                raise KeyError(f"Schema version should be among {_versions_list[sk]}, not '{version}'.")
     else:
         raise KeyError(
-            "Schema type should be among {} (+aliases), not '{}'.".format(list(_aliases.keys()), schema_type)
+            f"Schema type should be among {list(_aliases.keys())} (+aliases), not '{schema_type}'."
         )
 
     fpath = _data_path / ("v" + str(version)) / (fname + ".schema")

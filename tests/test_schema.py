@@ -1,13 +1,12 @@
 """
 Tests the JSON schema
 """
+
 import jsonschema
 import pytest
-import os
-
 import test_helpers
-import qcschema
 
+import qcschema
 
 ### Test input validation errors
 simple_input = test_helpers.list_tests("simple", matcher="input")
