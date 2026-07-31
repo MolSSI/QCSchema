@@ -9,14 +9,9 @@ Run as: python -m qcschema.v1.generate
 """
 
 import copy
-import sys
 from pathlib import Path
 
-# Add parent to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
-from qcschema import utils
-
+from . import utils
 from .generator.properties.calcinfo_properties import calcinfo_properties
 from .generator.properties.mp_properties import mp_properties
 from .generator.properties.scf_properties import scf_properties
