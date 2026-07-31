@@ -61,3 +61,14 @@ lint.ignore = [
 
 [tool.ruff.lint.isort]
 known-first-party = ["qcschema"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+# Note: If you encounter "ModuleNotFoundError: No module named 'qcelemental.models._v1v2'"
+# from a pytest plugin, it means an external package has a pytest11 entry point that fails.
+# Run with: PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=. pytest tests/
+# See tests/conftest.py for more information.

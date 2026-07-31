@@ -11,9 +11,9 @@ Usage:
     python -m qcschema.v1_5.generate
 
 Output:
-    - qcschema/data/v2/qc_schema_input.schema
-    - qcschema/data/v2/qc_schema_molecule.schema
-    - qcschema/data/v2/qc_schema_output.schema
+    - qcschema/v1_5/schemas/qc_schema_input.schema
+    - qcschema/v1_5/schemas/qc_schema_molecule.schema
+    - qcschema/v1_5/schemas/qc_schema_output.schema
 """
 
 import copy

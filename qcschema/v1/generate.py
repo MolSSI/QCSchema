@@ -3,7 +3,7 @@
 Generate v1 JSON Schema documents in frozen v1 format.
 
 The v1 format is the original QCSchema with classic basis definitions.
-This generator produces schemas matching qcschema/data/v1/ (frozen reference).
+Generates schemas to qcschema/v1/schemas/ directory.
 
 Run as: python -m qcschema.v1.generate
 """
