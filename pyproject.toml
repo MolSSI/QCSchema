@@ -61,6 +61,3 @@ lint.ignore = [
 
 [tool.ruff.lint.isort]
 known-first-party = ["qcschema"]
-
-[tool.ruff.format]
-line-length = 120
