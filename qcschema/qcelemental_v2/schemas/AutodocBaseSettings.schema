@@ -1,0 +1,7 @@
+{
+  "title": "AutodocBaseSettings",
+  "description": "Old class for pydantic docstring before autodoc-pydantic came about.",
+  "type": "object",
+  "properties": {},
+  "additionalProperties": false
+}

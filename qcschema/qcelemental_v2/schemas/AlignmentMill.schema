@@ -1,0 +1,39 @@
+{
+  "title": "AlignmentMill",
+  "description": "Facilitates the application of the simple transformation operations\ndefined by ``shift``, ``rotation``, ``atommap`` arrays and ``mirror``\nboolean as recipe to the data structures\ndescribing Cartesian molecular coordinates. Attaches functions to\ntransform the geometry, element list, gradient, etc. to the\nAlignmentRecipe. When `mirror` attribute (defaults to False) active,\nthen molecular system can be substantively changed by procedure.",
+  "type": "object",
+  "properties": {
+    "shift": {
+      "title": "Shift",
+      "description": "Translation array (3,) for coordinates.",
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "rotation": {
+      "title": "Rotation",
+      "description": "Rotation array (3, 3) for coordinates.",
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "atommap": {
+      "title": "Atommap",
+      "description": "Atom exchange map (nat,) for coordinates.",
+      "type": "array",
+      "items": {
+        "type": "number",
+        "multipleOf": 1.0
+      }
+    },
+    "mirror": {
+      "title": "Mirror",
+      "description": "Do mirror invert coordinates?",
+      "default": false,
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false
+}
