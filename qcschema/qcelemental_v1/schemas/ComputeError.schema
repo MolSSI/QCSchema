@@ -1,0 +1,27 @@
+{
+  "title": "ComputeError",
+  "description": "Complete description of the error from an unsuccessful program execution.",
+  "type": "object",
+  "properties": {
+    "error_type": {
+      "title": "Error Type",
+      "description": "The type of error which was thrown. Restrict this field to short classifiers e.g. 'input_error'. Suggested classifiers: https://github.com/MolSSI/QCEngine/blob/master/qcengine/exceptions.py",
+      "type": "string"
+    },
+    "error_message": {
+      "title": "Error Message",
+      "description": "Text associated with the thrown error. This is often the backtrace, but it can contain additional information as well.",
+      "type": "string"
+    },
+    "extras": {
+      "title": "Extras",
+      "description": "Additional information to bundle with the error.",
+      "type": "object"
+    }
+  },
+  "required": [
+    "error_type",
+    "error_message"
+  ],
+  "additionalProperties": false
+}
