@@ -141,7 +141,7 @@ def _get_output_filename(model_name):
     # Check if this is a canonical type
     if model_name in type_mapping:
         schema_type = type_mapping[model_name]
-        return f"qc_schema_{schema_type}.schema"
+        return f"qcschema_{schema_type}.schema"
 
     # Otherwise use the model name as-is
     return f"{model_name}.schema"

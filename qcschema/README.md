@@ -70,6 +70,7 @@ python -m qcschema.v1_5.generate
 ```
 
 The generators use modular component files in their respective `generator/` subdirectories. v1.5 inherits from v1 and extends it with wavefunction support.
+v1.5 is the longstanding state of the QCSchema repo from 2020-2026.
 
 ## Public API
 
