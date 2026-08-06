@@ -1,0 +1,31 @@
+{
+  "$defs": {
+    "ScanResultsProtocolEnum": {
+      "description": "Which gradient evaluations to keep in an optimization trajectory.",
+      "enum": [
+        "all",
+        "lowest",
+        "none"
+      ],
+      "title": "ScanResultsProtocolEnum",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Protocols regarding the manipulation of a Torsion Drive subcalculation history.",
+  "properties": {
+    "schema_name": {
+      "const": "qcschema_torsion_drive_protocols",
+      "default": "qcschema_torsion_drive_protocols",
+      "title": "Schema Name",
+      "type": "string"
+    },
+    "scan_results": {
+      "$ref": "#/$defs/ScanResultsProtocolEnum",
+      "default": "none",
+      "description": "\n    Which gradient evaluations to keep in an optimization trajectory.\n    "
+    }
+  },
+  "title": "TorsionDriveProtocols",
+  "type": "object"
+}

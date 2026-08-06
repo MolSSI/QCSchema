@@ -23,6 +23,18 @@ Output:
 Dependencies:
     - qcelemental (manual install required, not shipped)
     - pydantic v2
+
+Optional Dependencies:
+    - qcmanybody: If installed and compatible, the script will import
+      qcelemental.models.v2 and qcmanybody.models.v2 before rebuilding models.
+      This resolves forward references for 6 models (Optimization* and TorsionDrive*)
+      that reference ManyBodySpecification/ManyBodyResult from qcmanybody.
+      Without qcmanybody, these 6 models will fail to rebuild and their schemas
+      will be empty or incomplete.
+
+      Current status: Compatibility issue between qcelemental dev version
+      and qcmanybody 0.5.1 (ExtendedConfigDict not available). Once compatible,
+      this will resolve 6 model rebuild failures.
 """
 
 import inspect
@@ -161,6 +173,15 @@ def generate_schemas(output_dir=None):
         raise RuntimeError("No pydantic models found in qcelemental.models")
 
     print(f"Found {len(models)} pydantic models")
+
+    # Try to import qcmanybody to resolve forward references
+    # (6 models reference ManyBodySpecification and ManyBodyResult from qcmanybody.models.v2)
+    try:
+        import qcmanybody.models.v2  # noqa: F401 - imported for side effects (type registration)
+
+        print("✓ qcmanybody.models.v2 imported (Optimization/TorsionDrive models will be complete)")
+    except ImportError as e:
+        print(f"ℹ qcmanybody not available: {e} (some models may fail to rebuild)")
 
     # Rebuild all models to resolve forward references
     rebuild_failures = {}

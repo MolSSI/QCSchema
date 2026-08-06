@@ -1,118 +1,234 @@
 {
-  "title": "OptimizationInput",
-  "description": "QCSchema input directive for geometry optimization.",
-  "type": "object",
-  "properties": {
-    "id": {
-      "title": "Id",
-      "type": "string"
-    },
-    "hash_index": {
-      "title": "Hash Index",
-      "type": "string"
-    },
-    "schema_name": {
-      "title": "Schema Name",
-      "default": "qcschema_optimization_input",
-      "pattern": "qcschema_optimization_input",
-      "type": "string"
-    },
-    "schema_version": {
-      "title": "Schema Version",
-      "default": 1,
-      "type": "integer"
-    },
-    "keywords": {
-      "title": "Keywords",
-      "description": "The optimization specific keywords to be used.",
-      "default": {},
-      "type": "object"
-    },
-    "extras": {
-      "title": "Extras",
-      "description": "Extra fields that are not part of the schema.",
-      "default": {},
-      "type": "object"
-    },
-    "protocols": {
-      "title": "Protocols",
-      "description": "\n    Protocols regarding the manipulation of a Optimization output data.\n    ",
-      "default": {},
-      "allOf": [
-        {
-          "$ref": "#/definitions/OptimizationProtocols"
+  "$defs": {
+    "AtomicProtocols": {
+      "additionalProperties": false,
+      "description": "Protocols regarding the manipulation of computational result data.",
+      "properties": {
+        "schema_name": {
+          "const": "qcschema_atomic_protocols",
+          "default": "qcschema_atomic_protocols",
+          "title": "Schema Name",
+          "type": "string"
+        },
+        "wavefunction": {
+          "$ref": "#/$defs/WavefunctionProtocolEnum",
+          "default": "none"
+        },
+        "stdout": {
+          "default": true,
+          "description": "Primary output file to keep from the computation",
+          "title": "Stdout",
+          "type": "boolean"
+        },
+        "error_correction": {
+          "$ref": "#/$defs/ErrorCorrectionProtocol",
+          "description": "Policies for error correction"
+        },
+        "native_files": {
+          "$ref": "#/$defs/NativeFilesProtocolEnum",
+          "default": "none",
+          "description": "Policies for keeping processed files from the computation"
         }
-      ]
-    },
-    "input_specification": {
-      "title": "Input Specification",
-      "description": "\n    A compute description for energy, gradient, and Hessian computations used in a geometry optimization.\n    ",
-      "allOf": [
-        {
-          "$ref": "#/definitions/QCInputSpecification"
-        }
-      ]
-    },
-    "initial_molecule": {
-      "title": "Initial Molecule",
-      "description": "The starting molecule for the geometry optimization.",
-      "allOf": [
-        {
-          "$ref": "#/definitions/Molecule"
-        }
-      ]
-    },
-    "provenance": {
-      "title": "Provenance",
-      "description": "Provenance information.",
-      "default": {
-        "creator": "QCElemental",
-        "version": "0.29.0",
-        "routine": "qcelemental.models.procedures"
       },
-      "allOf": [
-        {
-          "$ref": "#/definitions/Provenance"
+      "title": "AtomicProtocols",
+      "type": "object"
+    },
+    "AtomicSpecification": {
+      "additionalProperties": false,
+      "description": "Specification for a single point QC calculation",
+      "properties": {
+        "schema_name": {
+          "const": "qcschema_atomic_specification",
+          "default": "qcschema_atomic_specification",
+          "title": "Schema Name",
+          "type": "string"
+        },
+        "keywords": {
+          "default": {},
+          "description": "The program specific keywords to be used.",
+          "title": "Keywords"
+        },
+        "program": {
+          "default": "",
+          "description": "The program for which the Specification is intended.",
+          "title": "Program",
+          "type": "string"
+        },
+        "driver": {
+          "$ref": "#/$defs/DriverEnum"
+        },
+        "model": {
+          "$ref": "#/$defs/Model"
+        },
+        "protocols": {
+          "$ref": "#/$defs/AtomicProtocols",
+          "default": {
+            "schema_name": "qcschema_atomic_protocols",
+            "wavefunction": "none",
+            "stdout": true,
+            "error_correction": {
+              "default_policy": true,
+              "policies": null
+            },
+            "native_files": "none"
+          }
+        },
+        "extras": {
+          "default": {},
+          "description": "Additional information to bundle with the computation. Use for schema development and scratch space.",
+          "title": "Extras"
         }
-      ]
-    }
-  },
-  "required": [
-    "input_specification",
-    "initial_molecule"
-  ],
-  "additionalProperties": false,
-  "definitions": {
-    "TrajectoryProtocolEnum": {
-      "title": "TrajectoryProtocolEnum",
-      "description": "Which gradient evaluations to keep in an optimization trajectory.",
+      },
+      "required": [
+        "driver",
+        "model"
+      ],
+      "title": "AtomicSpecification",
+      "type": "object"
+    },
+    "BasisCenter": {
+      "additionalProperties": false,
+      "description": "Data for a single atom/center in a basis set.",
+      "properties": {
+        "electron_shells": {
+          "description": "Electronic shells for this center.",
+          "items": {
+            "$ref": "#/$defs/ElectronShell"
+          },
+          "minItems": 1,
+          "title": "Electron Shells",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "ecp_electrons": {
+          "default": 0,
+          "description": "Number of electrons replaced by ECP, MCP, or other field potentials.",
+          "title": "Ecp Electrons",
+          "type": "integer"
+        },
+        "ecp_potentials": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/ECPPotential"
+              },
+              "minItems": 1,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "ECPs, MCPs, or other field potentials for this center.",
+          "title": "Ecp Potentials",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "electron_shells"
+      ],
+      "title": "BasisCenter",
+      "type": "object"
+    },
+    "BasisSet": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "additionalProperties": false,
+      "description": "A quantum chemistry basis description.",
+      "properties": {
+        "schema_name": {
+          "const": "qcschema_basis_set",
+          "default": "qcschema_basis_set",
+          "description": "The QCSchema specification to which this model conforms.",
+          "title": "Schema Name",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 2,
+          "default": 2,
+          "description": "The version number of :attr:`~qcelemental.models.BasisSet.schema_name` to which this model conforms.",
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "name": {
+          "description": "The standard basis name if available (e.g., 'cc-pVDZ').",
+          "title": "Name",
+          "type": "string"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Brief description of the basis set.",
+          "title": "Description"
+        },
+        "center_data": {
+          "additionalProperties": {
+            "$ref": "#/$defs/BasisCenter"
+          },
+          "description": "Shared basis data for all atoms/centers in the parent molecule",
+          "title": "Center Data",
+          "type": "object"
+        },
+        "atom_map": {
+          "description": "Mapping of all atoms/centers in the parent molecule to centers in ``center_data``.",
+          "items": {
+            "type": "string"
+          },
+          "title": "Atom Map",
+          "type": "array"
+        },
+        "nbf": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The number of basis functions. Use for convenience or as checksum",
+          "title": "Nbf"
+        }
+      },
+      "required": [
+        "name",
+        "center_data",
+        "atom_map"
+      ],
+      "title": "BasisSet",
+      "type": "object"
+    },
+    "BsseEnum": {
+      "description": "Available basis-set superposition error (BSSE) treatments.",
+      "enum": [
+        "nocp",
+        "cp",
+        "vmfc",
+        "cp",
+        "nocp",
+        "nocp"
+      ],
+      "title": "BsseEnum",
+      "type": "string"
+    },
+    "ClusterResultsProtocolEnum": {
+      "description": "Which component results to preserve in a many body result; usually AtomicResults.",
       "enum": [
         "all",
-        "initial_and_final",
-        "final",
         "none"
       ],
+      "title": "ClusterResultsProtocolEnum",
       "type": "string"
     },
-    "OptimizationProtocols": {
-      "title": "OptimizationProtocols",
-      "description": "Protocols regarding the manipulation of a Optimization output data.",
-      "type": "object",
-      "properties": {
-        "trajectory": {
-          "description": "\n    Which gradient evaluations to keep in an optimization trajectory.\n    ",
-          "default": "all",
-          "allOf": [
-            {
-              "$ref": "#/definitions/TrajectoryProtocolEnum"
-            }
-          ]
-        }
-      },
-      "additionalProperties": false
-    },
     "DriverEnum": {
-      "title": "DriverEnum",
       "description": "Allowed computation driver values.",
       "enum": [
         "energy",
@@ -120,133 +236,38 @@
         "hessian",
         "properties"
       ],
-      "type": "string"
-    },
-    "HarmonicType": {
-      "title": "HarmonicType",
-      "description": "The angular momentum representation of a shell.",
-      "enum": [
-        "spherical",
-        "cartesian"
-      ],
-      "type": "string"
-    },
-    "ElectronShell": {
-      "title": "ElectronShell",
-      "description": "Information for a single electronic shell.",
-      "type": "object",
-      "properties": {
-        "angular_momentum": {
-          "title": "Angular Momentum",
-          "description": "Angular momentum for the shell as an array of integers.",
-          "minItems": 1,
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "minimum": 0
-          },
-          "uniqueItems": true
-        },
-        "harmonic_type": {
-          "description": "The angular momentum representation of a shell.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/HarmonicType"
-            }
-          ]
-        },
-        "exponents": {
-          "title": "Exponents",
-          "description": "Exponents for the contracted shell.",
-          "minItems": 1,
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "type": "number"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          }
-        },
-        "coefficients": {
-          "title": "Coefficients",
-          "description": "General contraction coefficients for the shell; individual list components will be the individual segment contraction coefficients.",
-          "minItems": 1,
-          "type": "array",
-          "items": {
-            "type": "array",
-            "items": {
-              "anyOf": [
-                {
-                  "type": "number"
-                },
-                {
-                  "type": "string"
-                }
-              ]
-            },
-            "minItems": 1
-          }
-        }
-      },
-      "required": [
-        "angular_momentum",
-        "harmonic_type",
-        "exponents",
-        "coefficients"
-      ],
-      "additionalProperties": false
-    },
-    "ECPType": {
-      "title": "ECPType",
-      "description": "The type of the ECP potential.",
-      "enum": [
-        "scalar",
-        "spinorbit"
-      ],
+      "title": "DriverEnum",
       "type": "string"
     },
     "ECPPotential": {
-      "title": "ECPPotential",
+      "additionalProperties": false,
       "description": "Information for a single ECP potential.",
-      "type": "object",
       "properties": {
         "ecp_type": {
-          "description": "The type of the ECP potential.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ECPType"
-            }
-          ]
+          "$ref": "#/$defs/ECPType"
         },
         "angular_momentum": {
-          "title": "Angular Momentum",
           "description": "Angular momentum for the potential as an array of integers.",
-          "minItems": 1,
-          "type": "array",
           "items": {
-            "type": "integer",
-            "minimum": 0
+            "minimum": 0,
+            "type": "integer"
           },
+          "minItems": 1,
+          "title": "Angular Momentum",
+          "type": "array",
           "uniqueItems": true
         },
         "r_exponents": {
-          "title": "R Exponents",
           "description": "Exponents of the 'r' term.",
-          "minItems": 1,
-          "type": "array",
           "items": {
             "type": "integer"
-          }
+          },
+          "minItems": 1,
+          "title": "R Exponents",
+          "type": "array"
         },
         "gaussian_exponents": {
-          "title": "Gaussian Exponents",
           "description": "Exponents of the 'gaussian' term.",
-          "minItems": 1,
-          "type": "array",
           "items": {
             "anyOf": [
               {
@@ -256,15 +277,14 @@
                 "type": "string"
               }
             ]
-          }
+          },
+          "minItems": 1,
+          "title": "Gaussian Exponents",
+          "type": "array"
         },
         "coefficients": {
-          "title": "Coefficients",
           "description": "General contraction coefficients for the potential; individual list components will be the individual segment contraction coefficients.",
-          "minItems": 1,
-          "type": "array",
           "items": {
-            "type": "array",
             "items": {
               "anyOf": [
                 {
@@ -275,8 +295,11 @@
                 }
               ]
             },
-            "minItems": 1
-          }
+            "type": "array"
+          },
+          "minItems": 1,
+          "title": "Coefficients",
+          "type": "array"
         }
       },
       "required": [
@@ -286,518 +309,515 @@
         "gaussian_exponents",
         "coefficients"
       ],
-      "additionalProperties": false
+      "title": "ECPPotential",
+      "type": "object"
     },
-    "BasisCenter": {
-      "title": "BasisCenter",
-      "description": "Data for a single atom/center in a basis set.",
-      "type": "object",
+    "ECPType": {
+      "description": "The type of the ECP potential.",
+      "enum": [
+        "scalar",
+        "spinorbit"
+      ],
+      "title": "ECPType",
+      "type": "string"
+    },
+    "ElectronShell": {
+      "additionalProperties": false,
+      "description": "Information for a single electronic shell.",
       "properties": {
-        "electron_shells": {
-          "title": "Electron Shells",
-          "description": "Electronic shells for this center.",
-          "minItems": 1,
-          "type": "array",
+        "angular_momentum": {
+          "description": "Angular momentum for the shell as an array of integers.",
           "items": {
-            "$ref": "#/definitions/ElectronShell"
+            "minimum": 0,
+            "type": "integer"
           },
+          "minItems": 1,
+          "title": "Angular Momentum",
+          "type": "array",
           "uniqueItems": true
         },
-        "ecp_electrons": {
-          "title": "Ecp Electrons",
-          "description": "Number of electrons replaced by ECP, MCP, or other field potentials.",
-          "default": 0,
-          "type": "integer"
+        "harmonic_type": {
+          "$ref": "#/$defs/HarmonicType"
         },
-        "ecp_potentials": {
-          "title": "Ecp Potentials",
-          "description": "ECPs, MCPs, or other field potentials for this center.",
-          "minItems": 1,
-          "type": "array",
+        "exponents": {
+          "description": "Exponents for the contracted shell.",
           "items": {
-            "$ref": "#/definitions/ECPPotential"
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
-          "uniqueItems": true
+          "minItems": 1,
+          "title": "Exponents",
+          "type": "array"
+        },
+        "coefficients": {
+          "description": "General contraction coefficients for the shell; individual list components will be the individual segment contraction coefficients.",
+          "items": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "type": "array"
+          },
+          "minItems": 1,
+          "title": "Coefficients",
+          "type": "array"
         }
       },
       "required": [
-        "electron_shells"
+        "angular_momentum",
+        "harmonic_type",
+        "exponents",
+        "coefficients"
       ],
-      "additionalProperties": false
+      "title": "ElectronShell",
+      "type": "object"
     },
-    "BasisSet": {
-      "title": "BasisSet",
-      "description": "A quantum chemistry basis description.",
-      "type": "object",
+    "ErrorCorrectionProtocol": {
+      "additionalProperties": false,
+      "description": "Configuration for how QCEngine handles error correction\n\nWARNING: These protocols are currently experimental and only supported by NWChem tasks",
+      "properties": {
+        "default_policy": {
+          "default": true,
+          "description": "Whether to allow error corrections to be used if not directly specified in `policies`",
+          "title": "Default Policy",
+          "type": "boolean"
+        },
+        "policies": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "type": "boolean"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Settings that define whether specific error corrections are allowed. Keys are the name of a known error and values are whether it is allowed to be used.",
+          "title": "Policies"
+        }
+      },
+      "title": "ErrorCorrectionProtocol",
+      "type": "object"
+    },
+    "HarmonicType": {
+      "description": "The angular momentum representation of a shell.",
+      "enum": [
+        "spherical",
+        "cartesian"
+      ],
+      "title": "HarmonicType",
+      "type": "string"
+    },
+    "ManyBodyKeywords": {
+      "additionalProperties": false,
+      "description": "The many-body-specific keywords for user control.",
       "properties": {
         "schema_name": {
+          "const": "qcschema_many_body_keywords",
+          "default": "qcschema_many_body_keywords",
           "title": "Schema Name",
-          "description": "The QCSchema specification to which this model conforms. Explicitly fixed as qcschema_basis.",
-          "default": "qcschema_basis",
-          "pattern": "^(qcschema_basis)$",
           "type": "string"
         },
-        "schema_version": {
-          "title": "Schema Version",
-          "description": "The version number of :attr:`~qcelemental.models.BasisSet.schema_name` to which this model conforms.",
-          "default": 1,
-          "type": "integer"
-        },
-        "name": {
-          "title": "Name",
-          "description": "The standard basis name if available (e.g., 'cc-pVDZ').",
-          "type": "string"
-        },
-        "description": {
-          "title": "Description",
-          "description": "Brief description of the basis set.",
-          "type": "string"
-        },
-        "center_data": {
-          "title": "Center Data",
-          "description": "Shared basis data for all atoms/centers in the parent molecule",
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/definitions/BasisCenter"
-          }
-        },
-        "atom_map": {
-          "title": "Atom Map",
-          "description": "Mapping of all atoms/centers in the parent molecule to centers in ``center_data``.",
-          "type": "array",
+        "bsse_type": {
+          "default": [
+            "cp"
+          ],
+          "description": "Requested BSSE treatments. First in list determines which interaction or total energy/gradient/Hessian returned.",
           "items": {
-            "type": "string"
-          }
+            "$ref": "#/$defs/BsseEnum"
+          },
+          "title": "Bsse Type",
+          "type": "array"
         },
-        "nbf": {
-          "title": "Nbf",
-          "description": "The number of basis functions. Use for convenience or as checksum",
-          "type": "integer"
+        "embedding_charges": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Atom-centered point charges to be used on molecule fragments whose basis sets are not included in the computation. Keys: 1-based index of fragment. Values: list of atom charges for that fragment. At present, QCManyBody will only accept non-None values of this keyword if environment variable QCMANYBODY_EMBEDDING_CHARGES is set.",
+          "shape": [
+            "nfr",
+            "<varies: nat in ifr>"
+          ],
+          "title": "Embedding Charges"
+        },
+        "return_total_data": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "When True, returns the total data (energy/gradient/Hessian) of the system, otherwise returns interaction data. Default is False for energies, True for gradients and Hessians. Note that the calculation of counterpoise corrected total energies implies the calculation of the energies of monomers in the monomer basis, hence specifying ``return_total_data = True`` may carry out more computations than ``return_total_data = False``. For gradients and Hessians, ``return_total_data = False`` is rarely useful.",
+          "title": "Return Total Data"
+        },
+        "levels": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Dictionary of different levels of theory for different levels of expansion. Note that the primary method_string is not used when this keyword is given. ``supersystem`` computes all higher order n-body effects up to the number of fragments; this higher-order correction uses the nocp basis, regardless of bsse_type. A method fills in for any lower unlisted nbody levels. Note that if both this and max_nbody are provided, they must be consistent. Examples: SUPERSYSTEM definition suspect* {1: 'ccsd(t)', 2: 'mp2', 'supersystem': 'scf'} * {2: 'ccsd(t)/cc-pvdz', 3: 'mp2'} * Now invalid: {1: 2, 2: 'ccsd(t)/cc-pvdz', 3: 'mp2'} ",
+          "title": "Levels"
+        },
+        "max_nbody": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Maximum number of bodies to include in the many-body treatment. Possible: max_nbody <= nfragments. Default: max_nbody = nfragments.",
+          "title": "Max Nbody"
+        },
+        "supersystem_ie_only": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": false,
+          "description": "Target the supersystem total/interaction energy (IE) data over the many-body expansion (MBE) analysis, thereby omitting intermediate-body calculations. When False (default), compute each n-body level in the MBE up through ``max_nbody``. When True (only allowed for ``max_nbody = nfragments`` ), only compute enough for the overall interaction/total energy: max_nbody-body and 1-body. When True, properties ``INTERACTION {driver} THROUGH {max_nbody}-BODY`` will always be available; ``TOTAL {driver} THROUGH {max_nbody}-BODY`` will be available depending on ``return_total_data`` ; and ``{max_nbody}-BODY CONTRIBUTION TO {driver}`` won't be available (except for dimers). This keyword produces no savings for a two-fragment molecule. But for the interaction energy of a three-fragment molecule, for example, 2-body subsystems can be skipped with ``supersystem_ie_only=True``. Do not use with ``vmfc`` in ``bsse_type`` as it cannot produce savings.",
+          "title": "Supersystem Ie Only"
+        }
+      },
+      "title": "ManyBodyKeywords",
+      "type": "object"
+    },
+    "ManyBodyProtocols": {
+      "additionalProperties": false,
+      "description": "Protocols regarding the manipulation of a ManyBody output data.",
+      "properties": {
+        "schema_name": {
+          "const": "qcschema_many_body_protocols",
+          "default": "qcschema_many_body_protocols",
+          "title": "Schema Name",
+          "type": "string"
+        },
+        "cluster_results": {
+          "$ref": "#/$defs/ClusterResultsProtocolEnum",
+          "default": "none"
+        }
+      },
+      "title": "ManyBodyProtocols",
+      "type": "object"
+    },
+    "ManyBodySpecification": {
+      "additionalProperties": false,
+      "description": "Combining the what (ManyBodyKeywords) with the how (AtomicSpecification).",
+      "properties": {
+        "schema_name": {
+          "const": "qcschema_many_body_specification",
+          "default": "qcschema_many_body_specification",
+          "title": "Schema Name",
+          "type": "string"
+        },
+        "keywords": {
+          "$ref": "#/$defs/ManyBodyKeywords"
+        },
+        "program": {
+          "default": "",
+          "description": "Many Body Expansion CMS code / QCEngine procedure with which to run the MB decomposition.",
+          "title": "Program",
+          "type": "string"
+        },
+        "protocols": {
+          "$ref": "#/$defs/ManyBodyProtocols",
+          "default": {
+            "schema_name": "qcschema_many_body_protocols",
+            "cluster_results": "none"
+          },
+          "description": "\n    Protocols regarding the manipulation of a ManyBody output data.\n    "
+        },
+        "driver": {
+          "$ref": "#/$defs/DriverEnum",
+          "description": "The computation driver; i.e., energy, gradient, hessian."
+        },
+        "specification": {
+          "additionalProperties": {
+            "$ref": "#/$defs/AtomicSpecification"
+          },
+          "description": "??? TODO expand to cbs, fd",
+          "title": "Specification",
+          "type": "object"
+        },
+        "extras": {
+          "additionalProperties": true,
+          "default": {},
+          "description": "Additional information to bundle with the computation. Use for schema development and scratch space.",
+          "title": "Extras",
+          "type": "object"
         }
       },
       "required": [
-        "name",
-        "center_data",
-        "atom_map"
+        "keywords",
+        "driver",
+        "specification"
       ],
-      "additionalProperties": false,
-      "$schema": "http://json-schema.org/draft-04/schema#"
+      "title": "ManyBodySpecification",
+      "type": "object"
     },
     "Model": {
-      "title": "Model",
+      "additionalProperties": true,
       "description": "The computational molecular sciences model to run.",
-      "type": "object",
       "properties": {
         "method": {
-          "title": "Method",
           "description": "The quantum chemistry method to evaluate (e.g., B3LYP, PBE, ...). For MM, name of the force field.",
+          "title": "Method",
           "type": "string"
         },
         "basis": {
-          "title": "Basis",
-          "description": "The quantum chemistry basis set to evaluate (e.g., 6-31g, cc-pVDZ, ...). Can be ``None`` for methods without basis sets. For molecular mechanics, name of the atom-typer.",
           "anyOf": [
             {
               "type": "string"
             },
             {
-              "$ref": "#/definitions/BasisSet"
+              "$ref": "#/$defs/BasisSet"
+            },
+            {
+              "type": "null"
             }
-          ]
+          ],
+          "default": null,
+          "description": "The quantum chemistry basis set to evaluate (e.g., 6-31g, cc-pVDZ, ...). Can be ``None`` for methods without basis sets. For molecular mechanics, name of the atom-typer.",
+          "title": "Basis"
         }
       },
       "required": [
         "method"
-      ]
+      ],
+      "title": "Model",
+      "type": "object"
     },
-    "QCInputSpecification": {
-      "title": "QCInputSpecification",
-      "description": "A compute description for energy, gradient, and Hessian computations used in a geometry optimization.",
-      "type": "object",
+    "Molecule": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "NativeFilesProtocolEnum": {
+      "description": "CMS program files to keep from a computation.",
+      "enum": [
+        "all",
+        "input",
+        "none"
+      ],
+      "title": "NativeFilesProtocolEnum",
+      "type": "string"
+    },
+    "OptimizationProtocols": {
+      "additionalProperties": false,
+      "description": "Protocols regarding the manipulation of a Optimization output data.",
       "properties": {
         "schema_name": {
+          "const": "qcschema_optimization_protocols",
+          "default": "qcschema_optimization_protocols",
           "title": "Schema Name",
-          "default": "qcschema_input",
-          "enum": [
-            "qcschema_input"
-          ],
           "type": "string"
         },
-        "schema_version": {
-          "title": "Schema Version",
-          "default": 1,
-          "type": "integer"
+        "trajectory_results": {
+          "$ref": "#/$defs/TrajectoryProtocolEnum",
+          "default": "none",
+          "description": "\n    Which gradient evaluations to keep in an optimization trajectory.\n    "
+        }
+      },
+      "title": "OptimizationProtocols",
+      "type": "object"
+    },
+    "OptimizationSpecification": {
+      "additionalProperties": false,
+      "description": "Specification for how to run a geometry optimization.",
+      "properties": {
+        "schema_name": {
+          "const": "qcschema_optimization_specification",
+          "default": "qcschema_optimization_specification",
+          "title": "Schema Name",
+          "type": "string"
         },
-        "driver": {
-          "description": "Allowed computation driver values.",
-          "default": "gradient",
-          "allOf": [
-            {
-              "$ref": "#/definitions/DriverEnum"
-            }
-          ]
-        },
-        "model": {
-          "title": "Model",
-          "description": "The computational molecular sciences model to run.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/Model"
-            }
-          ]
+        "program": {
+          "default": "",
+          "description": "Optimizer CMS code / QCEngine procedure to run the geometry optimization with.",
+          "title": "Program",
+          "type": "string"
         },
         "keywords": {
-          "title": "Keywords",
-          "description": "The program specific keywords to be used.",
           "default": {},
-          "type": "object"
+          "description": "The optimization specific keywords to be used.",
+          "title": "Keywords"
+        },
+        "protocols": {
+          "$ref": "#/$defs/OptimizationProtocols",
+          "default": {
+            "schema_name": "qcschema_optimization_protocols",
+            "trajectory_results": "none"
+          },
+          "description": "\n    Protocols regarding the manipulation of a Optimization output data.\n    "
         },
         "extras": {
-          "title": "Extras",
-          "description": "Additional information to bundle with the computation. Use for schema development and scratch space.",
           "default": {},
-          "type": "object"
+          "description": "Additional information to bundle with the computation. Use for schema development and scratch space.",
+          "title": "Extras"
+        },
+        "specification": {
+          "description": "A directive for how to compute a gradient for the optimization. Either an ordinary atomic/single-point or a many-body spec.",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/AtomicSpecification"
+            },
+            {
+              "$ref": "#/$defs/ManyBodySpecification"
+            }
+          ],
+          "title": "Specification"
         }
       },
       "required": [
-        "model"
+        "specification"
       ],
-      "additionalProperties": false
-    },
-    "Identifiers": {
-      "title": "Identifiers",
-      "description": "Canonical chemical identifiers",
-      "type": "object",
-      "properties": {
-        "molecule_hash": {
-          "title": "Molecule Hash",
-          "type": "string"
-        },
-        "molecular_formula": {
-          "title": "Molecular Formula",
-          "type": "string"
-        },
-        "smiles": {
-          "title": "Smiles",
-          "type": "string"
-        },
-        "inchi": {
-          "title": "Inchi",
-          "type": "string"
-        },
-        "inchikey": {
-          "title": "Inchikey",
-          "type": "string"
-        },
-        "canonical_explicit_hydrogen_smiles": {
-          "title": "Canonical Explicit Hydrogen Smiles",
-          "type": "string"
-        },
-        "canonical_isomeric_explicit_hydrogen_mapped_smiles": {
-          "title": "Canonical Isomeric Explicit Hydrogen Mapped Smiles",
-          "type": "string"
-        },
-        "canonical_isomeric_explicit_hydrogen_smiles": {
-          "title": "Canonical Isomeric Explicit Hydrogen Smiles",
-          "type": "string"
-        },
-        "canonical_isomeric_smiles": {
-          "title": "Canonical Isomeric Smiles",
-          "type": "string"
-        },
-        "canonical_smiles": {
-          "title": "Canonical Smiles",
-          "type": "string"
-        },
-        "pubchem_cid": {
-          "title": "Pubchem Cid",
-          "description": "PubChem Compound ID",
-          "type": "string"
-        },
-        "pubchem_sid": {
-          "title": "Pubchem Sid",
-          "description": "PubChem Substance ID",
-          "type": "string"
-        },
-        "pubchem_conformerid": {
-          "title": "Pubchem Conformerid",
-          "description": "PubChem Conformer ID",
-          "type": "string"
-        }
-      },
-      "additionalProperties": false
+      "title": "OptimizationSpecification",
+      "type": "object"
     },
     "Provenance": {
-      "title": "Provenance",
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "additionalProperties": true,
       "description": "Provenance information.",
-      "type": "object",
       "properties": {
         "creator": {
-          "title": "Creator",
           "description": "The name of the program, library, or person who created the object.",
+          "title": "Creator",
           "type": "string"
         },
         "version": {
-          "title": "Version",
-          "description": "The version of the creator, blank otherwise. This should be sortable by the very broad `PEP 440 <https://www.python.org/dev/peps/pep-0440/>`_.",
           "default": "",
+          "description": "The version of the creator, blank otherwise. This should be sortable by the very broad `PEP 440 <https://www.python.org/dev/peps/pep-0440/>`_.",
+          "title": "Version",
           "type": "string"
         },
         "routine": {
-          "title": "Routine",
-          "description": "The name of the routine or function within the creator, blank otherwise.",
           "default": "",
+          "description": "The name of the routine or function within the creator, blank otherwise.",
+          "title": "Routine",
           "type": "string"
         }
       },
       "required": [
         "creator"
       ],
-      "$schema": "http://json-schema.org/draft-04/schema#"
+      "title": "Provenance",
+      "type": "object"
     },
-    "Molecule": {
-      "title": "Molecule",
-      "description": "The physical Cartesian representation of the molecular system.\n\nA QCSchema representation of a Molecule. This model contains\ndata for symbols, geometry, connectivity, charges, fragmentation, etc while also supporting a wide array of I/O and manipulation capabilities.\n\nMolecule objects geometry, masses, and charges are truncated to 8, 6, and 4 decimal places respectively to assist with duplicate detection.\n\nNotes\n-----\nAll arrays are stored flat but must be reshapable into the dimensions in attribute ``shape``, with abbreviations as follows:\n\n  * nat: number of atomic = calcinfo_natom\n  * nfr: number of fragments\n  * <varies>: irregular dimension not systematically reshapable",
-      "type": "object",
-      "properties": {
-        "schema_name": {
-          "title": "Schema Name",
-          "description": "The QCSchema specification to which this model conforms. Explicitly fixed as qcschema_molecule.",
-          "default": "qcschema_molecule",
-          "pattern": "^(qcschema_molecule)$",
-          "type": "string"
-        },
-        "schema_version": {
-          "title": "Schema Version",
-          "description": "The version number of :attr:`~qcelemental.models.Molecule.schema_name` to which this model conforms.",
-          "default": 2,
-          "type": "integer"
-        },
-        "validated": {
-          "title": "Validated",
-          "description": "A boolean indicator (for speed purposes) that the input Molecule data has been previously checked for schema (data layout and type) and physics (e.g., non-overlapping atoms, feasible multiplicity) compliance. This should be False in most cases. A ``True`` setting should only ever be set by the constructor for this class itself or other trusted sources such as a Fractal Server or previously serialized Molecules.",
-          "default": false,
-          "type": "boolean"
-        },
-        "symbols": {
-          "title": "Symbols",
-          "description": "The ordered array of atomic elemental symbols in title case. This field's index sets atomic order for all other per-atom fields like :attr:`~qcelemental.models.Molecule.real` and the first dimension of :attr:`~qcelemental.models.Molecule.geometry`. Ghost/virtual atoms must have an entry here in :attr:`~qcelemental.models.Molecule.symbols`; ghostedness is indicated through the :attr:`~qcelemental.models.Molecule.real` field.",
-          "shape": [
-            "nat"
-          ],
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "geometry": {
-          "title": "Geometry",
-          "description": "The ordered array for Cartesian XYZ atomic coordinates [a0]. Atom ordering is fixed; that is, a consumer who shuffles atoms must not reattach the input (pre-shuffling) molecule schema instance to any output (post-shuffling) per-atom results (e.g., gradient). Index of the first dimension matches the 0-indexed indices of all other per-atom settings like :attr:`~qcelemental.models.Molecule.symbols` and :attr:`~qcelemental.models.Molecule.real`.\nSerialized storage is always flat, (3*nat,), but QCSchema implementations will want to reshape it. QCElemental can also accept array-likes which can be mapped to (nat,3) such as a 1-D list of length 3*nat, or the serialized version of the array in (3*nat,) shape; all forms will be reshaped to (nat,3) for this attribute.",
-          "shape": [
-            "nat",
-            3
-          ],
-          "units": "a0",
-          "type": "array",
-          "items": {
-            "type": "number"
-          }
-        },
-        "name": {
-          "title": "Name",
-          "description": "Common or human-readable name to assign to this molecule. This field can be arbitrary; see :attr:`~qcelemental.models.Molecule.identifiers` for well-defined labels.",
-          "type": "string"
-        },
-        "identifiers": {
-          "title": "Identifiers",
-          "description": "An optional dictionary of additional identifiers by which this molecule can be referenced, such as INCHI, canonical SMILES, etc. See the :class:`~qcelemental.models.results.Identifiers` model for more details.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/Identifiers"
-            }
-          ]
-        },
-        "comment": {
-          "title": "Comment",
-          "description": "Additional comments for this molecule. Intended for pure human/user consumption and clarity.",
-          "type": "string"
-        },
-        "molecular_charge": {
-          "title": "Molecular Charge",
-          "description": "The net electrostatic charge of the molecule.",
-          "default": 0.0,
-          "type": "number"
-        },
-        "molecular_multiplicity": {
-          "title": "Molecular Multiplicity",
-          "description": "The total multiplicity of the molecule.",
-          "default": 1,
-          "type": "number"
-        },
-        "masses": {
-          "title": "Masses",
-          "description": "The ordered array of atomic masses. Index order matches the 0-indexed indices of all other per-atom fields like :attr:`~qcelemental.models.Molecule.symbols` and :attr:`~qcelemental.models.Molecule.real`. If this is not provided, the mass of each atom is inferred from its most common isotope. If this is provided, it must be the same length as :attr:`~qcelemental.models.Molecule.symbols` but can accept ``None`` entries for standard masses to infer from the same index in the :attr:`~qcelemental.models.Molecule.symbols` field.",
-          "shape": [
-            "nat"
-          ],
-          "units": "u",
-          "type": "array",
-          "items": {
-            "type": "number"
-          }
-        },
-        "real": {
-          "title": "Real",
-          "description": "The ordered array indicating if each atom is real (``True``) or ghost/virtual (``False``). Index matches the 0-indexed indices of all other per-atom settings like :attr:`~qcelemental.models.Molecule.symbols` and the first dimension of :attr:`~qcelemental.models.Molecule.geometry`. If this is not provided, all atoms are assumed to be real (``True``).If this is provided, the reality or ghostedness of every atom must be specified.",
-          "shape": [
-            "nat"
-          ],
-          "type": "array",
-          "items": {
-            "type": "boolean"
-          }
-        },
-        "atom_labels": {
-          "title": "Atom Labels",
-          "description": "Additional per-atom labels as an array of strings. Typical use is in model conversions, such as Elemental <-> Molpro and not typically something which should be user assigned. See the :attr:`~qcelemental.models.Molecule.comment` field for general human-consumable text to affix to the molecule.",
-          "shape": [
-            "nat"
-          ],
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "atomic_numbers": {
-          "title": "Atomic Numbers",
-          "description": "An optional ordered 1-D array-like object of atomic numbers of shape (nat,). Index matches the 0-indexed indices of all other per-atom settings like :attr:`~qcelemental.models.Molecule.symbols` and :attr:`~qcelemental.models.Molecule.real`. Values are inferred from the :attr:`~qcelemental.models.Molecule.symbols` list if not explicitly set. Ghostedness should be indicated through :attr:`~qcelemental.models.Molecule.real` field, not zeros here.",
-          "shape": [
-            "nat"
-          ],
-          "type": "array",
-          "items": {
-            "type": "number",
-            "multipleOf": 1.0
-          }
-        },
-        "mass_numbers": {
-          "title": "Mass Numbers",
-          "description": "An optional ordered 1-D array-like object of atomic *mass* numbers of shape (nat). Index matches the 0-indexed indices of all other per-atom settings like :attr:`~qcelemental.models.Molecule.symbols` and :attr:`~qcelemental.models.Molecule.real`. Values are inferred from the most common isotopes of the :attr:`~qcelemental.models.Molecule.symbols` list if not explicitly set. If single isotope not (yet) known for an atom, -1 is placeholder.",
-          "shape": [
-            "nat"
-          ],
-          "type": "array",
-          "items": {
-            "type": "number",
-            "multipleOf": 1.0
-          }
-        },
-        "connectivity": {
-          "title": "Connectivity",
-          "description": "A list of bonds within the molecule. Each entry is a tuple of ``(atom_index_A, atom_index_B, bond_order)`` where the ``atom_index`` matches the 0-indexed indices of all other per-atom settings like :attr:`~qcelemental.models.Molecule.symbols` and :attr:`~qcelemental.models.Molecule.real`. Bonds may be freely reordered and inverted.",
-          "minItems": 1,
-          "type": "array",
-          "items": {
-            "type": "array",
-            "minItems": 3,
-            "maxItems": 3,
-            "items": [
-              {
-                "type": "integer",
-                "minimum": 0
-              },
-              {
-                "type": "integer",
-                "minimum": 0
-              },
-              {
-                "type": "number",
-                "minimum": 0,
-                "maximum": 5
-              }
-            ]
-          }
-        },
-        "fragments": {
-          "title": "Fragments",
-          "description": "List of indices grouping atoms (0-indexed) into molecular fragments within the molecule. Each entry in the outer list is a new fragment; index matches the ordering in :attr:`~qcelemental.models.Molecule.fragment_charges` and :attr:`~qcelemental.models.Molecule.fragment_multiplicities`. Inner lists are 0-indexed atoms which compose the fragment; every atom must be in exactly one inner list. Noncontiguous fragments are allowed, though no QM program is known to support them. Fragment ordering is fixed; that is, a consumer who shuffles fragments must not reattach the input (pre-shuffling) molecule schema instance to any output (post-shuffling) per-fragment results (e.g., n-body energy arrays).",
-          "shape": [
-            "nfr",
-            "<varies>"
-          ],
-          "type": "array",
-          "items": {
-            "type": "array",
-            "items": {
-              "type": "number",
-              "multipleOf": 1.0
-            }
-          }
-        },
-        "fragment_charges": {
-          "title": "Fragment Charges",
-          "description": "The total charge of each fragment in the :attr:`~qcelemental.models.Molecule.fragments` list. The index of this list matches the 0-index indices of :attr:`~qcelemental.models.Molecule.fragments` list. Will be filled in based on a set of rules if not provided (and :attr:`~qcelemental.models.Molecule.fragments` are specified).",
-          "shape": [
-            "nfr"
-          ],
-          "type": "array",
-          "items": {
-            "type": "number"
-          }
-        },
-        "fragment_multiplicities": {
-          "title": "Fragment Multiplicities",
-          "description": "The multiplicity of each fragment in the :attr:`~qcelemental.models.Molecule.fragments` list. The index of this list matches the 0-index indices of :attr:`~qcelemental.models.Molecule.fragments` list. Will be filled in based on a set of rules if not provided (and :attr:`~qcelemental.models.Molecule.fragments` are specified).",
-          "shape": [
-            "nfr"
-          ],
-          "type": "array",
-          "items": {
-            "type": "number"
-          }
-        },
-        "fix_com": {
-          "title": "Fix Com",
-          "description": "Whether translation of geometry is allowed (fix F) or disallowed (fix T).When False, QCElemental will pre-process the Molecule object to translate the center of mass to (0,0,0) in Euclidean coordinate space, resulting in a different :attr:`~qcelemental.models.Molecule.geometry` than the one provided. 'Fix' is used in the sense of 'specify': that is, `fix_com=True` signals that the origin in `geometry` is a deliberate part of the Molecule spec, whereas `fix_com=False` (default) allows that the origin is happenstance and may be adjusted. guidance: A consumer who translates the geometry must not reattach the input (pre-translation) molecule schema instance to any output (post-translation) origin-sensitive results (e.g., an ordinary energy when EFP present).",
-          "default": false,
-          "type": "boolean"
-        },
-        "fix_orientation": {
-          "title": "Fix Orientation",
-          "description": "Whether rotation of geometry is allowed (fix F) or disallowed (fix T). When False, QCElemental will pre-process the Molecule object to orient via the intertial tensor, resulting in a different :attr:`~qcelemental.models.Molecule.geometry` than the one provided. 'Fix' is used in the sense of 'specify': that is, `fix_orientation=True` signals that the frame orientation in `geometry` is a deliberate part of the Molecule spec, whereas `fix_orientation=False` (default) allows that the frame is happenstance and may be adjusted. guidance: A consumer who rotates the geometry must not reattach the input (pre-rotation) molecule schema instance to any output (post-rotation) frame-sensitive results (e.g., molecular vibrations).",
-          "default": false,
-          "type": "boolean"
-        },
-        "fix_symmetry": {
-          "title": "Fix Symmetry",
-          "description": "Maximal point group symmetry which :attr:`~qcelemental.models.Molecule.geometry` should be treated. Lowercase.",
-          "type": "string"
-        },
-        "provenance": {
-          "title": "Provenance",
-          "description": "The provenance information about how this Molecule (and its attributes) were generated, provided, and manipulated.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/Provenance"
-            }
-          ]
-        },
-        "id": {
-          "title": "Id",
-          "description": "A unique identifier for this Molecule object. This field exists primarily for Databases (e.g. Fractal's Server) to track and lookup this specific object and should virtually never need to be manually set."
-        },
-        "extras": {
-          "title": "Extras",
-          "description": "Additional information to bundle with the molecule. Use for schema development and scratch space.",
-          "type": "object"
-        }
-      },
-      "required": [
-        "symbols",
-        "geometry"
+    "TrajectoryProtocolEnum": {
+      "description": "Which gradient evaluations to keep in an optimization trajectory.",
+      "enum": [
+        "all",
+        "initial_and_final",
+        "final",
+        "none"
       ],
-      "additionalProperties": false,
-      "$schema": "http://json-schema.org/draft-04/schema#"
+      "title": "TrajectoryProtocolEnum",
+      "type": "string"
+    },
+    "WavefunctionProtocolEnum": {
+      "description": "Wavefunction to keep from a computation.",
+      "enum": [
+        "all",
+        "orbitals_and_eigenvalues",
+        "occupations_and_eigenvalues",
+        "return_results",
+        "none"
+      ],
+      "title": "WavefunctionProtocolEnum",
+      "type": "string"
     }
-  }
+  },
+  "additionalProperties": false,
+  "description": "QCSchema input directive for geometry optimization.",
+  "properties": {
+    "id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Id"
+    },
+    "schema_name": {
+      "const": "qcschema_optimization_input",
+      "default": "qcschema_optimization_input",
+      "title": "Schema Name",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": 2,
+      "default": 2,
+      "description": "The version number of ``schema_name`` to which this model conforms.",
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "specification": {
+      "$ref": "#/$defs/OptimizationSpecification"
+    },
+    "initial_molecule": {
+      "$ref": "#/$defs/Molecule",
+      "description": "The starting molecule for the geometry optimization."
+    },
+    "provenance": {
+      "$ref": "#/$defs/Provenance",
+      "default": {
+        "creator": "QCElemental",
+        "version": "0.50.5.dev2+g269420111",
+        "routine": "qcelemental.models.v2.optimization"
+      }
+    }
+  },
+  "required": [
+    "specification",
+    "initial_molecule"
+  ],
+  "title": "OptimizationInput",
+  "type": "object"
 }

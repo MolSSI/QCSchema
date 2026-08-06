@@ -1,28 +1,29 @@
 {
-  "title": "Provenance",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": true,
   "description": "Provenance information.",
-  "type": "object",
   "properties": {
     "creator": {
-      "title": "Creator",
       "description": "The name of the program, library, or person who created the object.",
+      "title": "Creator",
       "type": "string"
     },
     "version": {
-      "title": "Version",
-      "description": "The version of the creator, blank otherwise. This should be sortable by the very broad `PEP 440 <https://www.python.org/dev/peps/pep-0440/>`_.",
       "default": "",
+      "description": "The version of the creator, blank otherwise. This should be sortable by the very broad `PEP 440 <https://www.python.org/dev/peps/pep-0440/>`_.",
+      "title": "Version",
       "type": "string"
     },
     "routine": {
-      "title": "Routine",
-      "description": "The name of the routine or function within the creator, blank otherwise.",
       "default": "",
+      "description": "The name of the routine or function within the creator, blank otherwise.",
+      "title": "Routine",
       "type": "string"
     }
   },
   "required": [
     "creator"
   ],
-  "$schema": "http://json-schema.org/draft-04/schema#"
+  "title": "Provenance",
+  "type": "object"
 }

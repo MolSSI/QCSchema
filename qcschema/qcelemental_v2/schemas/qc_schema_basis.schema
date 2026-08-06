@@ -1,186 +1,79 @@
 {
-  "title": "BasisSet",
-  "description": "A quantum chemistry basis description.",
-  "type": "object",
-  "properties": {
-    "schema_name": {
-      "title": "Schema Name",
-      "description": "The QCSchema specification to which this model conforms. Explicitly fixed as qcschema_basis.",
-      "default": "qcschema_basis",
-      "pattern": "^(qcschema_basis)$",
-      "type": "string"
-    },
-    "schema_version": {
-      "title": "Schema Version",
-      "description": "The version number of :attr:`~qcelemental.models.BasisSet.schema_name` to which this model conforms.",
-      "default": 1,
-      "type": "integer"
-    },
-    "name": {
-      "title": "Name",
-      "description": "The standard basis name if available (e.g., 'cc-pVDZ').",
-      "type": "string"
-    },
-    "description": {
-      "title": "Description",
-      "description": "Brief description of the basis set.",
-      "type": "string"
-    },
-    "center_data": {
-      "title": "Center Data",
-      "description": "Shared basis data for all atoms/centers in the parent molecule",
-      "type": "object",
-      "additionalProperties": {
-        "$ref": "#/definitions/BasisCenter"
-      }
-    },
-    "atom_map": {
-      "title": "Atom Map",
-      "description": "Mapping of all atoms/centers in the parent molecule to centers in ``center_data``.",
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "nbf": {
-      "title": "Nbf",
-      "description": "The number of basis functions. Use for convenience or as checksum",
-      "type": "integer"
-    }
-  },
-  "required": [
-    "name",
-    "center_data",
-    "atom_map"
-  ],
-  "additionalProperties": false,
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "definitions": {
-    "HarmonicType": {
-      "title": "HarmonicType",
-      "description": "The angular momentum representation of a shell.",
-      "enum": [
-        "spherical",
-        "cartesian"
-      ],
-      "type": "string"
-    },
-    "ElectronShell": {
-      "title": "ElectronShell",
-      "description": "Information for a single electronic shell.",
-      "type": "object",
+  "$defs": {
+    "BasisCenter": {
+      "additionalProperties": false,
+      "description": "Data for a single atom/center in a basis set.",
       "properties": {
-        "angular_momentum": {
-          "title": "Angular Momentum",
-          "description": "Angular momentum for the shell as an array of integers.",
-          "minItems": 1,
-          "type": "array",
+        "electron_shells": {
+          "description": "Electronic shells for this center.",
           "items": {
-            "type": "integer",
-            "minimum": 0
+            "$ref": "#/$defs/ElectronShell"
           },
+          "minItems": 1,
+          "title": "Electron Shells",
+          "type": "array",
           "uniqueItems": true
         },
-        "harmonic_type": {
-          "description": "The angular momentum representation of a shell.",
-          "allOf": [
+        "ecp_electrons": {
+          "default": 0,
+          "description": "Number of electrons replaced by ECP, MCP, or other field potentials.",
+          "title": "Ecp Electrons",
+          "type": "integer"
+        },
+        "ecp_potentials": {
+          "anyOf": [
             {
-              "$ref": "#/definitions/HarmonicType"
-            }
-          ]
-        },
-        "exponents": {
-          "title": "Exponents",
-          "description": "Exponents for the contracted shell.",
-          "minItems": 1,
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "type": "number"
+              "items": {
+                "$ref": "#/$defs/ECPPotential"
               },
-              {
-                "type": "string"
-              }
-            ]
-          }
-        },
-        "coefficients": {
-          "title": "Coefficients",
-          "description": "General contraction coefficients for the shell; individual list components will be the individual segment contraction coefficients.",
-          "minItems": 1,
-          "type": "array",
-          "items": {
-            "type": "array",
-            "items": {
-              "anyOf": [
-                {
-                  "type": "number"
-                },
-                {
-                  "type": "string"
-                }
-              ]
+              "minItems": 1,
+              "type": "array"
             },
-            "minItems": 1
-          }
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "ECPs, MCPs, or other field potentials for this center.",
+          "title": "Ecp Potentials",
+          "uniqueItems": true
         }
       },
       "required": [
-        "angular_momentum",
-        "harmonic_type",
-        "exponents",
-        "coefficients"
+        "electron_shells"
       ],
-      "additionalProperties": false
-    },
-    "ECPType": {
-      "title": "ECPType",
-      "description": "The type of the ECP potential.",
-      "enum": [
-        "scalar",
-        "spinorbit"
-      ],
-      "type": "string"
+      "title": "BasisCenter",
+      "type": "object"
     },
     "ECPPotential": {
-      "title": "ECPPotential",
+      "additionalProperties": false,
       "description": "Information for a single ECP potential.",
-      "type": "object",
       "properties": {
         "ecp_type": {
-          "description": "The type of the ECP potential.",
-          "allOf": [
-            {
-              "$ref": "#/definitions/ECPType"
-            }
-          ]
+          "$ref": "#/$defs/ECPType"
         },
         "angular_momentum": {
-          "title": "Angular Momentum",
           "description": "Angular momentum for the potential as an array of integers.",
-          "minItems": 1,
-          "type": "array",
           "items": {
-            "type": "integer",
-            "minimum": 0
+            "minimum": 0,
+            "type": "integer"
           },
+          "minItems": 1,
+          "title": "Angular Momentum",
+          "type": "array",
           "uniqueItems": true
         },
         "r_exponents": {
-          "title": "R Exponents",
           "description": "Exponents of the 'r' term.",
-          "minItems": 1,
-          "type": "array",
           "items": {
             "type": "integer"
-          }
+          },
+          "minItems": 1,
+          "title": "R Exponents",
+          "type": "array"
         },
         "gaussian_exponents": {
-          "title": "Gaussian Exponents",
           "description": "Exponents of the 'gaussian' term.",
-          "minItems": 1,
-          "type": "array",
           "items": {
             "anyOf": [
               {
@@ -190,15 +83,14 @@
                 "type": "string"
               }
             ]
-          }
+          },
+          "minItems": 1,
+          "title": "Gaussian Exponents",
+          "type": "array"
         },
         "coefficients": {
-          "title": "Coefficients",
           "description": "General contraction coefficients for the potential; individual list components will be the individual segment contraction coefficients.",
-          "minItems": 1,
-          "type": "array",
           "items": {
-            "type": "array",
             "items": {
               "anyOf": [
                 {
@@ -209,8 +101,11 @@
                 }
               ]
             },
-            "minItems": 1
-          }
+            "type": "array"
+          },
+          "minItems": 1,
+          "title": "Coefficients",
+          "type": "array"
         }
       },
       "required": [
@@ -220,44 +115,162 @@
         "gaussian_exponents",
         "coefficients"
       ],
-      "additionalProperties": false
+      "title": "ECPPotential",
+      "type": "object"
     },
-    "BasisCenter": {
-      "title": "BasisCenter",
-      "description": "Data for a single atom/center in a basis set.",
-      "type": "object",
+    "ECPType": {
+      "description": "The type of the ECP potential.",
+      "enum": [
+        "scalar",
+        "spinorbit"
+      ],
+      "title": "ECPType",
+      "type": "string"
+    },
+    "ElectronShell": {
+      "additionalProperties": false,
+      "description": "Information for a single electronic shell.",
       "properties": {
-        "electron_shells": {
-          "title": "Electron Shells",
-          "description": "Electronic shells for this center.",
-          "minItems": 1,
-          "type": "array",
+        "angular_momentum": {
+          "description": "Angular momentum for the shell as an array of integers.",
           "items": {
-            "$ref": "#/definitions/ElectronShell"
+            "minimum": 0,
+            "type": "integer"
           },
+          "minItems": 1,
+          "title": "Angular Momentum",
+          "type": "array",
           "uniqueItems": true
         },
-        "ecp_electrons": {
-          "title": "Ecp Electrons",
-          "description": "Number of electrons replaced by ECP, MCP, or other field potentials.",
-          "default": 0,
-          "type": "integer"
+        "harmonic_type": {
+          "$ref": "#/$defs/HarmonicType"
         },
-        "ecp_potentials": {
-          "title": "Ecp Potentials",
-          "description": "ECPs, MCPs, or other field potentials for this center.",
-          "minItems": 1,
-          "type": "array",
+        "exponents": {
+          "description": "Exponents for the contracted shell.",
           "items": {
-            "$ref": "#/definitions/ECPPotential"
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
-          "uniqueItems": true
+          "minItems": 1,
+          "title": "Exponents",
+          "type": "array"
+        },
+        "coefficients": {
+          "description": "General contraction coefficients for the shell; individual list components will be the individual segment contraction coefficients.",
+          "items": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "type": "array"
+          },
+          "minItems": 1,
+          "title": "Coefficients",
+          "type": "array"
         }
       },
       "required": [
-        "electron_shells"
+        "angular_momentum",
+        "harmonic_type",
+        "exponents",
+        "coefficients"
       ],
-      "additionalProperties": false
+      "title": "ElectronShell",
+      "type": "object"
+    },
+    "HarmonicType": {
+      "description": "The angular momentum representation of a shell.",
+      "enum": [
+        "spherical",
+        "cartesian"
+      ],
+      "title": "HarmonicType",
+      "type": "string"
     }
-  }
+  },
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "description": "A quantum chemistry basis description.",
+  "properties": {
+    "schema_name": {
+      "const": "qcschema_basis_set",
+      "default": "qcschema_basis_set",
+      "description": "The QCSchema specification to which this model conforms.",
+      "title": "Schema Name",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": 2,
+      "default": 2,
+      "description": "The version number of :attr:`~qcelemental.models.BasisSet.schema_name` to which this model conforms.",
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "name": {
+      "description": "The standard basis name if available (e.g., 'cc-pVDZ').",
+      "title": "Name",
+      "type": "string"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Brief description of the basis set.",
+      "title": "Description"
+    },
+    "center_data": {
+      "additionalProperties": {
+        "$ref": "#/$defs/BasisCenter"
+      },
+      "description": "Shared basis data for all atoms/centers in the parent molecule",
+      "title": "Center Data",
+      "type": "object"
+    },
+    "atom_map": {
+      "description": "Mapping of all atoms/centers in the parent molecule to centers in ``center_data``.",
+      "items": {
+        "type": "string"
+      },
+      "title": "Atom Map",
+      "type": "array"
+    },
+    "nbf": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The number of basis functions. Use for convenience or as checksum",
+      "title": "Nbf"
+    }
+  },
+  "required": [
+    "name",
+    "center_data",
+    "atom_map"
+  ],
+  "title": "BasisSet",
+  "type": "object"
 }

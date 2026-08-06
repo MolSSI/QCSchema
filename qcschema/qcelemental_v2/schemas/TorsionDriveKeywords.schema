@@ -1,0 +1,103 @@
+{
+  "additionalProperties": false,
+  "description": "TorsionDriveRecord options\n\nNotes\n-----\n* This class is still provisional and may be subject to removal and re-design.",
+  "properties": {
+    "schema_name": {
+      "const": "qcschema_torsion_drive_keywords",
+      "default": "qcschema_torsion_drive_keywords",
+      "description": "The QCSchema specification to which this model conforms.",
+      "title": "Schema Name",
+      "type": "string"
+    },
+    "dihedrals": {
+      "description": "The list of dihedrals to select for the TorsionDrive operation. Each entry is a tuple of integers of for particle indices.",
+      "items": {
+        "maxItems": 4,
+        "minItems": 4,
+        "prefixItems": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "integer"
+          },
+          {
+            "type": "integer"
+          },
+          {
+            "type": "integer"
+          }
+        ],
+        "type": "array"
+      },
+      "title": "Dihedrals",
+      "type": "array"
+    },
+    "grid_spacing": {
+      "description": "List of grid spacing for dihedral scan in degrees. Multiple values will be mapped to each dihedral angle.",
+      "items": {
+        "type": "integer"
+      },
+      "title": "Grid Spacing",
+      "type": "array"
+    },
+    "dihedral_ranges": {
+      "anyOf": [
+        {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "type": "array"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "A list of dihedral range limits as a pair (lower, upper). Each range corresponds to the dihedrals in input.",
+      "title": "Dihedral Ranges"
+    },
+    "energy_decrease_thresh": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The threshold of the smallest energy decrease amount to trigger activating optimizations from grid point.",
+      "title": "Energy Decrease Thresh"
+    },
+    "energy_upper_limit": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The threshold if the energy of a grid point that is higher than the current global minimum, to start new optimizations, in unit of a.u. I.e. if energy_upper_limit = 0.05, current global minimum energy is -9.9 , then a new task starting with energy -9.8 will be skipped.",
+      "title": "Energy Upper Limit"
+    }
+  },
+  "required": [
+    "dihedrals",
+    "grid_spacing"
+  ],
+  "title": "TorsionDriveKeywords",
+  "type": "object"
+}

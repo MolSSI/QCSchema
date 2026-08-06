@@ -1,0 +1,28 @@
+{
+  "additionalProperties": false,
+  "description": "Named properties of torsion drive computations following the MolSSI QCSchema.",
+  "properties": {
+    "schema_name": {
+      "const": "qcschema_torsion_drive_properties",
+      "default": "qcschema_torsion_drive_properties",
+      "description": "The QCSchema specification to which this model conforms.",
+      "title": "Schema Name",
+      "type": "string"
+    },
+    "calcinfo_ngrid": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The number of dihedral constraints optimized.",
+      "title": "Calcinfo Ngrid"
+    }
+  },
+  "title": "TorsionDriveProperties",
+  "type": "object"
+}
