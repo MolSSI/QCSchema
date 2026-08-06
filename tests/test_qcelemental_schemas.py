@@ -3,7 +3,7 @@ Tests for qcelemental schema generation and validation.
 
 Tests that qcelemental-specific schemas can be loaded and used for validation.
 Note: qcelemental uses different schema_name conventions than the original
-qcschema (e.g., "qcschema_output" vs "qc_schema_output"), so this test file
+qcschema (e.g., "qcschema_output" vs "qcschema_output"), so this test file
 uses qcelemental-appropriate data rather than the qcschema test fixtures.
 """
 

@@ -11,9 +11,9 @@ Usage:
     python -m qcschema.v1_5.generate
 
 Output:
-    - qcschema/v1_5/schemas/qc_schema_input.schema
-    - qcschema/v1_5/schemas/qc_schema_molecule.schema
-    - qcschema/v1_5/schemas/qc_schema_output.schema
+    - qcschema/v1_5/schemas/qcschema_input.schema
+    - qcschema/v1_5/schemas/qcschema_molecule.schema
+    - qcschema/v1_5/schemas/qcschema_output.schema
 """
 
 import copy
@@ -206,17 +206,17 @@ def write_schemas(schemas, schema_dir=None):
 
     # Write each schema
     try:
-        write_schema(schemas["input"], schema_dir / "qc_schema_input.schema")
+        write_schema(schemas["input"], schema_dir / "qcschema_input.schema")
     except Exception as e:
         raise RuntimeError(f"Failed to write input schema: {e}") from e
 
     try:
-        write_schema(schemas["output"], schema_dir / "qc_schema_output.schema")
+        write_schema(schemas["output"], schema_dir / "qcschema_output.schema")
     except Exception as e:
         raise RuntimeError(f"Failed to write output schema: {e}") from e
 
     try:
-        write_schema(schemas["molecule"], schema_dir / "qc_schema_molecule.schema")
+        write_schema(schemas["molecule"], schema_dir / "qcschema_molecule.schema")
     except Exception as e:
         raise RuntimeError(f"Failed to write molecule schema: {e}") from e
 

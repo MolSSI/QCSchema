@@ -86,7 +86,7 @@ def _validate_schema(schema, model_name):
 def _get_output_filename(model_name):
     """Map pydantic model names to schema filenames.
 
-    Maps model class names to schema type filenames, using qc_schema_* naming
+    Maps model class names to schema type filenames, using qcschema_* naming
     for types that match the QCSchema canonical types.
     """
     # Map qcelemental model names to canonical QCSchema types

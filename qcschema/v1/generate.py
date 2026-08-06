@@ -103,7 +103,7 @@ def _build_v1_molecule():
     """Build the frozen v1 molecule schema (original format without schema_name/version)."""
     return {
         "$schema": "http://json-schema.org/draft-04/schema#",
-        "name": "qc_schema_molecule",
+        "name": "qcschema_molecule",
         "version": 1,
         "description": "The physical cartesian representation of the molecular system",
         "type": "object",
@@ -439,7 +439,7 @@ def build_v1_schemas():
         "type": "object",
         "properties": {
             "molecule": molecule_schema,
-            "schema_name": {"type": "string", "pattern": "\\W*(qc_schema)\\W*"},
+            "schema_name": {"type": "string", "pattern": "\\W*(qcschema)\\W*"},
             "schema_version": {"type": "integer"},
             "driver": {"definition": "The type of computation requested", "enum": ["energy", "gradient", "hessian"]},
             "model": {
@@ -466,12 +466,12 @@ def build_v1_schemas():
     }
 
     input_schema = copy.deepcopy(base_schema)
-    input_schema["name"] = "qc_schema_input"
-    input_schema["properties"]["schema_name"]["pattern"] = "\\W*(qc_schema_input)\\W*"
+    input_schema["name"] = "qcschema_input"
+    input_schema["properties"]["schema_name"]["pattern"] = "\\W*(qcschema_input)\\W*"
 
     output_schema = copy.deepcopy(base_schema)
-    output_schema["name"] = "qc_schema_output"
-    output_schema["properties"]["schema_name"]["pattern"] = "\\W*(qc_schema_output)\\W*"
+    output_schema["name"] = "qcschema_output"
+    output_schema["properties"]["schema_name"]["pattern"] = "\\W*(qcschema_output)\\W*"
     output_schema["required"].extend(["provenance", "properties", "success", "return_result"])
     v1_properties = _validate_schema_return(_build_v1_properties(), "v1 properties schema")
     output_schema["properties"].update(
@@ -524,17 +524,17 @@ def write_schemas(schemas, schema_dir=None):
 
     # Write each schema with error handling
     try:
-        write_schema(schemas["input"], schema_dir / "qc_schema_input.schema")
+        write_schema(schemas["input"], schema_dir / "qcschema_input.schema")
     except Exception as e:
         raise RuntimeError(f"Failed to write input schema: {e}") from e
 
     try:
-        write_schema(schemas["output"], schema_dir / "qc_schema_output.schema")
+        write_schema(schemas["output"], schema_dir / "qcschema_output.schema")
     except Exception as e:
         raise RuntimeError(f"Failed to write output schema: {e}") from e
 
     try:
-        write_schema(schemas["molecule"], schema_dir / "qc_schema_molecule.schema")
+        write_schema(schemas["molecule"], schema_dir / "qcschema_molecule.schema")
     except Exception as e:
         raise RuntimeError(f"Failed to write molecule schema: {e}") from e
 

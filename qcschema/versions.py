@@ -173,8 +173,8 @@ def get_schema(schema_type, version="1.5"):
     schemas_dir = version_dir / "schemas"
 
     # Find the schema file for this type
-    # Filenames are qc_schema_*
-    schema_file = schemas_dir / f"qc_schema_{schema_key}.schema"
+    # Filenames are qcschema_*
+    schema_file = schemas_dir / f"qcschema_{schema_key}.schema"
 
     if not schema_file.exists():
         raise FileNotFoundError(

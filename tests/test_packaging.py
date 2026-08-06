@@ -66,12 +66,12 @@ def test_schema_files_in_wheel(tmp_path):
 
     # Check wheel contents for schema files
     expected_schemas = {
-        "qcschema/v1/schemas/qc_schema_input.schema",
-        "qcschema/v1/schemas/qc_schema_molecule.schema",
-        "qcschema/v1/schemas/qc_schema_output.schema",
-        "qcschema/v1_5/schemas/qc_schema_input.schema",
-        "qcschema/v1_5/schemas/qc_schema_molecule.schema",
-        "qcschema/v1_5/schemas/qc_schema_output.schema",
+        "qcschema/v1/schemas/qcschema_input.schema",
+        "qcschema/v1/schemas/qcschema_molecule.schema",
+        "qcschema/v1/schemas/qcschema_output.schema",
+        "qcschema/v1_5/schemas/qcschema_input.schema",
+        "qcschema/v1_5/schemas/qcschema_molecule.schema",
+        "qcschema/v1_5/schemas/qcschema_output.schema",
     }
 
     with zipfile.ZipFile(whl_path, "r") as whl:
