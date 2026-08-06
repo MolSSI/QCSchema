@@ -7,7 +7,7 @@ name = "qcschema"
 version = "1"
 description = "A schema for quantum chemistry"
 readme = "README.md"
-requires-python = ">3.11"
+requires-python = ">=3.11"
 dependencies = [
     "jsonschema",
     "pathlib2; python_version < '3.5'",
