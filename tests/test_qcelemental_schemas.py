@@ -19,14 +19,24 @@ class TestQCElementalSchemas:
 
     def test_schema_discovery(self, version):
         """Verify qcelemental versions are discoverable."""
-        for schema_type in ["molecule", "input", "output", "basis", "properties", "provenance"]:
+        # These are the canonical types that should be available
+        required_types = ["molecule", "input", "output", "basis", "properties", "provenance"]
+        missing_types = []
+
+        for schema_type in required_types:
             try:
                 schema = qcschema.get_schema(schema_type, version)
-                assert isinstance(schema, dict)
-                assert "$schema" in schema or "properties" in schema or "title" in schema
-            except KeyError:
-                # Some types may not be in all versions, that's OK
-                pass
+                assert isinstance(schema, dict), f"{schema_type}: schema is not dict"
+                assert (
+                    "$schema" in schema or "properties" in schema or "title" in schema
+                ), f"{schema_type}: schema missing required fields ($schema, properties, or title)"
+            except KeyError as e:
+                missing_types.append((schema_type, str(e)))
+
+        # Report any missing types explicitly (no silent skipping)
+        if missing_types:
+            missing_str = ", ".join([f"{t} ({e})" for t, e in missing_types])
+            raise AssertionError(f"{version} missing schema types: {missing_str}")
 
     def test_molecule_schema_loading(self, version):
         """Test that Molecule schema can be loaded."""
@@ -82,22 +92,41 @@ class TestQCElementalSchemas:
         validator.validate(molecule)
 
     def test_minimal_atomic_input_validation(self, version):
-        """Test validation of minimal AtomicInput using qcelemental schema."""
+        """Test validation of minimal AtomicInput using qcelemental schema.
+
+        Uses simple, non-manybody test data appropriate for each version.
+        """
         schema = qcschema.get_schema("input", version)
 
-        atomic_input = {
-            "schema_name": "qcschema_input",
-            "schema_version": 1,
-            "molecule": {
-                "schema_name": "qcschema_molecule",
-                "schema_version": 2,
-                "symbols": ["H", "H"],
-                "geometry": [0.0, 0.0, 0.0, 0.0, 0.0, 1.0],
-            },
-            "driver": "energy",
-            "model": {"method": "HF", "basis": "sto-3g"},
-            "keywords": {},
+        molecule = {
+            "schema_name": "qcschema_molecule",
+            "schema_version": 2,
+            "symbols": ["H", "H"],
+            "geometry": [0.0, 0.0, 0.0, 0.0, 0.0, 1.0],
         }
+
+        if version == "qcelemental.v1":
+            # v1 format: driver/model/keywords at top level
+            atomic_input = {
+                "schema_name": "qcschema_input",
+                "schema_version": 1,
+                "molecule": molecule,
+                "driver": "energy",
+                "model": {"method": "HF", "basis": "sto-3g"},
+                "keywords": {},
+            }
+        else:
+            # v2 format: driver/model inside specification
+            atomic_input = {
+                "schema_name": "qcschema_input",
+                "schema_version": 2,
+                "molecule": molecule,
+                "specification": {
+                    "schema_name": "qcschema_atomic_specification",
+                    "driver": "energy",
+                    "model": {"method": "HF", "basis": "sto-3g"},
+                },
+            }
 
         validator = Draft4Validator(schema)
         validator.validate(atomic_input)
@@ -126,11 +155,11 @@ class TestQCElementalVersSupport:
 
     def test_schema_validator_available(self):
         """Test that validators can be obtained for qcelemental versions."""
-        from qcschema.qcelemental_v1 import utils as v1_utils
-        from qcschema.qcelemental_v2 import utils as v2_utils
+        from qcschema.qcelemental_v1 import generate as v1_generate
+        from qcschema.qcelemental_v2 import generate as v2_generate
 
-        v1_validator = v1_utils.get_validator()
-        v2_validator = v2_utils.get_validator()
+        v1_validator = v1_generate.get_validator()
+        v2_validator = v2_generate.get_validator()
 
         # Both should return Draft4Validator (for now)
         assert v1_validator is Draft4Validator

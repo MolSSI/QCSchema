@@ -1,4 +1,870 @@
 {
-  "additionalProperties": true,
+  "$defs": {
+    "BasisCenter": {
+      "additionalProperties": false,
+      "description": "Data for a single atom/center in a basis set.",
+      "properties": {
+        "electron_shells": {
+          "description": "Electronic shells for this center.",
+          "items": {
+            "$ref": "#/$defs/ElectronShell"
+          },
+          "minItems": 1,
+          "title": "Electron Shells",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "ecp_electrons": {
+          "default": 0,
+          "description": "Number of electrons replaced by ECP, MCP, or other field potentials.",
+          "title": "Ecp Electrons",
+          "type": "integer"
+        },
+        "ecp_potentials": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/ECPPotential"
+              },
+              "minItems": 1,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "ECPs, MCPs, or other field potentials for this center.",
+          "title": "Ecp Potentials",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "electron_shells"
+      ],
+      "title": "BasisCenter",
+      "type": "object"
+    },
+    "BasisSet": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "additionalProperties": false,
+      "description": "A quantum chemistry basis description.",
+      "properties": {
+        "schema_name": {
+          "const": "qcschema_basis_set",
+          "default": "qcschema_basis_set",
+          "description": "The QCSchema specification to which this model conforms.",
+          "title": "Schema Name",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 2,
+          "default": 2,
+          "description": "The version number of :attr:`~qcelemental.models.BasisSet.schema_name` to which this model conforms.",
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "name": {
+          "description": "The standard basis name if available (e.g., 'cc-pVDZ').",
+          "title": "Name",
+          "type": "string"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Brief description of the basis set.",
+          "title": "Description"
+        },
+        "center_data": {
+          "additionalProperties": {
+            "$ref": "#/$defs/BasisCenter"
+          },
+          "description": "Shared basis data for all atoms/centers in the parent molecule",
+          "title": "Center Data",
+          "type": "object"
+        },
+        "atom_map": {
+          "description": "Mapping of all atoms/centers in the parent molecule to centers in ``center_data``.",
+          "items": {
+            "type": "string"
+          },
+          "title": "Atom Map",
+          "type": "array"
+        },
+        "nbf": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The number of basis functions. Use for convenience or as checksum",
+          "title": "Nbf"
+        }
+      },
+      "required": [
+        "name",
+        "center_data",
+        "atom_map"
+      ],
+      "title": "BasisSet",
+      "type": "object"
+    },
+    "ECPPotential": {
+      "additionalProperties": false,
+      "description": "Information for a single ECP potential.",
+      "properties": {
+        "ecp_type": {
+          "$ref": "#/$defs/ECPType"
+        },
+        "angular_momentum": {
+          "description": "Angular momentum for the potential as an array of integers.",
+          "items": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "minItems": 1,
+          "title": "Angular Momentum",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "r_exponents": {
+          "description": "Exponents of the 'r' term.",
+          "items": {
+            "type": "integer"
+          },
+          "minItems": 1,
+          "title": "R Exponents",
+          "type": "array"
+        },
+        "gaussian_exponents": {
+          "description": "Exponents of the 'gaussian' term.",
+          "items": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "minItems": 1,
+          "title": "Gaussian Exponents",
+          "type": "array"
+        },
+        "coefficients": {
+          "description": "General contraction coefficients for the potential; individual list components will be the individual segment contraction coefficients.",
+          "items": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "type": "array"
+          },
+          "minItems": 1,
+          "title": "Coefficients",
+          "type": "array"
+        }
+      },
+      "required": [
+        "ecp_type",
+        "angular_momentum",
+        "r_exponents",
+        "gaussian_exponents",
+        "coefficients"
+      ],
+      "title": "ECPPotential",
+      "type": "object"
+    },
+    "ECPType": {
+      "description": "The type of the ECP potential.",
+      "enum": [
+        "scalar",
+        "spinorbit"
+      ],
+      "title": "ECPType",
+      "type": "string"
+    },
+    "ElectronShell": {
+      "additionalProperties": false,
+      "description": "Information for a single electronic shell.",
+      "properties": {
+        "angular_momentum": {
+          "description": "Angular momentum for the shell as an array of integers.",
+          "items": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "minItems": 1,
+          "title": "Angular Momentum",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "harmonic_type": {
+          "$ref": "#/$defs/HarmonicType"
+        },
+        "exponents": {
+          "description": "Exponents for the contracted shell.",
+          "items": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "minItems": 1,
+          "title": "Exponents",
+          "type": "array"
+        },
+        "coefficients": {
+          "description": "General contraction coefficients for the shell; individual list components will be the individual segment contraction coefficients.",
+          "items": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "type": "array"
+          },
+          "minItems": 1,
+          "title": "Coefficients",
+          "type": "array"
+        }
+      },
+      "required": [
+        "angular_momentum",
+        "harmonic_type",
+        "exponents",
+        "coefficients"
+      ],
+      "title": "ElectronShell",
+      "type": "object"
+    },
+    "HarmonicType": {
+      "description": "The angular momentum representation of a shell.",
+      "enum": [
+        "spherical",
+        "cartesian"
+      ],
+      "title": "HarmonicType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Wavefunction properties resulting from a computation.\nMatrix quantities are stored in column-major order. Presence and contents configurable by protocol.",
+  "properties": {
+    "schema_name": {
+      "const": "qcschema_wavefunction_properties",
+      "default": "qcschema_wavefunction_properties",
+      "description": "The QCSchema specification to which this model conforms.",
+      "title": "Schema Name",
+      "type": "string"
+    },
+    "basis": {
+      "$ref": "#/$defs/BasisSet",
+      "description": "\n    A quantum chemistry basis description.\n    "
+    },
+    "restricted": {
+      "description": "If the computation was restricted or not (alpha == beta). If True, all beta quantities are skipped.",
+      "title": "Restricted",
+      "type": "boolean"
+    },
+    "h_core_a": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Alpha-spin core (one-electron) Hamiltonian in the AO basis.",
+      "shape": [
+        "nao",
+        "nao"
+      ],
+      "title": "H Core A"
+    },
+    "h_core_b": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Beta-spin core (one-electron) Hamiltonian in the AO basis.",
+      "shape": [
+        "nao",
+        "nao"
+      ],
+      "title": "H Core B"
+    },
+    "h_effective_a": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Alpha-spin effective core (one-electron) Hamiltonian in the AO basis.",
+      "shape": [
+        "nao",
+        "nao"
+      ],
+      "title": "H Effective A"
+    },
+    "h_effective_b": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Beta-spin effective core (one-electron) Hamiltonian in the AO basis",
+      "shape": [
+        "nao",
+        "nao"
+      ],
+      "title": "H Effective B"
+    },
+    "scf_orbitals_a": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "SCF alpha-spin orbitals in the AO basis.",
+      "shape": [
+        "nao",
+        "nmo"
+      ],
+      "title": "Scf Orbitals A"
+    },
+    "scf_orbitals_b": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "SCF beta-spin orbitals in the AO basis.",
+      "shape": [
+        "nao",
+        "nmo"
+      ],
+      "title": "Scf Orbitals B"
+    },
+    "scf_density_a": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "SCF alpha-spin density matrix in the AO basis.",
+      "shape": [
+        "nao",
+        "nao"
+      ],
+      "title": "Scf Density A"
+    },
+    "scf_density_b": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "SCF beta-spin density matrix in the AO basis.",
+      "shape": [
+        "nao",
+        "nao"
+      ],
+      "title": "Scf Density B"
+    },
+    "scf_fock_a": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "SCF alpha-spin Fock matrix in the AO basis.",
+      "shape": [
+        "nao",
+        "nao"
+      ],
+      "title": "Scf Fock A"
+    },
+    "scf_fock_b": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "SCF beta-spin Fock matrix in the AO basis.",
+      "shape": [
+        "nao",
+        "nao"
+      ],
+      "title": "Scf Fock B"
+    },
+    "scf_eigenvalues_a": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "SCF alpha-spin orbital eigenvalues.",
+      "shape": [
+        "nmo"
+      ],
+      "title": "Scf Eigenvalues A"
+    },
+    "scf_eigenvalues_b": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "SCF beta-spin orbital eigenvalues.",
+      "shape": [
+        "nmo"
+      ],
+      "title": "Scf Eigenvalues B"
+    },
+    "scf_occupations_a": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "SCF alpha-spin orbital occupations.",
+      "shape": [
+        "nmo"
+      ],
+      "title": "Scf Occupations A"
+    },
+    "scf_occupations_b": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "SCF beta-spin orbital occupations.",
+      "shape": [
+        "nmo"
+      ],
+      "title": "Scf Occupations B"
+    },
+    "scf_coulomb_a": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "SCF alpha-spin Coulomb matrix in the AO basis.",
+      "shape": [
+        "nao",
+        "nao"
+      ],
+      "title": "Scf Coulomb A"
+    },
+    "scf_coulomb_b": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "SCF beta-spin Coulomb matrix in the AO basis.",
+      "shape": [
+        "nao",
+        "nao"
+      ],
+      "title": "Scf Coulomb B"
+    },
+    "scf_exchange_a": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "SCF alpha-spin exchange matrix in the AO basis.",
+      "shape": [
+        "nao",
+        "nao"
+      ],
+      "title": "Scf Exchange A"
+    },
+    "scf_exchange_b": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "SCF beta-spin exchange matrix in the AO basis.",
+      "shape": [
+        "nao",
+        "nao"
+      ],
+      "title": "Scf Exchange B"
+    },
+    "localized_orbitals_a": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Localized alpha-spin orbitals in the AO basis. All nmo orbitals are included, even if only a subset were localized.",
+      "shape": [
+        "nao",
+        "nmo"
+      ],
+      "title": "Localized Orbitals A"
+    },
+    "localized_orbitals_b": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Localized beta-spin orbitals in the AO basis. All nmo orbitals are included, even if only a subset were localized.",
+      "shape": [
+        "nao",
+        "nmo"
+      ],
+      "title": "Localized Orbitals B"
+    },
+    "localized_fock_a": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Alpha-spin Fock matrix in the localized molecular orbital basis. All nmo orbitals are included, even if only a subset were localized.",
+      "shape": [
+        "nmo",
+        "nmo"
+      ],
+      "title": "Localized Fock A"
+    },
+    "localized_fock_b": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Beta-spin Fock matrix in the localized molecular orbital basis. All nmo orbitals are included, even if only a subset were localized.",
+      "shape": [
+        "nmo",
+        "nmo"
+      ],
+      "title": "Localized Fock B"
+    },
+    "orbitals_a": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Index to the alpha-spin orbitals of the primary return.",
+      "title": "Orbitals A"
+    },
+    "orbitals_b": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Index to the beta-spin orbitals of the primary return.",
+      "title": "Orbitals B"
+    },
+    "density_a": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Index to the alpha-spin density of the primary return.",
+      "title": "Density A"
+    },
+    "density_b": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Index to the beta-spin density of the primary return.",
+      "title": "Density B"
+    },
+    "fock_a": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Index to the alpha-spin Fock matrix of the primary return.",
+      "title": "Fock A"
+    },
+    "fock_b": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Index to the beta-spin Fock matrix of the primary return.",
+      "title": "Fock B"
+    },
+    "eigenvalues_a": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Index to the alpha-spin orbital eigenvalues of the primary return.",
+      "title": "Eigenvalues A"
+    },
+    "eigenvalues_b": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Index to the beta-spin orbital eigenvalues of the primary return.",
+      "title": "Eigenvalues B"
+    },
+    "occupations_a": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Index to the alpha-spin orbital occupations of the primary return.",
+      "title": "Occupations A"
+    },
+    "occupations_b": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Index to the beta-spin orbital occupations of the primary return.",
+      "title": "Occupations B"
+    }
+  },
+  "required": [
+    "basis",
+    "restricted"
+  ],
+  "title": "WavefunctionProperties",
   "type": "object"
 }

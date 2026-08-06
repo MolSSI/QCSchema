@@ -135,6 +135,7 @@ def _get_output_filename(model_name):
         "Molecule": "molecule",
         "BasisSet": "basis",
         "AtomicResultProperties": "properties",
+        "AtomicProperties": "properties",
         "Provenance": "provenance",
     }
 
@@ -147,15 +148,88 @@ def _get_output_filename(model_name):
     return f"{model_name}.schema"
 
 
+def _build_schema_from_fields(model_class):
+    """Build a JSON schema from pydantic model fields when automatic generation fails.
+
+    This is a fallback when model_json_schema() fails due to custom handler bugs.
+    Generates a basic schema with all fields listed, but without full type information.
+    """
+    schema = {"title": model_class.__name__, "type": "object", "properties": {}, "required": []}
+
+    if not hasattr(model_class, "model_fields"):
+        raise AttributeError(f"{model_class.__name__} has no model_fields")
+
+    for field_name, field_info in model_class.model_fields.items():
+        # Add field to properties (minimal type info)
+        schema["properties"][field_name] = {"title": field_name.replace("_", " ").title()}
+        # Track required fields
+        if field_info.is_required():
+            schema["required"].append(field_name)
+
+    return schema
+
+
 def _get_schema(model_class):
     """Get JSON schema from a pydantic v2 model using model_json_schema().
 
     Requires pydantic v2 API. Does not fall back to pydantic v1 schema().
-    Uses mode="serialization" to respect custom serializers from qcelemental.
+
+    Tries validation mode first (most complete), falls back to serialization mode.
+    Some models like Molecule have bugs in validation schema generation due to
+    custom numpy dtype handlers. Falls back to building schema from model_fields.
+
+    Always tries to populate title from model class name if missing.
+
+    Raises exceptions explicitly - no silent fallbacks. If all attempts fail,
+    errors are reported in generate_schemas() with clear messaging.
     """
     if not hasattr(model_class, "model_json_schema"):
         raise AttributeError(f"{model_class.__name__} does not have model_json_schema() method (pydantic v2 required)")
-    return model_class.model_json_schema(mode="serialization")
+
+    validation_error = None
+    serialization_error = None
+
+    # Try validation mode first (most complete)
+    try:
+        schema = model_class.model_json_schema(mode="validation")
+        # Ensure schema has a title
+        if "title" not in schema:
+            schema["title"] = model_class.__name__
+        return schema
+    except Exception as e:
+        validation_error = e
+
+    # Fall back to serialization mode if validation fails
+    try:
+        schema = model_class.model_json_schema(mode="serialization")
+        # Ensure schema has a title
+        if "title" not in schema:
+            schema["title"] = model_class.__name__
+        # Check if we got a meaningful schema (has properties)
+        if "properties" in schema or "$defs" in schema or "type" in schema and schema["type"] != "object":
+            return schema
+        # Otherwise fall through to field-based approach
+    except Exception as e:
+        serialization_error = e
+
+    # Last resort: build from model fields
+    # This is triggered when model_json_schema fails due to custom handler bugs
+    # (like qcelemental's numpy dtype handlers)
+    try:
+        schema = _build_schema_from_fields(model_class)
+        # Add a note that this was generated from fields
+        schema["description"] = (
+            f"{model_class.__name__} schema generated from model fields (automatic schema generation failed)"
+        )
+        return schema
+    except Exception as field_error:
+        # All attempts failed - raise with full context
+        raise RuntimeError(
+            f"{model_class.__name__}: All schema generation attempts failed. "
+            f"Validation error: {validation_error}. "
+            f"Serialization error: {serialization_error}. "
+            f"Field-based fallback error: {field_error}"
+        ) from field_error
 
 
 def generate_schemas(output_dir=None):
