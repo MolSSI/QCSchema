@@ -1,0 +1,76 @@
+{
+  "title": "OptimizationSpecification",
+  "description": "A specification for how a geometry optimization should be performed **inside** of\nanother procedure.\n\nNotes\n-----\n* This class is still provisional and may be subject to removal and re-design.",
+  "type": "object",
+  "properties": {
+    "schema_name": {
+      "title": "Schema Name",
+      "default": "qcschema_optimization_specification",
+      "pattern": "qcschema_optimization_specification",
+      "type": "string"
+    },
+    "schema_version": {
+      "title": "Schema Version",
+      "default": 1,
+      "enum": [
+        1
+      ],
+      "type": "integer"
+    },
+    "procedure": {
+      "title": "Procedure",
+      "description": "Optimization procedure to run the optimization with.",
+      "type": "string"
+    },
+    "keywords": {
+      "title": "Keywords",
+      "description": "The optimization specific keywords to be used.",
+      "default": {},
+      "type": "object"
+    },
+    "protocols": {
+      "title": "Protocols",
+      "description": "\n    Protocols regarding the manipulation of a Optimization output data.\n    ",
+      "default": {},
+      "allOf": [
+        {
+          "$ref": "#/definitions/OptimizationProtocols"
+        }
+      ]
+    }
+  },
+  "required": [
+    "procedure"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "TrajectoryProtocolEnum": {
+      "title": "TrajectoryProtocolEnum",
+      "description": "Which gradient evaluations to keep in an optimization trajectory.",
+      "enum": [
+        "all",
+        "initial_and_final",
+        "final",
+        "none"
+      ],
+      "type": "string"
+    },
+    "OptimizationProtocols": {
+      "title": "OptimizationProtocols",
+      "description": "Protocols regarding the manipulation of a Optimization output data.",
+      "type": "object",
+      "properties": {
+        "trajectory": {
+          "description": "\n    Which gradient evaluations to keep in an optimization trajectory.\n    ",
+          "default": "all",
+          "allOf": [
+            {
+              "$ref": "#/definitions/TrajectoryProtocolEnum"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

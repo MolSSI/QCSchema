@@ -14,6 +14,9 @@
       "title": "Schema Version",
       "description": "The version number of :attr:`~qcelemental.models.Molecule.schema_name` to which this model conforms.",
       "default": 2,
+      "enum": [
+        2
+      ],
       "type": "integer"
     },
     "validated": {
@@ -232,6 +235,7 @@
     "extras": {
       "title": "Extras",
       "description": "Additional information to bundle with the molecule. Use for schema development and scratch space.",
+      "default": {},
       "type": "object"
     }
   },

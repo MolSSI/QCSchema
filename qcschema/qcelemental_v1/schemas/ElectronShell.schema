@@ -1,0 +1,80 @@
+{
+  "title": "ElectronShell",
+  "description": "Information for a single electronic shell.",
+  "type": "object",
+  "properties": {
+    "angular_momentum": {
+      "title": "Angular Momentum",
+      "description": "Angular momentum for the shell as an array of integers.",
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "uniqueItems": true
+    },
+    "harmonic_type": {
+      "description": "The angular momentum representation of a shell.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/HarmonicType"
+        }
+      ]
+    },
+    "exponents": {
+      "title": "Exponents",
+      "description": "Exponents for the contracted shell.",
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "coefficients": {
+      "title": "Coefficients",
+      "description": "General contraction coefficients for the shell; individual list components will be the individual segment contraction coefficients.",
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "minItems": 1
+      }
+    }
+  },
+  "required": [
+    "angular_momentum",
+    "harmonic_type",
+    "exponents",
+    "coefficients"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "HarmonicType": {
+      "title": "HarmonicType",
+      "description": "The angular momentum representation of a shell.",
+      "enum": [
+        "spherical",
+        "cartesian"
+      ],
+      "type": "string"
+    }
+  }
+}

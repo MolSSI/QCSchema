@@ -1,0 +1,90 @@
+{
+  "title": "ECPPotential",
+  "description": "Information for a single ECP potential.",
+  "type": "object",
+  "properties": {
+    "ecp_type": {
+      "description": "The type of the ECP potential.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ECPType"
+        }
+      ]
+    },
+    "angular_momentum": {
+      "title": "Angular Momentum",
+      "description": "Angular momentum for the potential as an array of integers.",
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "uniqueItems": true
+    },
+    "r_exponents": {
+      "title": "R Exponents",
+      "description": "Exponents of the 'r' term.",
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "gaussian_exponents": {
+      "title": "Gaussian Exponents",
+      "description": "Exponents of the 'gaussian' term.",
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "coefficients": {
+      "title": "Coefficients",
+      "description": "General contraction coefficients for the potential; individual list components will be the individual segment contraction coefficients.",
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "minItems": 1
+      }
+    }
+  },
+  "required": [
+    "ecp_type",
+    "angular_momentum",
+    "r_exponents",
+    "gaussian_exponents",
+    "coefficients"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "ECPType": {
+      "title": "ECPType",
+      "description": "The type of the ECP potential.",
+      "enum": [
+        "scalar",
+        "spinorbit"
+      ],
+      "type": "string"
+    }
+  }
+}

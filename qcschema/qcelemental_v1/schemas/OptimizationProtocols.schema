@@ -1,0 +1,30 @@
+{
+  "title": "OptimizationProtocols",
+  "description": "Protocols regarding the manipulation of a Optimization output data.",
+  "type": "object",
+  "properties": {
+    "trajectory": {
+      "description": "\n    Which gradient evaluations to keep in an optimization trajectory.\n    ",
+      "default": "all",
+      "allOf": [
+        {
+          "$ref": "#/definitions/TrajectoryProtocolEnum"
+        }
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "TrajectoryProtocolEnum": {
+      "title": "TrajectoryProtocolEnum",
+      "description": "Which gradient evaluations to keep in an optimization trajectory.",
+      "enum": [
+        "all",
+        "initial_and_final",
+        "final",
+        "none"
+      ],
+      "type": "string"
+    }
+  }
+}

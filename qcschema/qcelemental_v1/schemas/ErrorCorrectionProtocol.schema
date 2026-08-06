@@ -1,0 +1,22 @@
+{
+  "title": "ErrorCorrectionProtocol",
+  "description": "Configuration for how QCEngine handles error correction\n\nWARNING: These protocols are currently experimental and only supported by NWChem tasks",
+  "type": "object",
+  "properties": {
+    "default_policy": {
+      "title": "Default Policy",
+      "description": "Whether to allow error corrections to be used if not directly specified in `policies`",
+      "default": true,
+      "type": "boolean"
+    },
+    "policies": {
+      "title": "Policies",
+      "description": "Settings that define whether specific error corrections are allowed. Keys are the name of a known error and values are whether it is allowed to be used.",
+      "type": "object",
+      "additionalProperties": {
+        "type": "boolean"
+      }
+    }
+  },
+  "additionalProperties": false
+}

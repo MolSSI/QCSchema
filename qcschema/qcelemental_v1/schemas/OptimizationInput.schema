@@ -20,6 +20,9 @@
     "schema_version": {
       "title": "Schema Version",
       "default": 1,
+      "enum": [
+        1
+      ],
       "type": "integer"
     },
     "keywords": {
@@ -67,8 +70,8 @@
       "description": "Provenance information.",
       "default": {
         "creator": "QCElemental",
-        "version": "0.29.0",
-        "routine": "qcelemental.models.procedures"
+        "version": "0.50.5.dev2+g269420111",
+        "routine": "qcelemental.models.v1.procedures"
       },
       "allOf": [
         {
@@ -341,6 +344,9 @@
           "title": "Schema Version",
           "description": "The version number of :attr:`~qcelemental.models.BasisSet.schema_name` to which this model conforms.",
           "default": 1,
+          "enum": [
+            1
+          ],
           "type": "integer"
         },
         "name": {
@@ -426,6 +432,9 @@
         "schema_version": {
           "title": "Schema Version",
           "default": 1,
+          "enum": [
+            1
+          ],
           "type": "integer"
         },
         "driver": {
@@ -571,6 +580,9 @@
           "title": "Schema Version",
           "description": "The version number of :attr:`~qcelemental.models.Molecule.schema_name` to which this model conforms.",
           "default": 2,
+          "enum": [
+            2
+          ],
           "type": "integer"
         },
         "validated": {
@@ -789,6 +801,7 @@
         "extras": {
           "title": "Extras",
           "description": "Additional information to bundle with the molecule. Use for schema development and scratch space.",
+          "default": {},
           "type": "object"
         }
       },

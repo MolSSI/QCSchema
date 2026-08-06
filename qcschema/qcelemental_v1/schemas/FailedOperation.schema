@@ -30,6 +30,7 @@
     "extras": {
       "title": "Extras",
       "description": "Additional information to bundle with the failed operation. Details which pertain specifically to a thrown error should be contained in the `error` field. See :class:`ComputeError` for details.",
+      "default": {},
       "type": "object"
     }
   },
