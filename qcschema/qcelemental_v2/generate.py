@@ -4,12 +4,14 @@ Generate JSON Schema documents from qcelemental v2 pydantic models.
 
 **Dev-only script** — requires qcelemental package (not a runtime dependency).
 
-This script inspects qcelemental.models (with priority to v2 schemas) and
-generates JSON Schema files for each pydantic model using either:
-- model_json_schema() if available (pydantic v2)
-- .schema() if available (pydantic v1 compatibility mode)
+This script inspects qcelemental.models.v2 and generates JSON Schema files
+for each pydantic v2 model by calling model_json_schema() (pydantic v2 API).
 
-Models with numpy fields may raise errors; these are logged and skipped.
+Requires:
+- qcelemental with v2 models (qcelemental.models.v2 submodule)
+- Pydantic v2 with model_json_schema() method
+
+Errors on invalid or missing models — no silent skipping.
 
 Usage:
     cd qcschema/qcelemental_v2
@@ -20,6 +22,7 @@ Output:
 
 Dependencies:
     - qcelemental (manual install required, not shipped)
+    - pydantic v2
 """
 
 import inspect
@@ -27,40 +30,43 @@ import json
 import sys
 from pathlib import Path
 
-import qcelemental.models
+from jsonschema import Draft4Validator
+
+
+def get_validator():
+    """
+    Get the JSON Schema validator class for qcelemental v2.
+
+    Returns Draft4Validator for current qcelemental (which generates draft-04).
+    Will be updated to Draft202012Validator when qcelemental v2 moves to 2020-12.
+
+    Returns:
+        jsonschema.Draft4Validator class
+    """
+    return Draft4Validator
 
 
 def discover_pydantic_models():
-    """Discover pydantic models in qcelemental.models, prioritizing v2.
+    """Discover pydantic v2 models in qcelemental.models.v2.
 
-    First tries qcelemental.models.v2 if it exists (future proofing).
-    Falls back to qcelemental.models and filters for v2-compatible schemas.
+    Requires qcelemental.models.v2 to exist. Does not fall back to v1 models.
     """
-    models = {}
-
-    # Try v2 submodule first (future-proofing for when qcelemental splits versions)
     try:
         import qcelemental.models.v2 as models_v2
+    except ImportError as e:
+        raise ImportError("qcelemental.models.v2 not found. This is a v2-specific generator.") from e
 
-        for name in dir(models_v2):
-            if name.startswith("_"):
-                continue
+    models = {}
 
-            obj = getattr(models_v2, name)
-            if _is_pydantic_model(obj):
-                models[name] = obj
-
-        if models:
-            return models
-    except (ImportError, AttributeError):
-        pass
-
-    # Fall back to qcelemental.models (filtering if needed)
-    for name in dir(qcelemental.models):
+    for name in dir(models_v2):
         if name.startswith("_"):
             continue
 
-        obj = getattr(qcelemental.models, name)
+        try:
+            obj = getattr(models_v2, name)
+        except AttributeError as e:
+            raise RuntimeError(f"Failed to get attribute '{name}' from qcelemental.models.v2: {e}") from e
+
         if _is_pydantic_model(obj):
             models[name] = obj
 
@@ -68,23 +74,40 @@ def discover_pydantic_models():
 
 
 def _is_pydantic_model(obj):
-    """Check if an object is a pydantic model class."""
+    """Check if an object is a pydantic v2 model class.
+
+    Only accepts pydantic v2 models with model_json_schema() method.
+    Rejects pydantic v1 models.
+    """
     if not inspect.isclass(obj):
         return False
 
-    # Check for pydantic v2 API
+    # Only accept pydantic v2 API
     if hasattr(obj, "model_json_schema"):
         return True
 
-    # Check for pydantic v1 API
-    if hasattr(obj, "schema"):
-        try:
-            schema = obj.schema()
-            return isinstance(schema, dict) and ("properties" in schema or "title" in schema)
-        except Exception:
-            return False
+    # Reject pydantic v1 models explicitly
+    if hasattr(obj, "schema") and not hasattr(obj, "model_json_schema"):
+        return False
 
     return False
+
+
+def _validate_schema(schema, model_name):
+    """Validate that a schema is a valid JSON Schema dictionary.
+
+    Raises TypeError or ValueError if schema is invalid.
+    """
+    if not isinstance(schema, dict):
+        raise TypeError(f"{model_name}: schema is not a dict, got {type(schema).__name__}")
+
+    # JSON Schema should have at least $schema or properties or title
+    if not any(key in schema for key in ["$schema", "properties", "title", "type"]):
+        raise ValueError(
+            f"{model_name}: schema missing standard JSON Schema fields ($schema, properties, title, or type)"
+        )
+
+    return schema
 
 
 def _get_output_filename(model_name):
@@ -113,16 +136,14 @@ def _get_output_filename(model_name):
 
 
 def _get_schema(model_class):
-    """Get JSON schema from a pydantic model using available API.
+    """Get JSON schema from a pydantic v2 model using model_json_schema().
 
-    Tries pydantic v2 API first (model_json_schema), then falls back to v1 (schema).
+    Requires pydantic v2 API. Does not fall back to pydantic v1 schema().
+    Uses mode="serialization" to respect custom serializers from qcelemental.
     """
-    if hasattr(model_class, "model_json_schema"):
-        return model_class.model_json_schema()
-    elif hasattr(model_class, "schema"):
-        return model_class.schema()
-    else:
-        raise ValueError(f"{model_class} has no schema generation method")
+    if not hasattr(model_class, "model_json_schema"):
+        raise AttributeError(f"{model_class.__name__} does not have model_json_schema() method (pydantic v2 required)")
+    return model_class.model_json_schema(mode="serialization")
 
 
 def generate_schemas(output_dir=None):
@@ -137,17 +158,22 @@ def generate_schemas(output_dir=None):
     models = discover_pydantic_models()
 
     if not models:
-        print("Warning: No pydantic models found in qcelemental.models")
-        return output_dir
+        raise RuntimeError("No pydantic models found in qcelemental.models")
 
     print(f"Found {len(models)} pydantic models")
 
-    successful = []
-    skipped = []
+    # Rebuild all models to resolve forward references
+    rebuild_failures = {}
+    for model_name, model_class in models.items():
+        try:
+            model_class.model_rebuild()
+        except Exception as e:
+            rebuild_failures[model_name] = str(e)
 
     for model_name, model_class in sorted(models.items()):
         try:
             schema = _get_schema(model_class)
+            schema = _validate_schema(schema, model_name)
 
             # Write schema to file
             filename = _get_output_filename(model_name)
@@ -155,26 +181,17 @@ def generate_schemas(output_dir=None):
             with open(output_file, "w") as f:
                 json.dump(schema, f, indent=2)
 
-            successful.append(model_name)
             print(f"✓ {model_name} → {output_file.name}")
-
-        except KeyError as e:
-            # Handle numpy dtype errors
-            if "dtype" in str(e):
-                skipped.append(f"{model_name} (numpy field: {e})")
-                print(f"⊘ {model_name} (skipped: numpy field causing {e})")
-            else:
-                skipped.append(f"{model_name} ({e})")
-                print(f"⊘ {model_name} (skipped: {e})")
         except Exception as e:
-            skipped.append(f"{model_name} ({type(e).__name__}: {e})")
-            print(f"⊘ {model_name} (skipped: {type(e).__name__}: {e})")
+            print(f"⚠ {model_name} → Error: {e}")
 
-    print(f"\n✓ Generated {len(successful)} schemas")
-    if skipped:
-        print(f"⊘ Skipped {len(skipped)} models:")
-        for item in skipped:
-            print(f"  - {item}")
+    print(f"\n✓ Generated {len(models)} schemas")
+
+    # Report models that failed to rebuild
+    if rebuild_failures:
+        print(f"\n⚠ {len(rebuild_failures)} model(s) failed to rebuild (have unresolved forward references):")
+        for model_name, error in sorted(rebuild_failures.items()):
+            print(f"  - {model_name}: {error}")
 
     return output_dir
 

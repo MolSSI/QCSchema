@@ -16,7 +16,7 @@ def validate(data, schema_type, version):
 
     Loads the schema and validator class for the specified version, then
     validates. The validator class (Draft4, Draft202012, etc.) is determined
-    by the version's implementation in qcschema/{version}/utils.py.
+    by the version's implementation in qcschema/{version}/generate.py.
 
     Args:
         data: Instance to validate (dict-like)
@@ -48,20 +48,20 @@ def validate(data, schema_type, version):
             f"Cannot find directory for version '{version}'. Available versions: {versions.list_versions(schema_type)}"
         )
 
-    # Import validator class from version-specific utils
+    # Import validator class from version-specific generate module
     version_module_name = version_dir_name.replace(".", "_")
     try:
-        utils_module = importlib.import_module(f"qcschema.{version_module_name}.utils")
-        validator_class = utils_module.get_validator()
+        generate_module = importlib.import_module(f"qcschema.{version_module_name}.generate")
+        validator_class = generate_module.get_validator()
     except ImportError as e:
         raise ImportError(
             f"Cannot import validator for version '{version}'. "
-            f"qcschema/{version_module_name}/utils.py must define get_validator(). "
+            f"qcschema/{version_module_name}/generate.py must define get_validator(). "
             f"Error: {e}"
         ) from e
     except AttributeError as e:
         raise ImportError(
-            f"qcschema/{version_module_name}/utils.py must define get_validator() function. " f"Error: {e}"
+            f"qcschema/{version_module_name}/generate.py must define get_validator() function. " f"Error: {e}"
         ) from e
 
     # Validate using version-appropriate validator

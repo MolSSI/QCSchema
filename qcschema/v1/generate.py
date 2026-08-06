@@ -9,12 +9,94 @@ Run as: python -m qcschema.v1.generate
 """
 
 import copy
+import json
+import sys
 from pathlib import Path
 
-from . import utils
+from jsonschema import Draft4Validator
+
+# Add generator/properties to Python path
+sys.path.insert(0, str(Path(__file__).parent / "generator" / "properties"))
 from .generator.properties.calcinfo_properties import calcinfo_properties
 from .generator.properties.mp_properties import mp_properties
 from .generator.properties.scf_properties import scf_properties
+
+
+def write_schema(schema, filepath):
+    """
+    Write a v1 schema to a JSON file (minified, single line, with spacing).
+    v1 schemas have no trailing newline.
+
+    Args:
+        schema: Schema dictionary
+        filepath: Path to write to
+    """
+    Path(filepath).parent.mkdir(parents=True, exist_ok=True)
+    with open(filepath, "w") as f:
+        json.dump(schema, f, separators=(", ", ": "))
+
+
+def get_validator():
+    """
+    Get the JSON Schema validator class for v1 (draft-04).
+
+    Returns:
+        jsonschema.Draft4Validator class
+    """
+    return Draft4Validator
+
+
+def _validate_property_imports():
+    """Validate that property imports are valid dictionaries.
+
+    Raises TypeError if any property module is not a dict.
+    """
+    if not isinstance(scf_properties, dict):
+        raise TypeError(f"scf_properties is not a dict, got {type(scf_properties).__name__}")
+    if not isinstance(mp_properties, dict):
+        raise TypeError(f"mp_properties is not a dict, got {type(mp_properties).__name__}")
+    if not isinstance(calcinfo_properties, dict):
+        raise TypeError(f"calcinfo_properties is not a dict, got {type(calcinfo_properties).__name__}")
+
+
+def _validate_schema_return(schema, schema_name):
+    """Validate that a schema return value is a valid dictionary.
+
+    Raises TypeError or ValueError if schema is invalid.
+    """
+    if not isinstance(schema, dict):
+        raise TypeError(f"{schema_name}: returned value is not a dict, got {type(schema).__name__}")
+
+    # JSON Schema should have at least $schema or properties or title
+    if not any(key in schema for key in ["$schema", "properties", "title", "type"]):
+        raise ValueError(f"{schema_name}: schema missing standard JSON Schema fields")
+
+    return schema
+
+
+def _validate_definitions(definitions, def_name):
+    """Validate that a definitions object is a valid dictionary of schema fragments.
+
+    Raises TypeError or ValueError if definitions is invalid.
+    """
+    if not isinstance(definitions, dict):
+        raise TypeError(f"{def_name}: not a dict, got {type(definitions).__name__}")
+
+    if not definitions:
+        raise ValueError(f"{def_name}: definitions dict is empty")
+
+    # Validate each component is a dict with schema-like structure
+    for component_name, component in definitions.items():
+        if not isinstance(component, dict):
+            raise TypeError(f"{def_name}['{component_name}']: not a dict, got {type(component).__name__}")
+
+        # Each definition should have at least some schema keywords
+        if not any(key in component for key in ["type", "properties", "enum", "description", "$ref"]):
+            raise ValueError(
+                f"{def_name}['{component_name}']: missing schema keywords (type, properties, enum, description, or $ref)"
+            )
+
+    return definitions
 
 
 def _build_v1_molecule():
@@ -127,8 +209,9 @@ def _build_v1_properties():
         "mp2_total_energy",
     ]
     for key in mp_order:
-        if key in mp_properties:
-            v1_props[key] = mp_properties[key]
+        if key not in mp_properties:
+            raise KeyError(f"Required MP2 property '{key}' not found in mp_properties")
+        v1_props[key] = mp_properties[key]
 
     # Fix mp2 property descriptions to match reference exactly
     v1_props["mp2_opposite_spin_correlation_energy"]["description"] = (
@@ -337,10 +420,16 @@ def _build_v1_definitions():
 
 
 def build_v1_schemas():
-    """Build and return v1 schemas (input, output, molecule) in frozen v1 format."""
+    """Build and return v1 schemas (input, output, molecule) in frozen v1 format.
 
-    molecule_schema = _build_v1_molecule()
-    definitions = _build_v1_definitions()
+    Validates all property imports and schema return values.
+    """
+    # Validate property imports first
+    _validate_property_imports()
+
+    # Build schemas with validation
+    molecule_schema = _validate_schema_return(_build_v1_molecule(), "v1 molecule schema")
+    definitions = _validate_definitions(_build_v1_definitions(), "v1 definitions")
 
     base_schema = {
         "$schema": "http://json-schema.org/draft-04/schema#",
@@ -384,7 +473,7 @@ def build_v1_schemas():
     output_schema["name"] = "qc_schema_output"
     output_schema["properties"]["schema_name"]["pattern"] = "\\W*(qc_schema_output)\\W*"
     output_schema["required"].extend(["provenance", "properties", "success", "return_result"])
-    v1_properties = _build_v1_properties()
+    v1_properties = _validate_schema_return(_build_v1_properties(), "v1 properties schema")
     output_schema["properties"].update(
         {
             "properties": v1_properties,
@@ -401,24 +490,53 @@ def build_v1_schemas():
         }
     )
 
-    return {
+    # Validate all schemas before returning
+    schemas = {
         "input": input_schema,
         "output": output_schema,
         "molecule": molecule_schema,
     }
 
+    for schema_name, schema in schemas.items():
+        _validate_schema_return(schema, f"v1 {schema_name} schema")
+
+    return schemas
+
 
 def write_schemas(schemas, schema_dir=None):
-    """Write schemas to disk."""
+    """Write schemas to disk.
+
+    Validates schemas exist and writes them to disk.
+    Raises KeyError if required schema keys missing.
+    Raises RuntimeError if write operations fail.
+    """
     if schema_dir is None:
         schema_dir = Path(__file__).parent / "schemas"
 
     schema_dir = Path(schema_dir)
     schema_dir.mkdir(parents=True, exist_ok=True)
 
-    utils.write_schema(schemas["input"], schema_dir / "qc_schema_input.schema")
-    utils.write_schema(schemas["output"], schema_dir / "qc_schema_output.schema")
-    utils.write_schema(schemas["molecule"], schema_dir / "qc_schema_molecule.schema")
+    # Validate that all required schema keys exist
+    required_keys = {"input", "output", "molecule"}
+    missing_keys = required_keys - set(schemas.keys())
+    if missing_keys:
+        raise KeyError(f"Schemas missing required keys: {missing_keys}")
+
+    # Write each schema with error handling
+    try:
+        write_schema(schemas["input"], schema_dir / "qc_schema_input.schema")
+    except Exception as e:
+        raise RuntimeError(f"Failed to write input schema: {e}") from e
+
+    try:
+        write_schema(schemas["output"], schema_dir / "qc_schema_output.schema")
+    except Exception as e:
+        raise RuntimeError(f"Failed to write output schema: {e}") from e
+
+    try:
+        write_schema(schemas["molecule"], schema_dir / "qc_schema_molecule.schema")
+    except Exception as e:
+        raise RuntimeError(f"Failed to write molecule schema: {e}") from e
 
     return schema_dir
 

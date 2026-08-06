@@ -28,20 +28,11 @@ tests = [
 Homepage = "https://github.com/MolSSI/QCSchema"
 
 [tool.setuptools]
-packages = [
-    "qcschema",
-    "qcschema.data",
-    "qcschema.data.v1",
-    "qcschema.data.v2",
-    "qcschema.dev",
-    "qcschema.dev.properties",
-    "qcschema.dev.wavefunction",
-]
+packages = ["qcschema"]
 zip-safe = true
 
 [tool.setuptools.package-data]
-"qcschema.data.v1" = ["*.schema"]
-"qcschema.data.v2" = ["*.schema"]
+"qcschema" = ["**/*.schema"]
 
 [tool.ruff]
 line-length = 120
