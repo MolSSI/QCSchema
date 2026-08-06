@@ -22,6 +22,8 @@ docs = [
 ]
 tests = [
     "pytest",
+    "qcelemental",
+    "qcmanybody",
 ]
 
 [project.urls]
