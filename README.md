@@ -1,3 +1,5 @@
+### Note: QCSchema as defined by this repository is very out of date. We are reviving it, but please see the QCElemental repository, particularly https://github.com/MolSSI/QCElemental/tree/master/qcelemental/models/v2 for the current specification.
+
 # QCSchema
 
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/MolSSI/QCSchema.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/MolSSI/QCSchema/context:python)
