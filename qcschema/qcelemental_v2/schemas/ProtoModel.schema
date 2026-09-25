@@ -1,0 +1,7 @@
+{
+  "additionalProperties": false,
+  "description": "QCSchema extension of pydantic.BaseModel.",
+  "properties": {},
+  "title": "ProtoModel",
+  "type": "object"
+}

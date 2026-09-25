@@ -1,0 +1,87 @@
+{
+  "$defs": {
+    "ErrorCorrectionProtocol": {
+      "additionalProperties": false,
+      "description": "Configuration for how QCEngine handles error correction\n\nWARNING: These protocols are currently experimental and only supported by NWChem tasks",
+      "properties": {
+        "default_policy": {
+          "default": true,
+          "description": "Whether to allow error corrections to be used if not directly specified in `policies`",
+          "title": "Default Policy",
+          "type": "boolean"
+        },
+        "policies": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "type": "boolean"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Settings that define whether specific error corrections are allowed. Keys are the name of a known error and values are whether it is allowed to be used.",
+          "title": "Policies"
+        }
+      },
+      "title": "ErrorCorrectionProtocol",
+      "type": "object"
+    },
+    "NativeFilesProtocolEnum": {
+      "description": "CMS program files to keep from a computation.",
+      "enum": [
+        "all",
+        "input",
+        "none"
+      ],
+      "title": "NativeFilesProtocolEnum",
+      "type": "string"
+    },
+    "WavefunctionProtocolEnum": {
+      "description": "Wavefunction to keep from a computation.",
+      "enum": [
+        "all",
+        "orbitals_and_eigenvalues",
+        "occupations_and_eigenvalues",
+        "return_results",
+        "none"
+      ],
+      "title": "WavefunctionProtocolEnum",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Protocols regarding the manipulation of computational result data.",
+  "properties": {
+    "schema_name": {
+      "const": "qcschema_atomic_protocols",
+      "default": "qcschema_atomic_protocols",
+      "title": "Schema Name",
+      "type": "string"
+    },
+    "wavefunction": {
+      "$ref": "#/$defs/WavefunctionProtocolEnum",
+      "default": "none"
+    },
+    "stdout": {
+      "default": true,
+      "description": "Primary output file to keep from the computation",
+      "title": "Stdout",
+      "type": "boolean"
+    },
+    "error_correction": {
+      "$ref": "#/$defs/ErrorCorrectionProtocol",
+      "description": "Policies for error correction"
+    },
+    "native_files": {
+      "$ref": "#/$defs/NativeFilesProtocolEnum",
+      "default": "none",
+      "description": "Policies for keeping processed files from the computation"
+    }
+  },
+  "title": "AtomicProtocols",
+  "type": "object"
+}

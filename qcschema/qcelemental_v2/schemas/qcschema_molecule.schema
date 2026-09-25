@@ -1,0 +1,86 @@
+{
+  "title": "Molecule",
+  "type": "object",
+  "properties": {
+    "schema_name": {
+      "title": "Schema Name"
+    },
+    "schema_version": {
+      "title": "Schema Version"
+    },
+    "validated": {
+      "title": "Validated"
+    },
+    "symbols": {
+      "title": "Symbols"
+    },
+    "geometry": {
+      "title": "Geometry"
+    },
+    "name": {
+      "title": "Name"
+    },
+    "identifiers": {
+      "title": "Identifiers"
+    },
+    "comment": {
+      "title": "Comment"
+    },
+    "molecular_charge": {
+      "title": "Molecular Charge"
+    },
+    "molecular_multiplicity": {
+      "title": "Molecular Multiplicity"
+    },
+    "masses_": {
+      "title": "Masses "
+    },
+    "real_": {
+      "title": "Real "
+    },
+    "atom_labels_": {
+      "title": "Atom Labels "
+    },
+    "atomic_numbers_": {
+      "title": "Atomic Numbers "
+    },
+    "mass_numbers_": {
+      "title": "Mass Numbers "
+    },
+    "connectivity": {
+      "title": "Connectivity"
+    },
+    "fragments_": {
+      "title": "Fragments "
+    },
+    "fragment_charges_": {
+      "title": "Fragment Charges "
+    },
+    "fragment_multiplicities_": {
+      "title": "Fragment Multiplicities "
+    },
+    "fix_com": {
+      "title": "Fix Com"
+    },
+    "fix_orientation": {
+      "title": "Fix Orientation"
+    },
+    "fix_symmetry": {
+      "title": "Fix Symmetry"
+    },
+    "provenance": {
+      "title": "Provenance"
+    },
+    "id": {
+      "title": "Id"
+    },
+    "extras": {
+      "title": "Extras"
+    }
+  },
+  "required": [
+    "symbols",
+    "geometry"
+  ],
+  "description": "Molecule schema generated from model fields (automatic schema generation failed)"
+}

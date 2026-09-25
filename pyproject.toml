@@ -7,7 +7,7 @@ name = "qcschema"
 version = "1"
 description = "A schema for quantum chemistry"
 readme = "README.md"
-requires-python = ">3.11"
+requires-python = ">=3.11"
 dependencies = [
     "jsonschema",
     "pathlib2; python_version < '3.5'",
@@ -22,26 +22,19 @@ docs = [
 ]
 tests = [
     "pytest",
+    "qcelemental",
+    "qcmanybody",
 ]
 
 [project.urls]
 Homepage = "https://github.com/MolSSI/QCSchema"
 
 [tool.setuptools]
-packages = [
-    "qcschema",
-    "qcschema.data",
-    "qcschema.data.v1",
-    "qcschema.data.v2",
-    "qcschema.dev",
-    "qcschema.dev.properties",
-    "qcschema.dev.wavefunction",
-]
+packages = ["qcschema"]
 zip-safe = true
 
 [tool.setuptools.package-data]
-"qcschema.data.v1" = ["*.schema"]
-"qcschema.data.v2" = ["*.schema"]
+"qcschema" = ["**/*.schema"]
 
 [tool.ruff]
 line-length = 120
@@ -62,5 +55,13 @@ lint.ignore = [
 [tool.ruff.lint.isort]
 known-first-party = ["qcschema"]
 
-[tool.ruff.format]
-line-length = 120
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+# Note: If you encounter "ModuleNotFoundError: No module named 'qcelemental.models._v1v2'"
+# from a pytest plugin, it means an external package has a pytest11 entry point that fails.
+# Run with: PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH=. pytest tests/
+# See tests/conftest.py for more information.

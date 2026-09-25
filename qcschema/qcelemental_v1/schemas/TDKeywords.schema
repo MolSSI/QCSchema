@@ -1,0 +1,72 @@
+{
+  "title": "TDKeywords",
+  "description": "TorsionDriveRecord options\n\nNotes\n-----\n* This class is still provisional and may be subject to removal and re-design.",
+  "type": "object",
+  "properties": {
+    "dihedrals": {
+      "title": "Dihedrals",
+      "description": "The list of dihedrals to select for the TorsionDrive operation. Each entry is a tuple of integers of for particle indices.",
+      "type": "array",
+      "items": {
+        "type": "array",
+        "minItems": 4,
+        "maxItems": 4,
+        "items": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "integer"
+          },
+          {
+            "type": "integer"
+          },
+          {
+            "type": "integer"
+          }
+        ]
+      }
+    },
+    "grid_spacing": {
+      "title": "Grid Spacing",
+      "description": "List of grid spacing for dihedral scan in degrees. Multiple values will be mapped to each dihedral angle.",
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "dihedral_ranges": {
+      "title": "Dihedral Ranges",
+      "description": "A list of dihedral range limits as a pair (lower, upper). Each range corresponds to the dihedrals in input.",
+      "type": "array",
+      "items": {
+        "type": "array",
+        "minItems": 2,
+        "maxItems": 2,
+        "items": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "integer"
+          }
+        ]
+      }
+    },
+    "energy_decrease_thresh": {
+      "title": "Energy Decrease Thresh",
+      "description": "The threshold of the smallest energy decrease amount to trigger activating optimizations from grid point.",
+      "type": "number"
+    },
+    "energy_upper_limit": {
+      "title": "Energy Upper Limit",
+      "description": "The threshold if the energy of a grid point that is higher than the current global minimum, to start new optimizations, in unit of a.u. I.e. if energy_upper_limit = 0.05, current global minimum energy is -9.9 , then a new task starting with energy -9.8 will be skipped.",
+      "type": "number"
+    }
+  },
+  "required": [
+    "dihedrals",
+    "grid_spacing"
+  ],
+  "additionalProperties": false
+}

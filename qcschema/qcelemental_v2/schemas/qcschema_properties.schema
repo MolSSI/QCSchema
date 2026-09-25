@@ -1,0 +1,700 @@
+{
+  "additionalProperties": false,
+  "description": "Named properties of quantum chemistry computations following the MolSSI QCSchema.\n\nAll arrays are stored flat but must be reshapable into the dimensions in attribute ``shape``, with abbreviations as follows:\n\n* nao: number of atomic orbitals = :attr:`~qcelemental.models.AtomicProperties.calcinfo_nbasis`\n* nmo: number of molecular orbitals = :attr:`~qcelemental.models.AtomicProperties.calcinfo_nmo`",
+  "properties": {
+    "schema_name": {
+      "const": "qcschema_atomic_properties",
+      "default": "qcschema_atomic_properties",
+      "description": "The QCSchema specification to which this model conforms.",
+      "title": "Schema Name",
+      "type": "string"
+    },
+    "calcinfo_nbasis": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The number of basis functions for the computation.",
+      "title": "Calcinfo Nbasis"
+    },
+    "calcinfo_nmo": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The number of molecular orbitals for the computation.",
+      "title": "Calcinfo Nmo"
+    },
+    "calcinfo_nalpha": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The number of alpha electrons in the computation.",
+      "title": "Calcinfo Nalpha"
+    },
+    "calcinfo_nbeta": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The number of beta electrons in the computation.",
+      "title": "Calcinfo Nbeta"
+    },
+    "calcinfo_natom": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The number of atoms in the computation.",
+      "title": "Calcinfo Natom"
+    },
+    "nuclear_repulsion_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The nuclear repulsion energy.",
+      "title": "Nuclear Repulsion Energy"
+    },
+    "return_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The energy of the requested method, identical to :attr:`~qcelemental.models.AtomicResult.return_result` for :attr:`~qcelemental.models.AtomicInput.driver`\\ =\\ :attr:`~qcelemental.models.DriverEnum.energy` computations.",
+      "title": "Return Energy"
+    },
+    "return_gradient": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The gradient of the requested method, identical to :attr:`~qcelemental.models.AtomicResult.return_result` for :attr:`~qcelemental.models.AtomicInput.driver`\\ =\\ :attr:`~qcelemental.models.DriverEnum.gradient` computations.",
+      "title": "Return Gradient",
+      "units": "E_h/a0"
+    },
+    "return_hessian": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The Hessian of the requested method, identical to :attr:`~qcelemental.models.AtomicResult.return_result` for :attr:`~qcelemental.models.AtomicInput.driver`\\ =\\ :attr:`~qcelemental.models.DriverEnum.hessian` computations.",
+      "title": "Return Hessian",
+      "units": "E_h/a0^2"
+    },
+    "scf_one_electron_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The one-electron (core Hamiltonian) energy contribution to the total SCF energy.",
+      "title": "Scf One Electron Energy",
+      "units": "E_h"
+    },
+    "scf_two_electron_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The two-electron energy contribution to the total SCF energy.",
+      "title": "Scf Two Electron Energy",
+      "units": "E_h"
+    },
+    "scf_vv10_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The VV10 functional energy contribution to the total SCF energy.",
+      "title": "Scf Vv10 Energy",
+      "units": "E_h"
+    },
+    "scf_xc_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The functional (XC) energy contribution to the total SCF energy.",
+      "title": "Scf Xc Energy",
+      "units": "E_h"
+    },
+    "scf_dispersion_correction_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The dispersion correction appended to an underlying functional when a DFT-D method is requested.",
+      "title": "Scf Dispersion Correction Energy",
+      "units": "E_h"
+    },
+    "scf_dipole_moment": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The SCF X, Y, and Z dipole components",
+      "title": "Scf Dipole Moment",
+      "units": "e a0"
+    },
+    "scf_quadrupole_moment": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The quadrupole components (redundant; 6 unique).",
+      "shape": [
+        3,
+        3
+      ],
+      "title": "Scf Quadrupole Moment",
+      "units": "e a0^2"
+    },
+    "scf_total_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The total electronic energy of the SCF stage of the calculation.",
+      "title": "Scf Total Energy",
+      "units": "E_h"
+    },
+    "scf_total_gradient": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The total electronic gradient of the SCF stage of the calculation.",
+      "title": "Scf Total Gradient",
+      "units": "E_h/a0"
+    },
+    "scf_total_hessian": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The total electronic Hessian of the SCF stage of the calculation.",
+      "title": "Scf Total Hessian",
+      "units": "E_h/a0^2"
+    },
+    "scf_iterations": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The number of SCF iterations taken before convergence.",
+      "title": "Scf Iterations"
+    },
+    "mp2_same_spin_correlation_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The portion of MP2 doubles correlation energy from same-spin (i.e. triplet) correlations, without any user scaling.",
+      "title": "Mp2 Same Spin Correlation Energy",
+      "units": "E_h"
+    },
+    "mp2_opposite_spin_correlation_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The portion of MP2 doubles correlation energy from opposite-spin (i.e. singlet) correlations, without any user scaling.",
+      "title": "Mp2 Opposite Spin Correlation Energy",
+      "units": "E_h"
+    },
+    "mp2_singles_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The singles portion of the MP2 correlation energy. Zero except in ROHF.",
+      "title": "Mp2 Singles Energy",
+      "units": "E_h"
+    },
+    "mp2_doubles_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The doubles portion of the MP2 correlation energy including same-spin and opposite-spin correlations.",
+      "title": "Mp2 Doubles Energy",
+      "units": "E_h"
+    },
+    "mp2_correlation_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The MP2 correlation energy.",
+      "title": "Mp2 Correlation Energy",
+      "units": "E_h"
+    },
+    "mp2_total_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The total MP2 energy (MP2 correlation energy + HF energy).",
+      "title": "Mp2 Total Energy",
+      "units": "E_h"
+    },
+    "mp2_dipole_moment": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The MP2 X, Y, and Z dipole components.",
+      "shape": [
+        3
+      ],
+      "title": "Mp2 Dipole Moment",
+      "units": "e a0"
+    },
+    "ccsd_same_spin_correlation_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The portion of CCSD doubles correlation energy from same-spin (i.e. triplet) correlations, without any user scaling.",
+      "title": "Ccsd Same Spin Correlation Energy",
+      "units": "E_h"
+    },
+    "ccsd_opposite_spin_correlation_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The portion of CCSD doubles correlation energy from opposite-spin (i.e. singlet) correlations, without any user scaling.",
+      "title": "Ccsd Opposite Spin Correlation Energy",
+      "units": "E_h"
+    },
+    "ccsd_singles_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The singles portion of the CCSD correlation energy. Zero except in ROHF.",
+      "title": "Ccsd Singles Energy",
+      "units": "E_h"
+    },
+    "ccsd_doubles_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The doubles portion of the CCSD correlation energy including same-spin and opposite-spin correlations.",
+      "title": "Ccsd Doubles Energy",
+      "units": "E_h"
+    },
+    "ccsd_correlation_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The CCSD correlation energy.",
+      "title": "Ccsd Correlation Energy",
+      "units": "E_h"
+    },
+    "ccsd_total_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The total CCSD energy (CCSD correlation energy + HF energy).",
+      "title": "Ccsd Total Energy",
+      "units": "E_h"
+    },
+    "ccsd_dipole_moment": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The CCSD X, Y, and Z dipole components.",
+      "shape": [
+        3
+      ],
+      "title": "Ccsd Dipole Moment",
+      "units": "e a0"
+    },
+    "ccsd_iterations": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The number of CCSD iterations taken before convergence.",
+      "title": "Ccsd Iterations"
+    },
+    "ccsd_prt_pr_correlation_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The CCSD(T) correlation energy.",
+      "title": "Ccsd Prt Pr Correlation Energy",
+      "units": "E_h"
+    },
+    "ccsd_prt_pr_total_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The total CCSD(T) energy (CCSD(T) correlation energy + HF energy).",
+      "title": "Ccsd Prt Pr Total Energy",
+      "units": "E_h"
+    },
+    "ccsd_prt_pr_dipole_moment": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The CCSD(T) X, Y, and Z dipole components.",
+      "shape": [
+        3
+      ],
+      "title": "Ccsd Prt Pr Dipole Moment",
+      "units": "e a0"
+    },
+    "ccsdt_correlation_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The CCSDT correlation energy.",
+      "title": "Ccsdt Correlation Energy",
+      "units": "E_h"
+    },
+    "ccsdt_total_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The total CCSDT energy (CCSDT correlation energy + HF energy).",
+      "title": "Ccsdt Total Energy",
+      "units": "E_h"
+    },
+    "ccsdt_dipole_moment": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The CCSDT X, Y, and Z dipole components.",
+      "shape": [
+        3
+      ],
+      "title": "Ccsdt Dipole Moment",
+      "units": "e a0"
+    },
+    "ccsdt_iterations": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The number of CCSDT iterations taken before convergence.",
+      "title": "Ccsdt Iterations"
+    },
+    "ccsdtq_correlation_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The CCSDTQ correlation energy.",
+      "title": "Ccsdtq Correlation Energy",
+      "units": "E_h"
+    },
+    "ccsdtq_total_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The total CCSDTQ energy (CCSDTQ correlation energy + HF energy).",
+      "title": "Ccsdtq Total Energy",
+      "units": "E_h"
+    },
+    "ccsdtq_dipole_moment": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The CCSDTQ X, Y, and Z dipole components.",
+      "shape": [
+        3
+      ],
+      "title": "Ccsdtq Dipole Moment",
+      "units": "e a0"
+    },
+    "ccsdtq_iterations": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The number of CCSDTQ iterations taken before convergence.",
+      "title": "Ccsdtq Iterations"
+    }
+  },
+  "title": "AtomicProperties",
+  "type": "object"
+}

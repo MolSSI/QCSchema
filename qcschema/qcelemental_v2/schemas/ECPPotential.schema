@@ -1,0 +1,84 @@
+{
+  "$defs": {
+    "ECPType": {
+      "description": "The type of the ECP potential.",
+      "enum": [
+        "scalar",
+        "spinorbit"
+      ],
+      "title": "ECPType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Information for a single ECP potential.",
+  "properties": {
+    "ecp_type": {
+      "$ref": "#/$defs/ECPType"
+    },
+    "angular_momentum": {
+      "description": "Angular momentum for the potential as an array of integers.",
+      "items": {
+        "minimum": 0,
+        "type": "integer"
+      },
+      "minItems": 1,
+      "title": "Angular Momentum",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "r_exponents": {
+      "description": "Exponents of the 'r' term.",
+      "items": {
+        "type": "integer"
+      },
+      "minItems": 1,
+      "title": "R Exponents",
+      "type": "array"
+    },
+    "gaussian_exponents": {
+      "description": "Exponents of the 'gaussian' term.",
+      "items": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "minItems": 1,
+      "title": "Gaussian Exponents",
+      "type": "array"
+    },
+    "coefficients": {
+      "description": "General contraction coefficients for the potential; individual list components will be the individual segment contraction coefficients.",
+      "items": {
+        "items": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "type": "array"
+      },
+      "minItems": 1,
+      "title": "Coefficients",
+      "type": "array"
+    }
+  },
+  "required": [
+    "ecp_type",
+    "angular_momentum",
+    "r_exponents",
+    "gaussian_exponents",
+    "coefficients"
+  ],
+  "title": "ECPPotential",
+  "type": "object"
+}

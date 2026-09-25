@@ -1,0 +1,126 @@
+{
+  "additionalProperties": false,
+  "description": "Named properties of geometry optimization computations following the MolSSI QCSchema.",
+  "properties": {
+    "schema_name": {
+      "const": "qcschema_optimization_properties",
+      "default": "qcschema_optimization_properties",
+      "description": "The QCSchema specification to which this model conforms.",
+      "title": "Schema Name",
+      "type": "string"
+    },
+    "nuclear_repulsion_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The nuclear repulsion energy.",
+      "title": "Nuclear Repulsion Energy"
+    },
+    "return_energy": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The energy of the final optimized molecule. Always available. Identical to the final :attr:`~qcelemental.models.OptimizationResult.trajectory_properties.return_energy`.",
+      "title": "Return Energy",
+      "units": "E_h"
+    },
+    "return_gradient": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The gradient of the final optimized molecule. Always available. Identical to :attr:`~qcelemental.models.OptimizationResult.trajectory_properties.return_gradient`.",
+      "shape": [
+        "nat",
+        3
+      ],
+      "title": "Return Gradient",
+      "units": "E_h/a0"
+    },
+    "optimization_iterations": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The number of geometry iterations taken before convergence.",
+      "title": "Optimization Iterations"
+    },
+    "final_max_force": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Final Max Force"
+    },
+    "final_rms_force": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "The final RMS gradient of the molecule in Hartrees/Bohr.",
+      "title": "Final Rms Force",
+      "units": "E_h/a0"
+    },
+    "final_max_displacement": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Final Max Displacement"
+    },
+    "final_rms_displacement": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Final Rms Displacement"
+    }
+  },
+  "title": "OptimizationProperties",
+  "type": "object"
+}

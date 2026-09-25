@@ -1,74 +1,185 @@
 """
-A simple program to construct the input and ouput Quantum Chemistry Schema's
-from the development branch
+Schema loading and version management for QCSchema.
+
+Dynamically discovers schema versions by scanning qcschema/*/ directories
+for a schemas/ subdirectory. Each version can be used with validate() by
+passing version as a parameter.
 """
 
 import json
-
-try:
-    from pathlib import Path
-except ImportError:
-    from pathlib2 import Path
+from pathlib import Path
 
 
-_data_path = Path(__file__).parent.resolve() / "data"
+def _normalize_version_name(dir_name):
+    """
+    Normalize version name from directory name.
 
-_aliases = {
-    "input": ["input", "AtomicInput"],
-    "output": ["output", "AtomicResult"],
-    "molecule": ["molecule", "topology", "Molecule"],
-    "basis": ["basis", "BasisSet"],
-    "properties": ["properties", "AtomicResultProperties"],
-    "provenance": ["provenance", "Provenance"],
-}
-_laliases = {k: [v2.lower() for v2 in v] for k, v in _aliases.items()}
+    Any directory name is a valid version. Optionally normalize underscores
+    to dots for clarity when the name looks numeric (e.g., v1_5 -> v1.5, 1_5 -> 1.5).
 
-_versions_list = {
-    "input": [1, 2, "dev"],
-    "output": [1, 2, "dev"],
-    "molecule": [1, 2, "dev"],
-    "basis": ["dev"],
-    "properties": ["dev"],
-    "provenance": ["dev"],
-}
-_sversions_list = {k: [str(v2) for v2 in v] for k, v in _versions_list.items()}
+    Args:
+        dir_name: Directory name to parse
+
+    Returns:
+        Normalized version string
+    """
+
+    # dots as underscores
+    return dir_name.replace("_", ".")
+
+
+def _scan_version_directories():
+    """
+    Scan qcschema/ directory for version directories with schemas/ subdirectory.
+
+    Returns:
+        List of (version_string, version_dir_path) tuples, sorted by version
+    """
+    base_path = Path(__file__).parent
+    versions = []
+
+    for dir_entry in sorted(base_path.iterdir()):
+        if not dir_entry.is_dir():
+            continue
+
+        schemas_dir = dir_entry / "schemas"
+        if not schemas_dir.exists():
+            continue
+
+        version = _normalize_version_name(dir_entry.name)
+        versions.append((version, dir_entry))
+
+    return versions
 
 
 def list_versions(schema_type):
     """
-    Lists all current JSON schema versions.
+    List all available versions for a given schema type.
+
+    Scans qcschema/*/ directories for available schemas matching the type.
+    Supports aliases: input/AtomicInput, output/AtomicResult, molecule/Molecule, etc.
+
+    Args:
+        schema_type: Schema type (input, output, molecule, basis, properties, provenance)
+                     or an alias (AtomicInput, AtomicResult, Molecule, etc.)
+
+    Returns:
+        List of available versions (e.g., [1, '1.5'])
+
+    Raises:
+        KeyError: If schema_type is not found or no versions support it
     """
-    for sk, aliases in _laliases.items():
-        if schema_type.lower() in aliases:
-            return _versions_list[sk]
+    aliases = {
+        "input": ["input", "AtomicInput"],
+        "output": ["output", "AtomicResult"],
+        "molecule": ["molecule", "Molecule", "topology"],
+        "basis": ["basis", "BasisSet"],
+        "properties": ["properties", "AtomicResultProperties"],
+        "provenance": ["provenance", "Provenance"],
+    }
 
-    raise KeyError(f"Schema type should be among {list(_aliases.keys())} (+aliases), not '{schema_type}'.")
+    laliases = {k: [v2.lower() for v2 in v] for k, v in aliases.items()}
 
+    # Find which schema type we're looking for
+    schema_key = None
+    for key, aliases_list in laliases.items():
+        if schema_type.lower() in aliases_list:
+            schema_key = key
+            break
 
-def get_schema(schema_type, version="dev"):
-    """
-    Returns the requested schema (input or output) for a given version number.
-    """
-    # temporary
-    if version == "dev":
-        version = 2
+    if schema_key is None:
+        raise KeyError(f"Schema type should be among {list(aliases.keys())} (+aliases), not '{schema_type}'.")
 
-    for sk, aliases in _laliases.items():
-        if schema_type.lower() in aliases:
-            if str(version) in _sversions_list[sk]:
-                if version == "dev" or int(version) > 2:
-                    fname = _aliases[sk][-1]
-                else:  # v1, v2
-                    fname = "qc_schema_" + sk
-                break
-            else:
-                raise KeyError(f"Schema version should be among {_versions_list[sk]}, not '{version}'.")
-    else:
+    # Scan for available versions
+    versions = []
+    for version, version_dir in _scan_version_directories():
+        schemas_dir = version_dir / "schemas"
+
+        # Check if this version has schemas for our type
+        for schema_file in schemas_dir.glob("*.schema"):
+            schema_data = json.loads(schema_file.read_text())
+            # Match by internal schema name or filename patterns
+            schema_name = schema_data.get("name", "").lower()
+            filename = schema_file.stem.lower()
+
+            if schema_key in schema_name or schema_key in filename or filename.endswith(schema_key):
+                if version not in versions:
+                    versions.append(version)
+
+    if not versions:
         raise KeyError(
-            f"Schema type should be among {list(_aliases.keys())} (+aliases), not '{schema_type}'."
+            f"No versions found for schema type '{schema_type}'. Available directories: "
+            + ", ".join(v for v, _ in _scan_version_directories())
         )
 
-    fpath = _data_path / ("v" + str(version)) / (fname + ".schema")
-    ret = json.loads(fpath.read_text())
+    return versions
 
-    return ret
+
+def get_schema(schema_type, version="1.5"):
+    """
+    Load a schema for a given type and version.
+
+    Loads from qcschema/{version}/schemas/ directory. Supports aliases for
+    schema types.
+
+    Args:
+        schema_type: Schema type (input, output, molecule, basis, properties, provenance)
+                     or an alias
+        version: Version (int or str, e.g., 1, "1", "1.5"). Defaults to "1.5".
+
+    Returns:
+        Schema dictionary (parsed from JSON)
+
+    Raises:
+        KeyError: If schema_type or version is not found
+        FileNotFoundError: If schema file is missing
+    """
+    aliases = {
+        "input": ["input", "AtomicInput"],
+        "output": ["output", "AtomicResult"],
+        "molecule": ["molecule", "Molecule", "topology"],
+        "basis": ["basis", "BasisSet"],
+        "properties": ["properties", "AtomicResultProperties"],
+        "provenance": ["provenance", "Provenance"],
+    }
+
+    laliases = {k: [v2.lower() for v2 in v] for k, v in aliases.items()}
+
+    # Find schema key
+    schema_key = None
+    for key, aliases_list in laliases.items():
+        if schema_type.lower() in aliases_list:
+            schema_key = key
+            break
+
+    if schema_key is None:
+        raise KeyError(f"Schema type should be among {list(aliases.keys())} (+aliases), not '{schema_type}'.")
+
+    # Normalize version string (underscores to dots)
+    version_str = str(version).replace("_", ".")
+
+    # Find the version directory (exact match only)
+    version_dir = None
+    for v, d in _scan_version_directories():
+        if v == version_str:
+            version_dir = d
+            break
+
+    if version_dir is None:
+        raise KeyError(
+            f"Schema version '{version}' not found. Available versions: " + ", ".join(list_versions(schema_type))
+        )
+
+    schemas_dir = version_dir / "schemas"
+
+    # Find the schema file for this type
+    # Filenames are qcschema_*
+    schema_file = schemas_dir / f"qcschema_{schema_key}.schema"
+
+    if not schema_file.exists():
+        raise FileNotFoundError(
+            f"Schema file not found: {schema_file}. "
+            f"Available schemas in {schemas_dir}: {list(schemas_dir.glob('*.schema'))}"
+        )
+
+    return json.loads(schema_file.read_text())

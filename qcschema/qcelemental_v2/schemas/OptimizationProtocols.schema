@@ -1,0 +1,32 @@
+{
+  "$defs": {
+    "TrajectoryProtocolEnum": {
+      "description": "Which gradient evaluations to keep in an optimization trajectory.",
+      "enum": [
+        "all",
+        "initial_and_final",
+        "final",
+        "none"
+      ],
+      "title": "TrajectoryProtocolEnum",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Protocols regarding the manipulation of a Optimization output data.",
+  "properties": {
+    "schema_name": {
+      "const": "qcschema_optimization_protocols",
+      "default": "qcschema_optimization_protocols",
+      "title": "Schema Name",
+      "type": "string"
+    },
+    "trajectory_results": {
+      "$ref": "#/$defs/TrajectoryProtocolEnum",
+      "default": "none",
+      "description": "\n    Which gradient evaluations to keep in an optimization trajectory.\n    "
+    }
+  },
+  "title": "OptimizationProtocols",
+  "type": "object"
+}

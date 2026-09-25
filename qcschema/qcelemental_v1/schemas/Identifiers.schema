@@ -1,0 +1,63 @@
+{
+  "title": "Identifiers",
+  "description": "Canonical chemical identifiers",
+  "type": "object",
+  "properties": {
+    "molecule_hash": {
+      "title": "Molecule Hash",
+      "type": "string"
+    },
+    "molecular_formula": {
+      "title": "Molecular Formula",
+      "type": "string"
+    },
+    "smiles": {
+      "title": "Smiles",
+      "type": "string"
+    },
+    "inchi": {
+      "title": "Inchi",
+      "type": "string"
+    },
+    "inchikey": {
+      "title": "Inchikey",
+      "type": "string"
+    },
+    "canonical_explicit_hydrogen_smiles": {
+      "title": "Canonical Explicit Hydrogen Smiles",
+      "type": "string"
+    },
+    "canonical_isomeric_explicit_hydrogen_mapped_smiles": {
+      "title": "Canonical Isomeric Explicit Hydrogen Mapped Smiles",
+      "type": "string"
+    },
+    "canonical_isomeric_explicit_hydrogen_smiles": {
+      "title": "Canonical Isomeric Explicit Hydrogen Smiles",
+      "type": "string"
+    },
+    "canonical_isomeric_smiles": {
+      "title": "Canonical Isomeric Smiles",
+      "type": "string"
+    },
+    "canonical_smiles": {
+      "title": "Canonical Smiles",
+      "type": "string"
+    },
+    "pubchem_cid": {
+      "title": "Pubchem Cid",
+      "description": "PubChem Compound ID",
+      "type": "string"
+    },
+    "pubchem_sid": {
+      "title": "Pubchem Sid",
+      "description": "PubChem Substance ID",
+      "type": "string"
+    },
+    "pubchem_conformerid": {
+      "title": "Pubchem Conformerid",
+      "description": "PubChem Conformer ID",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}
